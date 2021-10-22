@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2021 a las 04:49:33
+-- Tiempo de generación: 22-10-2021 a las 06:40:21
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -125,7 +125,8 @@ CREATE TABLE `transporte` (
 --
 ALTER TABLE `alojamiento`
   ADD PRIMARY KEY (`id_alojamiento`),
-  ADD KEY `id_destino` (`id_destino`);
+  ADD KEY `id_destino` (`id_destino`),
+  ADD KEY `id_menu` (`id_menu`);
 
 --
 -- Indices de la tabla `cliente`
@@ -139,28 +140,32 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `destino`
   ADD PRIMARY KEY (`id_destino`),
+  ADD KEY `id_alojamiento` (`id_alojamiento`),
   ADD KEY `id_transporte` (`id_transporte`);
 
 --
 -- Indices de la tabla `menu`
 --
 ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id_menu`);
+  ADD PRIMARY KEY (`id_menu`),
+  ADD KEY `id_alojamiento` (`id_alojamiento`);
 
 --
 -- Indices de la tabla `paquete`
 --
 ALTER TABLE `paquete`
   ADD PRIMARY KEY (`id_paquete`),
-  ADD KEY `id_alojamiento` (`id_alojamiento`),
-  ADD KEY `id_menu` (`id_menu`),
-  ADD KEY `id_cliente` (`id_cliente`);
+  ADD UNIQUE KEY `id_alojamiento` (`id_alojamiento`),
+  ADD KEY `id_transporte` (`id_transporte`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_menu` (`id_menu`);
 
 --
 -- Indices de la tabla `transporte`
 --
 ALTER TABLE `transporte`
-  ADD PRIMARY KEY (`id_transporte`);
+  ADD PRIMARY KEY (`id_transporte`),
+  ADD KEY `id_destino` (`id_destino`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -210,21 +215,36 @@ ALTER TABLE `transporte`
 -- Filtros para la tabla `alojamiento`
 --
 ALTER TABLE `alojamiento`
-  ADD CONSTRAINT `id_destino` FOREIGN KEY (`id_destino`) REFERENCES `destino` (`id_destino`);
+  ADD CONSTRAINT `id_destino` FOREIGN KEY (`id_destino`) REFERENCES `destino` (`id_destino`),
+  ADD CONSTRAINT `id_menu` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`);
 
 --
 -- Filtros para la tabla `destino`
 --
 ALTER TABLE `destino`
+  ADD CONSTRAINT `id_alojamiento` FOREIGN KEY (`id_alojamiento`) REFERENCES `alojamiento` (`id_alojamiento`),
   ADD CONSTRAINT `id_transporte` FOREIGN KEY (`id_transporte`) REFERENCES `transporte` (`id_transporte`);
+
+--
+-- Filtros para la tabla `menu`
+--
+ALTER TABLE `menu`
+  ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`id_alojamiento`) REFERENCES `alojamiento` (`id_alojamiento`);
 
 --
 -- Filtros para la tabla `paquete`
 --
 ALTER TABLE `paquete`
-  ADD CONSTRAINT `id_alojamiento` FOREIGN KEY (`id_alojamiento`) REFERENCES `alojamiento` (`id_alojamiento`),
-  ADD CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
-  ADD CONSTRAINT `id_menu` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`);
+  ADD CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`id_transporte`) REFERENCES `transporte` (`id_transporte`),
+  ADD CONSTRAINT `paquete_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
+  ADD CONSTRAINT `paquete_ibfk_3` FOREIGN KEY (`id_alojamiento`) REFERENCES `alojamiento` (`id_alojamiento`),
+  ADD CONSTRAINT `paquete_ibfk_4` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`);
+
+--
+-- Filtros para la tabla `transporte`
+--
+ALTER TABLE `transporte`
+  ADD CONSTRAINT `transporte_ibfk_1` FOREIGN KEY (`id_destino`) REFERENCES `destino` (`id_destino`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

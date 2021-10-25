@@ -52,7 +52,7 @@ public class MenuData {
             
             ps.setString(1, menu.getTipoMenu());
             ps.setDouble(2, menu.getCosto());
-            ps.setInt(3, menu.getIdAlojamiento());
+            ps.setInt(3, menu.getAlojamiento().getIdAlojamiento());
             ps.setBoolean(4, menu.isActivo());
             
             ps.setInt(5, menu.getIdMenu());

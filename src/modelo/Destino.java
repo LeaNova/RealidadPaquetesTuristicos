@@ -1,5 +1,7 @@
 package modelo;
 
+import java.time.LocalDate;
+
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
@@ -7,28 +9,28 @@ public class Destino {
     private int idDestino;
     private String nombre;
     private String pais;
-    private Alojamiento alojamiento;
-    private Transporte transporte;
+    private LocalDate fechaInicial;
+    private LocalDate fechaFinal;
     private boolean activo;
 
     public Destino() {
         
     }
 
-    public Destino(String nombre, String pais, Alojamiento alojamiento, Transporte transporte, boolean activo) {
+    public Destino(String nombre, String pais, LocalDate fechaInicial, LocalDate fechaFinal, boolean activo) {
         this.nombre = nombre;
         this.pais = pais;
-        this.alojamiento = alojamiento;
-        this.transporte = transporte;
+        this.fechaInicial = fechaInicial;
+        this.fechaFinal = fechaFinal;
         this.activo = activo;
     }
 
-    public Destino(int idDestino, String nombre, String pais, Alojamiento alojamiento, Transporte transporte, boolean activo) {
+    public Destino(int idDestino, String nombre, String pais, LocalDate fechaInicial, LocalDate fechaFinal, boolean activo) {
         this.idDestino = idDestino;
         this.nombre = nombre;
         this.pais = pais;
-        this.alojamiento = alojamiento;
-        this.transporte = transporte;
+        this.fechaInicial = fechaInicial;
+        this.fechaFinal = fechaFinal;
         this.activo = activo;
     }
 
@@ -56,20 +58,20 @@ public class Destino {
         this.pais = pais;
     }
 
-    public Alojamiento getAlojamiento() {
-        return alojamiento;
+    public LocalDate getFechaInicial() {
+        return fechaInicial;
     }
 
-    public void setAlojamiento(Alojamiento alojamiento) {
-        this.alojamiento = alojamiento;
+    public void setFechaInicial(LocalDate fechaInicial) {
+        this.fechaInicial = fechaInicial;
     }
 
-    public Transporte getTransporte() {
-        return transporte;
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
     }
 
-    public void setTransporte(Transporte transporte) {
-        this.transporte = transporte;
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
     public boolean isActivo() {

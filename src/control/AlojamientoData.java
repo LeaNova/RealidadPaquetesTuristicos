@@ -19,7 +19,7 @@ public class AlojamientoData {
     }
     
     public void AgregarAlojamiento(Alojamiento a){
-        String sql = "INSERT INTO alojamiento (tipo_alojamiento,nombre,ubicacion,costo,id_menu,id_destino,activo) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO alojamiento (tipo_alojamiento,nombre,ubicacion,costo,activo) VALUES (?,?,?,?,?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -28,9 +28,7 @@ public class AlojamientoData {
             ps.setString(2, a.getNombre());
             ps.setString(3, a.getUbicacion());
             ps.setDouble(4, a.getCosto());
-            ps.setInt(5, a.getMenu().getIdMenu());
-            ps.setInt(6, a.getDestino().getIdDestino());
-            ps.setBoolean(7, a.isActivo());
+            ps.setBoolean(5, a.isActivo());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -47,7 +45,7 @@ public class AlojamientoData {
     }
     
     public void ActualizarAlojamiento(Alojamiento a){
-        String sql = "UPDATE alojamiento SET tipo_alojamiento = ?, nombre = ?, ubicacion = ?, costo = ?, id_menu = ?, id_destino = ?, activo = ? WHERE id_alojamiento = ?";
+        String sql = "UPDATE alojamiento SET tipo_alojamiento = ?, nombre = ?, ubicacion = ?, costo = ?, activo = ? WHERE id_alojamiento = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -56,10 +54,8 @@ public class AlojamientoData {
             ps.setString(2, a.getNombre());
             ps.setString(3, a.getUbicacion());
             ps.setDouble(4, a.getCosto());
-            ps.setInt(5, a.getMenu().getIdMenu());
-            ps.setInt(6, a.getDestino().getIdDestino());
-            ps.setBoolean(7, a.isActivo());
-            ps.setInt(8, a.getIdAlojamiento());
+            ps.setBoolean(5, a.isActivo());
+            ps.setInt(6, a.getIdAlojamiento());
             
             ps.executeUpdate();
             ps.close();
@@ -71,8 +67,6 @@ public class AlojamientoData {
     
     public Alojamiento buscarAlojamieno(int idAlojamiento){
         Alojamiento a = new Alojamiento();
-        Destino destino;
-        Menu menu;
         
         String sql = "SELECT * FROM alojamiento WHERE id_alojamiento = ?";
         
@@ -89,13 +83,10 @@ public class AlojamientoData {
                 a.setNombre(rs.getString(3));
                 a.setUbicacion(rs.getString(4));
                 a.setCosto(rs.getDouble(5));
-                menu = buscarMenu(rs.getInt(6));
-                destino = buscarDestino(rs.getInt(7));
-                a.setActivo(rs.getBoolean(8));
-                
-                a.setMenu(menu);
-                a.setDestino(destino);
+                a.setActivo(rs.getBoolean(6));
             }
+            
+            ps.close();
             
         }catch(SQLException ex){
             System.out.println("Error al buscar el alojamiento. " + ex);
@@ -107,8 +98,6 @@ public class AlojamientoData {
     public List<Alojamiento> obtenerAlojamientos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
         Alojamiento a = new Alojamiento();
-        Destino destino;
-        Menu menu;
         
         String sql = "SELECT * FROM alojamiento";
         
@@ -123,12 +112,8 @@ public class AlojamientoData {
                 a.setNombre(rs.getString(3));
                 a.setUbicacion(rs.getString(4));
                 a.setCosto(rs.getDouble(5));
-                menu = buscarMenu(rs.getInt(6));
-                destino = buscarDestino(rs.getInt(7));
-                a.setActivo(rs.getBoolean(8));
+                a.setActivo(rs.getBoolean(6));
                 
-                a.setMenu(menu);
-                a.setDestino(destino);
                 alojamientos.add(a);
             }
             
@@ -144,8 +129,6 @@ public class AlojamientoData {
     public List<Alojamiento> obtenerAlojamientosActivos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
         Alojamiento a = new Alojamiento();
-        Destino destino;
-        Menu menu;
         
         String sql = "SELECT * FROM alojamiento WHERE activo = true";
         
@@ -160,12 +143,8 @@ public class AlojamientoData {
                 a.setNombre(rs.getString(3));
                 a.setUbicacion(rs.getString(4));
                 a.setCosto(rs.getDouble(5));
-                menu = buscarMenu(rs.getInt(6));
-                destino = buscarDestino(rs.getInt(7));
-                a.setActivo(rs.getBoolean(8));
+                a.setActivo(rs.getBoolean(6));
                 
-                a.setMenu(menu);
-                a.setDestino(destino);
                 alojamientos.add(a);
             }
             
@@ -181,8 +160,6 @@ public class AlojamientoData {
     public List<Alojamiento> obtenerAlojamientosInactivos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
         Alojamiento a = new Alojamiento();
-        Destino destino;
-        Menu menu;
         
         String sql = "SELECT * FROM alojamiento WHERE activo = false";
         
@@ -197,12 +174,8 @@ public class AlojamientoData {
                 a.setNombre(rs.getString(3));
                 a.setUbicacion(rs.getString(4));
                 a.setCosto(rs.getDouble(5));
-                menu = buscarMenu(rs.getInt(6));
-                destino = buscarDestino(rs.getInt(7));
-                a.setActivo(rs.getBoolean(8));
+                a.setActivo(rs.getBoolean(6));
                 
-                a.setMenu(menu);
-                a.setDestino(destino);
                 alojamientos.add(a);
             }
             

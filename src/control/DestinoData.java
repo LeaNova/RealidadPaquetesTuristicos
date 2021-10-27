@@ -1,7 +1,8 @@
 package control;
 
 import java.sql.*;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 import modelo.*;
 
 /**
@@ -19,15 +20,15 @@ public class DestinoData {
     }
     
     public void AgregarDestino(Destino d){
-        String sql = "INSERT INTO destino (nombre,pais,id_alojamiento,id_transporte,activo) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO destino (nombre,pais,fecha_altaInicial,fecha_altaFinal,activo) VALUES (?,?,?,?,?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, d.getNombre());
             ps.setString(2, d.getPais());
-            ps.setInt(3, d.getAlojamiento().getIdAlojamiento());
-            ps.setInt(4, d.getTransporte().getIdTransporte());
+            ps.setDate(3, Date.valueOf(d.getFechaInicial()));
+            ps.setDate(4, Date.valueOf(d.getFechaFinal()));
             ps.setBoolean(5, d.isActivo());
             
             ps.executeUpdate();
@@ -45,15 +46,15 @@ public class DestinoData {
     }
     
     public void ActualizarDestino(Destino d){
-        String sql = "UPDATE destino SET nombre = ?, pais = ?, id_alojamiento = ?, id_transporte = ?, activo = ? WHERE id_destino = ?";
+        String sql = "UPDATE destino SET nombre = ?, pais = ?, fecha_altaInicial = ?, fecha_altaFinal = ?, activo = ? WHERE id_destino = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setString(1, d.getNombre());
             ps.setString(2, d.getPais());
-            ps.setInt(3, d.getAlojamiento().getIdAlojamiento());
-            ps.setInt(4, d.getTransporte().getIdTransporte());
+            ps.setDate(3, Date.valueOf(d.getFechaInicial()));
+            ps.setDate(4, Date.valueOf(d.getFechaFinal()));
             ps.setBoolean(5, d.isActivo());
             ps.setInt(6, d.getIdDestino());
             
@@ -67,8 +68,6 @@ public class DestinoData {
     
     public Destino buscarDestino(int idDestino){
         Destino d = new Destino();
-        Alojamiento alojamiento;
-        Transporte transporte;
         
         String sql = "SELECT * FROM destino WHERE id_destino = ?";
         
@@ -83,12 +82,9 @@ public class DestinoData {
                 d.setIdDestino(rs.getInt(1));
                 d.setNombre(rs.getString(2));
                 d.setPais(rs.getString(3));
-                alojamiento = buscarAlojamiento(rs.getInt(4));
-                transporte = buscarTransporte(rs.getInt(5));
+                d.setFechaInicial(rs.getDate(4).toLocalDate());
+                d.setFechaFinal(rs.getDate(5).toLocalDate());
                 d.setActivo(rs.getBoolean(6));
-                
-                d.setAlojamiento(alojamiento);
-                d.setTransporte(transporte);
             }
             
         }catch(SQLException ex){
@@ -100,8 +96,6 @@ public class DestinoData {
     
     public List<Destino> obtenerDestinos(){
         List<Destino> destinos = new ArrayList<>();
-        Alojamiento alojamiento;
-        Transporte transporte;
         
         String sql = "SELECT * FROM destino";
         
@@ -116,12 +110,10 @@ public class DestinoData {
                 d.setIdDestino(rs.getInt(1));
                 d.setNombre(rs.getString(2));
                 d.setPais(rs.getString(3));
-                alojamiento = buscarAlojamiento(rs.getInt(4));
-                transporte = buscarTransporte(rs.getInt(5));
+                d.setFechaInicial(rs.getDate(4).toLocalDate());
+                d.setFechaFinal(rs.getDate(5).toLocalDate());
                 d.setActivo(rs.getBoolean(6));
                 
-                d.setAlojamiento(alojamiento);
-                d.setTransporte(transporte);
                 destinos.add(d);
             }
             
@@ -137,8 +129,6 @@ public class DestinoData {
     public List<Destino> obtenerDestinosActivos(){
         List<Destino> destinos = new ArrayList<>();
         Destino d = new Destino();
-        Alojamiento alojamiento;
-        Transporte transporte;
         
         String sql = "SELECT * FROM destino WHERE activo = true";
         
@@ -151,12 +141,10 @@ public class DestinoData {
                 d.setIdDestino(rs.getInt(1));
                 d.setNombre(rs.getString(2));
                 d.setPais(rs.getString(3));
-                alojamiento = buscarAlojamiento(rs.getInt(4));
-                transporte = buscarTransporte(rs.getInt(5));
+                d.setFechaInicial((rs.getDate(4)).toLocalDate());
+                d.setFechaFinal((rs.getDate(5)).toLocalDate());
                 d.setActivo(rs.getBoolean(6));
                 
-                d.setAlojamiento(alojamiento);
-                d.setTransporte(transporte);
                 destinos.add(d);
             }
             
@@ -172,8 +160,6 @@ public class DestinoData {
     public List<Destino> obtenerDestinosInactivos(){
         List<Destino> destinos = new ArrayList<>();
         Destino d = new Destino();
-        Alojamiento alojamiento;
-        Transporte transporte;
         
         String sql = "SELECT * FROM destino WHERE activo = false";
         
@@ -186,12 +172,10 @@ public class DestinoData {
                 d.setIdDestino(rs.getInt(1));
                 d.setNombre(rs.getString(2));
                 d.setPais(rs.getString(3));
-                alojamiento = buscarAlojamiento(rs.getInt(4));
-                transporte = buscarTransporte(rs.getInt(5));
+                d.setFechaInicial(rs.getDate(4).toLocalDate());
+                d.setFechaFinal(rs.getDate(5).toLocalDate());
                 d.setActivo(rs.getBoolean(6));
                 
-                d.setAlojamiento(alojamiento);
-                d.setTransporte(transporte);
                 destinos.add(d);
             }
             

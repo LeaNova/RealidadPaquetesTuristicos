@@ -9,32 +9,26 @@ public class Alojamiento {
     private String tipoAlojamiento;
     private String ubicacion;
     private double costo;
-    private Menu menu;
-    private Destino destino;
     private boolean activo;
 
     public Alojamiento() {
         
     }
 
-    public Alojamiento(String nombre, String tipoAlojamiento, String ubicacion, double costo, Menu menu, Destino destino, boolean activo) {
+    public Alojamiento(String nombre, String tipoAlojamiento, String ubicacion, double costo, boolean activo) {
         this.nombre = nombre;
         this.tipoAlojamiento = tipoAlojamiento;
         this.ubicacion = ubicacion;
         this.costo = costo;
-        this.menu = menu;
-        this.destino = destino;
         this.activo = activo;
     }
 
-    public Alojamiento(int idAlojamiento, String nombre, String tipoAlojamiento, String ubicacion, double costo, Menu menu, Destino destino, boolean activo) {
+    public Alojamiento(int idAlojamiento, String nombre, String tipoAlojamiento, String ubicacion, double costo, boolean activo) {
         this.idAlojamiento = idAlojamiento;
         this.nombre = nombre;
         this.tipoAlojamiento = tipoAlojamiento;
         this.ubicacion = ubicacion;
         this.costo = costo;
-        this.menu = menu;
-        this.destino = destino;
         this.activo = activo;
     }
 
@@ -76,22 +70,6 @@ public class Alojamiento {
 
     public void setCosto(double costo) {
         this.costo = costo;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public Destino getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Destino destino) {
-        this.destino = destino;
     }
 
     public boolean isActivo() {

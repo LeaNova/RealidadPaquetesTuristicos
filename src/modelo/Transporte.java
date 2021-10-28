@@ -1,36 +1,39 @@
 package modelo;
 
+import java.time.LocalDate;
+
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class Transporte {
-    private int idTransporte;
+  private int idTransporte;
     private String tipodetransporte;
-    private String nombre;
-    private double costo;
-    private Destino destino;
-    private boolean activo;
-
-    public Transporte(int idTransporte, String tipodetransporte, String nombre, double costo, Destino destino, boolean activo) {
-        this.idTransporte = idTransporte;
-        this.tipodetransporte = tipodetransporte;
-        this.nombre = nombre;
-        this.costo = costo;
-        this.destino = destino;
-        this.activo = activo;
-    }
-
-    public Transporte(String tipodetransporte, String nombre, double costo, Destino destino, boolean activo) {
-        this.tipodetransporte = tipodetransporte;
-        this.nombre = nombre;
-        this.costo = costo;
-        this.destino = destino;
-        this.activo = activo;
-    }
+    private LocalDate fechallegada;
+    private LocalDate fechapartida;
+private double costo;
+private boolean activo;
 
     public Transporte() {
-        
     }
+
+    public Transporte(String tipodetransporte, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
+        this.tipodetransporte = tipodetransporte;
+        this.fechallegada = fechallegada;
+        this.fechapartida = fechapartida;
+        this.costo = costo;
+        this.activo = activo;
+    }
+
+    public Transporte(int idTransporte, String tipodetransporte, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
+        this.idTransporte = idTransporte;
+        this.tipodetransporte = tipodetransporte;
+        this.fechallegada = fechallegada;
+        this.fechapartida = fechapartida;
+        this.costo = costo;
+        this.activo = activo;
+    }
+
+
 
     public int getIdTransporte() {
         return idTransporte;
@@ -48,12 +51,20 @@ public class Transporte {
         this.tipodetransporte = tipodetransporte;
     }
 
-    public String getNombre() {
-        return nombre;
+    public LocalDate getFechallegada() {
+        return fechallegada;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setFechallegada(LocalDate fechallegada) {
+        this.fechallegada = fechallegada;
+    }
+
+    public LocalDate getFechapartida() {
+        return fechapartida;
+    }
+
+    public void setFechapartida(LocalDate fechapartida) {
+        this.fechapartida = fechapartida;
     }
 
     public double getCosto() {
@@ -64,14 +75,6 @@ public class Transporte {
         this.costo = costo;
     }
 
-    public Destino getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Destino destino) {
-        this.destino = destino;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -79,7 +82,5 @@ public class Transporte {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    
     
 }

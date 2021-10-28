@@ -8,7 +8,7 @@ import modelo.*;
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class TransporteData {
-       private Connection con;
+        private Connection con;
 
     public TransporteData(Conexion t) { 
         try {
@@ -20,16 +20,19 @@ public class TransporteData {
 }
 
 public void AgregarTransporte(Transporte t){
-    String sql = "INSERT INTO transporte (tipo_transporte,nombre,costo,id_destino,activo) VALUES (?,?,?,?,?)";
+    String sql = "INSERT INTO transporte (tipo_transporte,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?)";
         try {
           
             
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, t.getTipodetransporte());
-            ps.setString(2, t.getNombre());
-            ps.setDouble(3, t.getCosto());
-            ps.setInt(4, t.getDestino().getIdDestino());
-            ps.setBoolean(5, t.isActivo());
+      
+         ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
+          ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
+          ps.setDouble(4, t.getCosto());
+         
+         
+         ps.setBoolean(5, t.isActivo());
             
             
             
@@ -41,7 +44,7 @@ ResultSet rs = ps.getGeneratedKeys();
 }    
     
   public void ActualizarTransporte(Transporte t){
-        String sql = "UPDATE transporte SET tipo_transporte = ?, nombre = ?, costo = ?, id_destino = ?, activo = ? WHERE id_transporte = ?";
+        String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?, activo = ? WHERE id_transporte = ?";
         
         try{
             
@@ -49,12 +52,13 @@ ResultSet rs = ps.getGeneratedKeys();
            PreparedStatement ps = con.prepareStatement(sql);
            
             ps.setString(1, t.getTipodetransporte());
-            ps.setString(2, t.getNombre());
-            ps.setDouble(3, t.getCosto());
-            ps.setInt(4, t.getDestino().getIdDestino());
-            ps.setBoolean(5, t.isActivo());
-
             
+             ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
+          ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
+          ps.setDouble(4, t.getCosto());
+             ps.setBoolean(5, t.isActivo());
+             
+             
             ps.executeUpdate();
             ps.close();
                     
@@ -66,7 +70,7 @@ ResultSet rs = ps.getGeneratedKeys();
     
       public Transporte buscarTransporte(int idTransporte){
         Transporte t = new Transporte();
-        Destino destino;
+       
         
         String sql = "SELECT * FROM transporte WHERE id_transporte = ?";
         
@@ -81,15 +85,11 @@ ResultSet rs = ps.getGeneratedKeys();
                 
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setNombre(rs.getString(3));
-                t.setCosto(rs.getDouble(4));
-                destino = buscarDestino(rs.getInt(5));
-                t.setActivo(rs.getBoolean(6));
-                
-                
-                t.setDestino(destino);
-           
-                
+                t.setFechallegada(rs.getDate(3).toLocalDate());
+                t.setFechapartida(rs.getDate(4).toLocalDate());
+                t.setCosto(rs.getDouble(5));
+                 t.setActivo(rs.getBoolean(6));
+                           
             }
             
         }catch(SQLException ex){
@@ -101,7 +101,7 @@ ResultSet rs = ps.getGeneratedKeys();
     
         public List<Transporte> obtenerTransporte(){
         List<Transporte> transportes = new ArrayList<>();
-        Destino destino;
+        
         
         String sql = "SELECT * FROM transporte";
         
@@ -115,13 +115,13 @@ ResultSet rs = ps.getGeneratedKeys();
                 
                t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setNombre(rs.getString(3));
-                t.setCosto(rs.getDouble(4));
-                destino = buscarDestino(rs.getInt(5));
+                t.setFechallegada(rs.getDate(3).toLocalDate());
+                t.setFechapartida(rs.getDate(4).toLocalDate());
+                t.setCosto(rs.getDouble(5));
                 t.setActivo(rs.getBoolean(6));
                 
                 
-                t.setDestino(destino);
+                
                 
                 
      transportes.add(t);
@@ -137,9 +137,9 @@ ResultSet rs = ps.getGeneratedKeys();
     }
     
     public List<Transporte> obtenerTransportesActivos(){
-        List<Transporte> transportes = new ArrayList<>();
+        List<Transporte> transportesactivos = new ArrayList<>();
         Transporte t = new Transporte();
-       Destino destino;
+       
         
         String sql = "SELECT * FROM transporte WHERE activo = true";
         
@@ -150,16 +150,13 @@ ResultSet rs = ps.getGeneratedKeys();
             
             while(rs.next()){
                  t.setIdTransporte(rs.getInt(1));
-                t.setTipodetransporte(rs.getString(2));
-                t.setNombre(rs.getString(3));
-                t.setCosto(rs.getDouble(4));
-                destino = buscarDestino(rs.getInt(5));
+                 t.setTipodetransporte(rs.getString(2));
+                 t.setFechallegada(rs.getDate(3).toLocalDate());
+                t.setFechapartida(rs.getDate(4).toLocalDate());
+                t.setCosto(rs.getDouble(5));
                 t.setActivo(rs.getBoolean(6));
-                
-                
-                t.setDestino(destino);
-                
-                transportes.add(t);
+
+                transportesactivos .add(t);
                 
             }
             
@@ -169,12 +166,12 @@ ResultSet rs = ps.getGeneratedKeys();
             System.out.println("Error al obtener los Transportes activos. " + ex);
         }
         
-        return transportes;
+        return transportesactivos;
     }
         public List<Transporte> obtenerTrasportesInactivos(){
-        List<Transporte> transportes = new ArrayList<>();
+        List<Transporte> transporteinactivos = new ArrayList<>();
         Transporte t = new Transporte();
-        Destino destino;
+       
         
         String sql = "SELECT * FROM transporte WHERE activo = false";
         
@@ -186,15 +183,12 @@ ResultSet rs = ps.getGeneratedKeys();
             while(rs.next()){
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setNombre(rs.getString(3));
-                t.setCosto(rs.getDouble(4));
-                destino = buscarDestino(rs.getInt(5));
+                t.setFechallegada(rs.getDate(3).toLocalDate());
+                t.setFechapartida(rs.getDate(4).toLocalDate());
+                t.setCosto(rs.getDouble(5));  
                 t.setActivo(rs.getBoolean(6));
-                
-                
-                t.setDestino(destino);
-                
-                transportes.add(t);
+
+                transporteinactivos.add(t);
                 
             }
             
@@ -204,7 +198,7 @@ ResultSet rs = ps.getGeneratedKeys();
             System.out.println("Error al obtener los Trasportes inactivos. " + ex);
         }
         
-        return transportes;
+        return transporteinactivos;
     }
         public void desactivarTransportes(int idTransporte){
         String sql = "UPDATE transporte SET activo = false WHERE id_transporte = ?";
@@ -252,14 +246,5 @@ ResultSet rs = ps.getGeneratedKeys();
         } catch (SQLException ex) {
             System.out.println("Error al borrar el transporte. " + ex);
         }
-    }
-    
-    // Buscador
-    public Destino buscarDestino(int  idDestino) {
-    
-        DestinoData des = new DestinoData((Conexion) con);
-   
-    
-    return des.buscarDestino(idDestino);
     }
 }

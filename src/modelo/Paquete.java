@@ -135,10 +135,24 @@ public class Paquete {
         return dias;
     }
     
+    public double obtenerAdicional() {
+        int mes = fechaInicio.getMonth().getValue();
+        switch (mes) {
+            case 1:
+            case 7:
+                return 1.30;
+            case 2:
+            case 6:
+                return 1.15;
+            default:
+                return 1;
+        }
+    }
+    
     private double calcularPrecio() {
         double total = transporte.getCosto() + (alojamiento.getCosto() * calcularDias()) + menu.getCosto();
         
-        return total;
+        return total * obtenerAdicional();
     }
 
     @Override

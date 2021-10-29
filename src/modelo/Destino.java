@@ -13,6 +13,7 @@ public class Destino {
     private LocalDate fechaFinal;
     private boolean activo;
 
+    // Constructores
     public Destino() {
         
     }
@@ -33,7 +34,8 @@ public class Destino {
         this.fechaFinal = fechaFinal;
         this.activo = activo;
     }
-
+    
+    // Getters & Setters
     public int getIdDestino() {
         return idDestino;
     }
@@ -80,5 +82,10 @@ public class Destino {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + idDestino + ", " + nombre;
     }
 }

@@ -6,13 +6,14 @@ import java.time.LocalDate;
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class Transporte {
-  private int idTransporte;
+    private int idTransporte;
     private String tipodetransporte;
     private LocalDate fechallegada;
     private LocalDate fechapartida;
-private double costo;
-private boolean activo;
+    private double costo;
+    private boolean activo;
 
+    // Constructores
     public Transporte() {
     }
 
@@ -33,8 +34,7 @@ private boolean activo;
         this.activo = activo;
     }
 
-
-
+    // Getters & Setters
     public int getIdTransporte() {
         return idTransporte;
     }
@@ -82,5 +82,9 @@ private boolean activo;
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ID: " + idTransporte + ", " + tipodetransporte;
+    }
 }

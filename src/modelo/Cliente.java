@@ -4,13 +4,14 @@ package modelo;
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class Cliente {
-     private int idCliente;
+    private int idCliente;
     private String nombre;
     private int dni;
     private String contacto;
     private int celular;
-     private boolean activo;
-
+    private boolean activo;
+    
+    // Constructores
     public Cliente() {
     }
 
@@ -30,11 +31,8 @@ public class Cliente {
         this.celular = celular;
         this.activo = activo;
     }
-
-     
-     
-     
-     
+    
+    // Getters & Setters
     public int getIdCliente() {
         return idCliente;
     }
@@ -83,5 +81,8 @@ public class Cliente {
         this.activo = activo;
     }
 
-    
+    @Override
+    public String toString() {
+        return "ID: " + idCliente + ", Nombre: " + nombre;
+    }
 }

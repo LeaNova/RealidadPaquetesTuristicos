@@ -65,7 +65,7 @@ public class AlojamientoData {
         }
     }
     
-    public Alojamiento buscarAlojamieno(int idAlojamiento){
+    public Alojamiento buscarAlojamiento(int idAlojamiento){
         Alojamiento a = new Alojamiento();
         
         String sql = "SELECT * FROM alojamiento WHERE id_alojamiento = ?";

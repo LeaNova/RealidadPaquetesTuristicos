@@ -23,7 +23,7 @@ public class PaqueteData {
     }
     
     public void agregarPaquete(Paquete paquete) {
-        String sql = "INSERT INTO paquete (id_cliente, id_transporte, id_alojamiento, id_menu, fecha_inicio, fecha_final, cantidad_personas, costo_total, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
+        String sql = "INSERT INTO paquete (id_cliente, id_transporte, id_alojamiento, id_menu, destino, fecha_inicio, fecha_final, costo_total, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -31,9 +31,9 @@ public class PaqueteData {
             ps.setInt(2, paquete.getTransporte().getIdTransporte());
             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
             ps.setInt(4, paquete.getMenu().getIdMenu());
-            ps.setDate(5, Date.valueOf(paquete.getFechaInicio()));
-            ps.setDate(6, Date.valueOf(paquete.getFechaFinal()));
-            ps.setInt(7, paquete.getCantPersonas());
+            ps.setInt(5, paquete.getDestino().getIdDestino());
+            ps.setDate(6, Date.valueOf(paquete.getFechaInicio()));
+            ps.setDate(7, Date.valueOf(paquete.getFechaFinal()));
             ps.setDouble(8, paquete.getCostoTotal());
             ps.setBoolean(9, paquete.isActivo());
             
@@ -51,7 +51,7 @@ public class PaqueteData {
     }
     
     public void actualizarPaquete(Paquete paquete) {
-        String sql = "UPTDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, fecha_inicio = ?, fecha_final = ?, cantidad_personas = ?, costo_total = ?, activo = ? WHERE id_paquete = ?";
+        String sql = "UPTDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, id_destino = ?, fecha_inicio = ?, fecha_final = ?, costo_total = ?, activo = ? WHERE id_paquete = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -60,9 +60,9 @@ public class PaqueteData {
             ps.setInt(2, paquete.getTransporte().getIdTransporte());
             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
             ps.setInt(4, paquete.getMenu().getIdMenu());
-            ps.setDate(5, Date.valueOf(paquete.getFechaInicio()));
-            ps.setDate(6, Date.valueOf(paquete.getFechaFinal()));
-            ps.setInt(7, paquete.getCantPersonas());
+            ps.setInt(5, paquete.getDestino().getIdDestino());
+            ps.setDate(6, Date.valueOf(paquete.getFechaInicio()));
+            ps.setDate(7, Date.valueOf(paquete.getFechaFinal()));
             ps.setDouble(8, paquete.getCostoTotal());
             ps.setBoolean(9, paquete.isActivo());
             
@@ -81,6 +81,7 @@ public class PaqueteData {
         Transporte tra;
         Alojamiento alo;
         Menu me;
+        Destino de;
         String sql = "SELECT * FROM paquete WHERE id_paquete = ?";
         
         try {
@@ -104,9 +105,11 @@ public class PaqueteData {
                 me = buscarMenu(rs.getInt("id_menu"));
                 paquete.setMenu(me);
                 
-                paquete.setFechaInicio(rs.getDate(6).toLocalDate());
-                paquete.setFechaFinal(rs.getDate(7).toLocalDate());
-                paquete.setCantPersonas(rs.getInt(8));
+                de = buscarDestino(rs.getInt("id_destino"));
+                paquete.setDestino(de);
+                
+                paquete.setFechaInicio(rs.getDate(7).toLocalDate());
+                paquete.setFechaFinal(rs.getDate(8).toLocalDate());
                 paquete.setCostoTotal(rs.getDouble(9));
                 paquete.setActivo(rs.getBoolean(10));
             }
@@ -124,6 +127,7 @@ public class PaqueteData {
         Transporte tra;
         Alojamiento alo;
         Menu me;
+        Destino de;
         String sql = "SELECT * FROM paquete";
         
         try {
@@ -147,9 +151,11 @@ public class PaqueteData {
                 me = buscarMenu(rs.getInt("id_menu"));
                 paquete.setMenu(me);
                 
-                paquete.setFechaInicio(rs.getDate(6).toLocalDate());
-                paquete.setFechaFinal(rs.getDate(7).toLocalDate());
-                paquete.setCantPersonas(rs.getInt(8));
+                de = buscarDestino(rs.getInt("id_destino"));
+                paquete.setDestino(de);
+                
+                paquete.setFechaInicio(rs.getDate(7).toLocalDate());
+                paquete.setFechaFinal(rs.getDate(8).toLocalDate());
                 paquete.setCostoTotal(rs.getDouble(9));
                 paquete.setActivo(rs.getBoolean(10));
                 
@@ -169,6 +175,7 @@ public class PaqueteData {
         Transporte tra;
         Alojamiento alo;
         Menu me;
+        Destino de;
         String sql = "SELECT * FROM paquete WHERE activo = true";
         
         try {
@@ -192,9 +199,11 @@ public class PaqueteData {
                 me = buscarMenu(rs.getInt("id_menu"));
                 paquete.setMenu(me);
                 
-                paquete.setFechaInicio(rs.getDate(6).toLocalDate());
-                paquete.setFechaFinal(rs.getDate(7).toLocalDate());
-                paquete.setCantPersonas(rs.getInt(8));
+                de = buscarDestino(rs.getInt("id_destino"));
+                paquete.setDestino(de);
+                
+                paquete.setFechaInicio(rs.getDate(7).toLocalDate());
+                paquete.setFechaFinal(rs.getDate(8).toLocalDate());
                 paquete.setCostoTotal(rs.getDouble(9));
                 paquete.setActivo(rs.getBoolean(10));
                 
@@ -214,6 +223,7 @@ public class PaqueteData {
         Transporte tra;
         Alojamiento alo;
         Menu me;
+        Destino de;
         String sql = "SELECT * FROM paquete WHERE activo = false";
         
         try {
@@ -237,9 +247,11 @@ public class PaqueteData {
                 me = buscarMenu(rs.getInt("id_menu"));
                 paquete.setMenu(me);
                 
-                paquete.setFechaInicio(rs.getDate(6).toLocalDate());
-                paquete.setFechaFinal(rs.getDate(7).toLocalDate());
-                paquete.setCantPersonas(rs.getInt(8));
+                de = buscarDestino(rs.getInt("id_destino"));
+                paquete.setDestino(de);
+                
+                paquete.setFechaInicio(rs.getDate(7).toLocalDate());
+                paquete.setFechaFinal(rs.getDate(8).toLocalDate());
                 paquete.setCostoTotal(rs.getDouble(9));
                 paquete.setActivo(rs.getBoolean(10));
                 
@@ -299,27 +311,33 @@ public class PaqueteData {
     }
     
     // Buscadores;
-    public Cliente buscarCliente(int id) {
+    private Cliente buscarCliente(int id) {
         ClienteData cliD = new ClienteData(conexion);
         
         return cliD.buscarCliente(id);
     }
     
-    public Transporte buscarTransporte(int id) {
+    private Transporte buscarTransporte(int id) {
         TransporteData traD = new TransporteData(conexion);
         
         return traD.buscarTransporte(id);
     }
     
-    public Alojamiento buscarAlojamiento(int id) {
+    private Alojamiento buscarAlojamiento(int id) {
         AlojamientoData aloD = new AlojamientoData(conexion);
         
         return aloD.buscarAlojamiento(id);
     }
     
-    public Menu buscarMenu(int id) {
+    private Menu buscarMenu(int id) {
         MenuData meD = new MenuData(conexion);
         
         return meD.buscarMenu(id);
+    }
+    
+    private Destino buscarDestino(int id) {
+        DestinoData deD = new DestinoData(conexion);
+        
+        return deD.buscarDestino(id);
     }
 }

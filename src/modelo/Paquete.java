@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -11,38 +12,38 @@ public class Paquete {
     private Transporte transporte;
     private Alojamiento alojamiento;
     private Menu menu;
+    private Destino destino;
     private LocalDate fechaInicio;
     private LocalDate fechaFinal;
-    private int cantPersonas;
     private double costoTotal;
     private boolean activo;
     
     // Constructores;
-    public Paquete(Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, LocalDate fechaInicio, LocalDate fechaFinal, int cantPersonas, double costoTotal, boolean activo) {
+    public Paquete(Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, Destino destino, LocalDate fechaInicio, LocalDate fechaFinal, boolean activo) {
         this.cliente = cliente;
         this.transporte = transporte;
         this.alojamiento = alojamiento;
         this.menu = menu;
+        this.destino = destino;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.cantPersonas = cantPersonas;
-        this.costoTotal = costoTotal;
+        this.costoTotal = calcularPrecio();
         this.activo = activo;
     }
 
     public Paquete() {
     }
 
-    public Paquete(int idPaquete, Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, LocalDate fechaInicio, LocalDate fechaFinal, int cantPersonas, double costoTotal, boolean activo) {
+    public Paquete(int idPaquete, Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, Destino destino, LocalDate fechaInicio, LocalDate fechaFinal, boolean activo) {
         this.idPaquete = idPaquete;
         this.cliente = cliente;
         this.transporte = transporte;
         this.alojamiento = alojamiento;
         this.menu = menu;
+        this.destino = destino;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.cantPersonas = cantPersonas;
-        this.costoTotal = costoTotal;
+        this.costoTotal = calcularPrecio();
         this.activo = activo;
     }
     
@@ -87,6 +88,14 @@ public class Paquete {
         this.menu = menu;
     }
 
+    public Destino getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Destino destino) {
+        this.destino = destino;
+    }
+
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }
@@ -101,14 +110,6 @@ public class Paquete {
 
     public void setFechaFinal(LocalDate fechaFinal) {
         this.fechaFinal = fechaFinal;
-    }
-
-    public int getCantPersonas() {
-        return cantPersonas;
-    }
-
-    public void setCantPersonas(int cantPersonas) {
-        this.cantPersonas = cantPersonas;
     }
 
     public double getCostoTotal() {
@@ -127,4 +128,21 @@ public class Paquete {
         this.activo = activo;
     }
     
+    // Calculadores;
+    private int calcularDias() {
+        int dias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFinal);
+        
+        return dias;
+    }
+    
+    private double calcularPrecio() {
+        double total = transporte.getCosto() + (alojamiento.getCosto() * calcularDias()) + menu.getCosto();
+        
+        return total;
+    }
+
+    @Override
+    public String toString() {
+        return "ID del paquete: "+idPaquete + ", destino: " + destino;
+    }
 }

@@ -7,25 +7,22 @@ public class Menu {
     private int idMenu;
     private String tipoMenu;
     private double costo;
-    private Alojamiento alojamiento;
     private boolean activo;
 
     // Constructores;
-    public Menu(String tipoMenu, double costo, Alojamiento alojamiento, boolean activo) {
+    public Menu(String tipoMenu, double costo, boolean activo) {
         this.tipoMenu = tipoMenu;
         this.costo = costo;
-        this.alojamiento = alojamiento;
         this.activo = activo;
     }
 
     public Menu() {
     }
 
-    public Menu(int idMenu, String tipoMenu, double costo, Alojamiento alojamiento, boolean activo) {
+    public Menu(int idMenu, String tipoMenu, double costo, boolean activo) {
         this.idMenu = idMenu;
         this.tipoMenu = tipoMenu;
         this.costo = costo;
-        this.alojamiento = alojamiento;
         this.activo = activo;
     }
 
@@ -54,14 +51,6 @@ public class Menu {
         this.costo = costo;
     }
 
-    public Alojamiento getAlojamiento() {
-        return alojamiento;
-    }
-
-    public void setAlojamiento(Alojamiento alojamiento) {
-        this.alojamiento = alojamiento;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -69,6 +58,9 @@ public class Menu {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "ID: " + idMenu + ", " + tipoMenu;
+    }
 }

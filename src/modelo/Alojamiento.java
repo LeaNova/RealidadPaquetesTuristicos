@@ -10,7 +10,8 @@ public class Alojamiento {
     private String ubicacion;
     private double costo;
     private boolean activo;
-
+    
+    // Constructores
     public Alojamiento() {
         
     }
@@ -32,6 +33,7 @@ public class Alojamiento {
         this.activo = activo;
     }
 
+    // Getters & Setters
     public int getIdAlojamiento() {
         return idAlojamiento;
     }
@@ -78,5 +80,10 @@ public class Alojamiento {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + idAlojamiento + ", " + nombre;
     }
 }

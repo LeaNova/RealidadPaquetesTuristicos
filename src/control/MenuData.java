@@ -10,26 +10,23 @@ import modelo.*;
  */
 public class MenuData {
     private Connection con;
-    private Conexion conexion;
     
     public MenuData(Conexion conexion) {
         try {
             con = conexion.getConexion();
-            this.conexion = conexion;
         } catch (SQLException ex) {
             System.out.println("Error en la conexion");
         }
     }
     
     public void agregarMenu(Menu menu, Alojamiento alo) {
-        String sql = "INSERT INTO menu (tipo_menu, costo, id_alojamiento, activo) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO menu (tipo_menu, costo, activo) VALUES (?, ?, ?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, menu.getTipoMenu());
             ps.setDouble(2, menu.getCosto());
-            ps.setInt(3, alo.getIdAlojamiento());
-            ps.setBoolean(4, menu.isActivo());
+            ps.setBoolean(3, menu.isActivo());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -45,17 +42,16 @@ public class MenuData {
     }
     
     public void actualizarMenu(Menu menu) {
-        String sql = "UPDATE menu SET tipo_menu = ?, costo = ?, id_alojamiento = ?, activo = ? WHERE id_menu = ?";
+        String sql = "UPDATE menu SET tipo_menu = ?, costo = ?, activo = ? WHERE id_menu = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setString(1, menu.getTipoMenu());
             ps.setDouble(2, menu.getCosto());
-            ps.setInt(3, menu.getAlojamiento().getIdAlojamiento());
-            ps.setBoolean(4, menu.isActivo());
+            ps.setBoolean(3, menu.isActivo());
             
-            ps.setInt(5, menu.getIdMenu());
+            ps.setInt(4, menu.getIdMenu());
             
             ps.executeUpdate();
             ps.close();
@@ -66,7 +62,6 @@ public class MenuData {
     
     public Menu buscarMenu(int id) {
         Menu menu = new Menu();
-        Alojamiento alo;
         String sql = "SELECT * FROM menu WHERE id_menu = ?";
         
         try {
@@ -79,11 +74,7 @@ public class MenuData {
                 menu.setIdMenu(rs.getInt(1));
                 menu.setTipoMenu(rs.getString(2));
                 menu.setCosto(rs.getDouble(3));
-                
-                alo = buscarAlojamiento(rs.getInt("id_alojamiento"));
-                menu.setAlojamiento(alo);
-                
-                menu.setActivo(rs.getBoolean(5));
+                menu.setActivo(rs.getBoolean(4));
             }
             
             ps.close();
@@ -96,7 +87,6 @@ public class MenuData {
     
     public List<Menu> obtenerMenues() {
         List<Menu> lista = new ArrayList<>();
-        Alojamiento alo;
         String sql = "SELECT * FROM menu";
         
         try {
@@ -108,11 +98,7 @@ public class MenuData {
                 menu.setIdMenu(rs.getInt(1));
                 menu.setTipoMenu(rs.getString(2));
                 menu.setCosto(rs.getDouble(3));
-                
-                alo = buscarAlojamiento(rs.getInt("id_alojamiento"));
-                menu.setAlojamiento(alo);
-                
-                menu.setActivo(rs.getBoolean(5));
+                menu.setActivo(rs.getBoolean(4));
                 
                 lista.add(menu);
             }
@@ -127,7 +113,6 @@ public class MenuData {
     
     public List<Menu> obtenerMenuesActivos() {
         List<Menu> listaAc = new ArrayList<>();
-        Alojamiento alo;
         String sql = "SELECT * FROM menu WHERE activo = true";
         
         try {
@@ -139,11 +124,7 @@ public class MenuData {
                 menu.setIdMenu(rs.getInt(1));
                 menu.setTipoMenu(rs.getString(2));
                 menu.setCosto(rs.getDouble(3));
-                
-                alo = buscarAlojamiento(rs.getInt("id_alojamiento"));
-                menu.setAlojamiento(alo);
-                
-                menu.setActivo(rs.getBoolean(5));
+                menu.setActivo(rs.getBoolean(4));
                 
                 listaAc.add(menu);
             }
@@ -158,7 +139,6 @@ public class MenuData {
     
     public List<Menu> obtenerMenuesInactivos() {
         List<Menu> listaIn = new ArrayList<>();
-        Alojamiento alo;
         String sql = "SELECT * FROM menu WHERE activo = false";
         
         try {
@@ -170,11 +150,7 @@ public class MenuData {
                 menu.setIdMenu(rs.getInt(1));
                 menu.setTipoMenu(rs.getString(2));
                 menu.setCosto(rs.getDouble(3));
-                
-                alo = buscarAlojamiento(rs.getInt("id_alojamiento"));
-                menu.setAlojamiento(alo);
-                
-                menu.setActivo(rs.getBoolean(5));
+                menu.setActivo(rs.getBoolean(4));
                 
                 listaIn.add(menu);
             }
@@ -230,12 +206,5 @@ public class MenuData {
         } catch (SQLException ex) {
             System.out.println("Error en borrar Menu. " + ex);
         }
-    }
-    
-    // Buscador
-    public Alojamiento buscarAlojamiento(int id) {
-        AlojamientoData aloD = new AlojamientoData(conexion);
-        
-        return aloD.buscarAlojamiento(id);
     }
 }

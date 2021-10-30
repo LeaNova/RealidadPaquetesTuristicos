@@ -32,6 +32,7 @@ public class Paquete {
     }
 
     public Paquete() {
+        this.costoTotal = calcularPrecio();
     }
 
     public Paquete(int idPaquete, Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, Destino destino, LocalDate fechaInicio, LocalDate fechaFinal, boolean activo) {

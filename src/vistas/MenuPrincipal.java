@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 /**
- *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -27,29 +21,212 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jmAlojamiento = new javax.swing.JMenuItem();
+        jmCliente = new javax.swing.JMenuItem();
+        jmDestino = new javax.swing.JMenuItem();
+        jmMenu = new javax.swing.JMenuItem();
+        jmTransporte = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jmBajaAlojamiento = new javax.swing.JMenuItem();
+        jmBajaCliente = new javax.swing.JMenuItem();
+        jmBajaDestino = new javax.swing.JMenuItem();
+        jmBajaMenu = new javax.swing.JMenuItem();
+        jmBajaTransporte = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jmModAlojamiento = new javax.swing.JMenuItem();
+        jmModCliente = new javax.swing.JMenuItem();
+        jmModDestino = new javax.swing.JMenuItem();
+        jmModMenu = new javax.swing.JMenuItem();
+        jmModTransporte = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jmPaquete = new javax.swing.JMenuItem();
+        jmBajaPaquete = new javax.swing.JMenuItem();
+        jmModPaquete = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Alta");
+
+        jmAlojamiento.setText("Alojamiento");
+        jmAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAlojamientoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmAlojamiento);
+
+        jmCliente.setText("Cliente");
+        jmCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmClienteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmCliente);
+
+        jmDestino.setText("Destino");
+        jmDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmDestinoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmDestino);
+
+        jmMenu.setText("Menu");
+        jmMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmMenu);
+
+        jmTransporte.setText("Transporte");
+        jmTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTransporteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmTransporte);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Baja");
+
+        jmBajaAlojamiento.setText("B. Alojamiento");
+        jmBajaAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaAlojamientoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmBajaAlojamiento);
+
+        jmBajaCliente.setText("B. Cliente");
+        jmBajaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaClienteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmBajaCliente);
+
+        jmBajaDestino.setText("B. Destino");
+        jmBajaDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaDestinoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmBajaDestino);
+
+        jmBajaMenu.setText("B. Menu");
+        jmBajaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmBajaMenu);
+
+        jmBajaTransporte.setText("B. Transporte");
+        jmBajaTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaTransporteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmBajaTransporte);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Modificación");
+
+        jmModAlojamiento.setText("M. Alojamiento");
+        jmModAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModAlojamientoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmModAlojamiento);
+
+        jmModCliente.setText("M. Cliente");
+        jmModCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModClienteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmModCliente);
+
+        jmModDestino.setText("M. Destino");
+        jmModDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModDestinoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmModDestino);
+
+        jmModMenu.setText("M. Menu");
+        jmModMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmModMenu);
+
+        jmModTransporte.setText("M. Transporte");
+        jmModTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModTransporteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmModTransporte);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Paquetes");
+
+        jmPaquete.setText("Crear Paquete");
+        jmPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPaqueteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmPaquete);
+
+        jmBajaPaquete.setText("B. Paquete");
+        jmBajaPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaPaqueteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmBajaPaquete);
+
+        jmModPaquete.setText("M. Paquete");
+        jmModPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModPaqueteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmModPaquete);
+
+        jMenuItem19.setText("Buscar por Ubicacion");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem19);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -57,15 +234,186 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlojamientoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaAlojamiento va = new VistaAlojamiento();
+        va.setVisible(true);
+        escritorio.add(va);
+    }//GEN-LAST:event_jmAlojamientoActionPerformed
+
+    private void jmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmClienteActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCliente vc = new VistaCliente();
+        vc.setVisible(true);
+        escritorio.add(vc);
+    }//GEN-LAST:event_jmClienteActionPerformed
+
+    private void jmDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDestinoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaDestino vd = new VistaDestino();
+        vd.setVisible(true);
+        escritorio.add(vd);
+    }//GEN-LAST:event_jmDestinoActionPerformed
+
+    private void jmMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMenuActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaMenu vm = new VistaMenu();
+        vm.setVisible(true);
+        escritorio.add(vm);
+    }//GEN-LAST:event_jmMenuActionPerformed
+
+    private void jmTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTransporteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaTransporte vt = new VistaTransporte();
+        vt.setVisible(true);
+        escritorio.add(vt);
+    }//GEN-LAST:event_jmTransporteActionPerformed
+
+    private void jmBajaAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaAlojamientoActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaAlojamiento vba = new VistaBajaAlojamiento();
+        vba.setVisible(true);
+        escritorio.add(vba);
+    }//GEN-LAST:event_jmBajaAlojamientoActionPerformed
+
+    private void jmBajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaClienteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaCliente vbc = new VistaBajaCliente();
+        vbc.setVisible(true);
+        escritorio.add(vbc);
+    }//GEN-LAST:event_jmBajaClienteActionPerformed
+
+    private void jmBajaDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaDestinoActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaDestino vbd = new VistaBajaDestino();
+        vbd.setVisible(true);
+        escritorio.add(vbd);
+    }//GEN-LAST:event_jmBajaDestinoActionPerformed
+
+    private void jmBajaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaMenuActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaMenu vbm = new VistaBajaMenu();
+        vbm.setVisible(true);
+        escritorio.add(vbm);
+    }//GEN-LAST:event_jmBajaMenuActionPerformed
+
+    private void jmBajaTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaTransporteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaTransporte vbt = new VistaBajaTransporte();
+        vbt.setVisible(true);
+        escritorio.add(vbt);
+    }//GEN-LAST:event_jmBajaTransporteActionPerformed
+
+    private void jmModAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModAlojamientoActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModAlojamiento vma = new VistaModAlojamiento();
+        vma.setVisible(true);
+        escritorio.add(vma);
+    }//GEN-LAST:event_jmModAlojamientoActionPerformed
+
+    private void jmModClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModClienteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModCliente vmc = new VistaModCliente();
+        vmc.setVisible(true);
+        escritorio.add(vmc);
+    }//GEN-LAST:event_jmModClienteActionPerformed
+
+    private void jmModDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModDestinoActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModDestino vmd = new VistaModDestino();
+        vmd.setVisible(true);
+        escritorio.add(vmd);
+    }//GEN-LAST:event_jmModDestinoActionPerformed
+
+    private void jmModMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModMenuActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModMenu vmm = new VistaModMenu();
+        vmm.setVisible(true);
+        escritorio.add(vmm);
+    }//GEN-LAST:event_jmModMenuActionPerformed
+
+    private void jmModTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModTransporteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModTransporte vmt = new VistaModTransporte();
+        vmt.setVisible(true);
+        escritorio.add(vmt);
+    }//GEN-LAST:event_jmModTransporteActionPerformed
+
+    private void jmPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPaqueteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaPaquete vp = new VistaPaquete();
+        vp.setVisible(true);
+        escritorio.add(vp);
+    }//GEN-LAST:event_jmPaqueteActionPerformed
+
+    private void jmBajaPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaPaqueteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaBajaPaquete vbp = new VistaBajaPaquete();
+        vbp.setVisible(true);
+        escritorio.add(vbp);
+    }//GEN-LAST:event_jmBajaPaqueteActionPerformed
+
+    private void jmModPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModPaqueteActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaModPaquete vmp = new VistaModPaquete();
+        vmp.setVisible(true);
+        escritorio.add(vmp);
+    }//GEN-LAST:event_jmModPaqueteActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:escritorio.removeAll();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCliente vc = new VistaCliente();
+        vc.setVisible(true);
+        escritorio.add(vc);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,9 +451,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jmAlojamiento;
+    private javax.swing.JMenuItem jmBajaAlojamiento;
+    private javax.swing.JMenuItem jmBajaCliente;
+    private javax.swing.JMenuItem jmBajaDestino;
+    private javax.swing.JMenuItem jmBajaMenu;
+    private javax.swing.JMenuItem jmBajaPaquete;
+    private javax.swing.JMenuItem jmBajaTransporte;
+    private javax.swing.JMenuItem jmCliente;
+    private javax.swing.JMenuItem jmDestino;
+    private javax.swing.JMenuItem jmMenu;
+    private javax.swing.JMenuItem jmModAlojamiento;
+    private javax.swing.JMenuItem jmModCliente;
+    private javax.swing.JMenuItem jmModDestino;
+    private javax.swing.JMenuItem jmModMenu;
+    private javax.swing.JMenuItem jmModPaquete;
+    private javax.swing.JMenuItem jmModTransporte;
+    private javax.swing.JMenuItem jmPaquete;
+    private javax.swing.JMenuItem jmTransporte;
     // End of variables declaration//GEN-END:variables
 }

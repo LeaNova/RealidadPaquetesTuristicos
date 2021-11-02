@@ -19,11 +19,10 @@ public class ClienteData {
 
 }
 
-public void AgregarCliente(Cliente c){
-    String sql = "INSERT INTO cliente (nombre,dni,contacto,celular,activo) VALUES (?,?,?,?,?)";
+    public void AgregarCliente(Cliente c){
+        String sql = "INSERT INTO cliente (nombre,dni,contacto,celular,activo) VALUES (?,?,?,?,?)";
+    
         try {
-          
-            
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, c.getNombre());
@@ -32,9 +31,13 @@ public void AgregarCliente(Cliente c){
             ps.setInt(4, c.getCelular());
             ps.setBoolean(5, c.isActivo());
             
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
             
-ps.executeUpdate();
-ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                c.setIdCliente(rs.getInt(1));
+            }
+            
         } catch (SQLException ex) {
             System.out.println("Error al agregar un Cliente. " + ex);;
         }

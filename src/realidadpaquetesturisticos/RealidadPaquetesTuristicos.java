@@ -21,7 +21,7 @@ public class RealidadPaquetesTuristicos {
             MenuData md = new MenuData(con);
             PaqueteData pd = new PaqueteData(con);
             TransporteData td = new TransporteData(con);
-            
+            /*
             // Creacion de todas las Clase Modelo.
             Alojamiento alo1 = new Alojamiento("Hotel Turismo IDE", "Hotel", "San Algunlugar", 750.0, true);
             Alojamiento alo2 = new Alojamiento("Hostal El Barrio", "Hostal", "Aguilea", 380.0, true);
@@ -48,17 +48,7 @@ public class RealidadPaquetesTuristicos {
             Paquete pa2 = new Paquete(cli2, tra2, alo2, me2, des2, LocalDate.of(2021, 1, 15), LocalDate.of(2021, 1, 23), true);
             Paquete pa3 = new Paquete(cli3, tra3, alo3, me3, des3, LocalDate.of(2011, 7, 30), LocalDate.of(2021, 8, 5), true);
             Paquete pa4 = new Paquete(cli4, tra4, alo4, me4, des4, LocalDate.of(2017, 2, 1), LocalDate.of(2017, 2, 21), true);
-            /*
-            System.out.println(pa1);
-            System.out.println(pa1.getCostoTotal());
-            System.out.println(pa2 + "Con destino a " + pa2.getDestino().getPais() + " para 3 personas.");
-            System.out.println(pa2.getCostoTotal() * 3);
-            System.out.println(pa3 + " para el cliente " + pa3.getCliente().getNombre() + " en temporada media:");
-            System.out.println(pa3.getCostoTotal());
-            System.out.println(pa4 + " con alojamiento en " + pa4.getAlojamiento());
-            System.out.println(pa4.getCostoTotal() * 2);
-            */
-            /*
+            
             ad.AgregarAlojamiento(alo1);
             ad.AgregarAlojamiento(alo2);
             ad.AgregarAlojamiento(alo3);
@@ -79,11 +69,23 @@ public class RealidadPaquetesTuristicos {
             td.AgregarTransporte(tra2);
             td.AgregarTransporte(tra3);
             td.AgregarTransporte(tra4);
-            */
+            
             pd.agregarPaquete(pa1);
             pd.agregarPaquete(pa2);
             pd.agregarPaquete(pa3);
             pd.agregarPaquete(pa4);
+            */
+            System.out.println(cd.obtenerClientes());
+            System.out.println(cd.buscarCliente(5));
+            System.out.println(td.obtenerTransportes());
+            td.borrarTransporte(2);
+            td.borrarTransporte(6);
+            td.borrarTransporte(7);
+            System.out.println(td.obtenerTransportes());
+            System.out.println(td.obtenerTransportesActivos());
+            System.out.println(pd.obtenerPaquetesActivos());
+            pd.desactivarPaquete(26);
+            System.out.println(pd.obtenerPaquetesActivos());
             
         } catch (ClassNotFoundException ex) {
             System.out.println("Error! " + ex);

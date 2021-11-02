@@ -97,7 +97,6 @@ public class AlojamientoData {
     
     public List<Alojamiento> obtenerAlojamientos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
-        Alojamiento a = new Alojamiento();
         
         String sql = "SELECT * FROM alojamiento";
         
@@ -107,6 +106,8 @@ public class AlojamientoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Alojamiento a = new Alojamiento();
+                
                 a.setIdAlojamiento(rs.getInt(1));
                 a.setTipoAlojamiento(rs.getString(2));
                 a.setNombre(rs.getString(3));
@@ -128,7 +129,6 @@ public class AlojamientoData {
     
     public List<Alojamiento> obtenerAlojamientosActivos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
-        Alojamiento a = new Alojamiento();
         
         String sql = "SELECT * FROM alojamiento WHERE activo = true";
         
@@ -138,6 +138,8 @@ public class AlojamientoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Alojamiento a = new Alojamiento();
+                
                 a.setIdAlojamiento(rs.getInt(1));
                 a.setTipoAlojamiento(rs.getString(2));
                 a.setNombre(rs.getString(3));
@@ -159,7 +161,6 @@ public class AlojamientoData {
     
     public List<Alojamiento> obtenerAlojamientosInactivos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
-        Alojamiento a = new Alojamiento();
         
         String sql = "SELECT * FROM alojamiento WHERE activo = false";
         
@@ -169,6 +170,8 @@ public class AlojamientoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Alojamiento a = new Alojamiento();
+        
                 a.setIdAlojamiento(rs.getInt(1));
                 a.setTipoAlojamiento(rs.getString(2));
                 a.setNombre(rs.getString(3));

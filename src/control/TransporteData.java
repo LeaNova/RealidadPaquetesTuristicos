@@ -19,29 +19,28 @@ public class TransporteData {
 
 }
 
-public void AgregarTransporte(Transporte t){
-    String sql = "INSERT INTO transporte (tipo_transporte,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?)";
+    public void AgregarTransporte(Transporte t){
+        String sql = "INSERT INTO transporte (tipo_transporte,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?)";
+    
         try {
-          
-            
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, t.getTipodetransporte());
-      
-         ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
-          ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
-          ps.setDouble(4, t.getCosto());
-         
-         
-         ps.setBoolean(5, t.isActivo());
+            ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
+            ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
+            ps.setDouble(4, t.getCosto());
+            ps.setBoolean(5, t.isActivo());
             
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
             
+            if (rs.next()) {
+                t.setIdTransporte(rs.getInt(1));
+            }
             
-ps.executeUpdate();
-ResultSet rs = ps.getGeneratedKeys();
         } catch (SQLException ex) {
             System.out.println("Error al agregar un transporte. " + ex);;
         }
-}    
+    }    
     
   public void ActualizarTransporte(Transporte t){
         String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?, activo = ? WHERE id_transporte = ?";
@@ -99,7 +98,7 @@ ResultSet rs = ps.getGeneratedKeys();
         return t;
     }
     
-        public List<Transporte> obtenerTransporte(){
+        public List<Transporte> obtenerTransportes(){
         List<Transporte> transportes = new ArrayList<>();
         
         

@@ -7,7 +7,7 @@ import java.sql.*;
  */
 public class Conexion {
    
-    private String url="jdbc:mysql://localhost/universidad";
+    private String url="jdbc:mysql://localhost/paquetes_turisticos";
     private String usuario="root";
     private String password="";
 

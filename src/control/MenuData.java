@@ -19,7 +19,7 @@ public class MenuData {
         }
     }
     
-    public void agregarMenu(Menu menu, Alojamiento alo) {
+    public void agregarMenu(Menu menu) {
         String sql = "INSERT INTO menu (tipo_menu, costo, activo) VALUES (?, ?, ?)";
         
         try {

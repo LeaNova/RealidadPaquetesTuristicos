@@ -23,7 +23,7 @@ public class PaqueteData {
     }
     
     public void agregarPaquete(Paquete paquete) {
-        String sql = "INSERT INTO paquete (id_cliente, id_transporte, id_alojamiento, id_menu, destino, fecha_inicio, fecha_final, costo_total, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
+        String sql = "INSERT INTO paquete (id_cliente, id_transporte, id_alojamiento, id_menu, id_destino, fecha_inicio, fecha_final, costo_total, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -128,7 +128,7 @@ public class PaqueteData {
         Alojamiento alo;
         Menu me;
         Destino de;
-        String sql = "SELECT * FROM paquete, destino WHERE destino.pais LIKE ?";
+        String sql = "SELECT * FROM paquete, destino WHERE destino.nombre LIKE ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);

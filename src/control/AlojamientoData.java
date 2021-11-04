@@ -18,7 +18,7 @@ public class AlojamientoData {
         }
     }
     
-    public void AgregarAlojamiento(Alojamiento a){
+    public void agregarAlojamiento(Alojamiento a){
         String sql = "INSERT INTO alojamiento (tipo_alojamiento,nombre,ubicacion,costo,activo) VALUES (?,?,?,?,?)";
         
         try {
@@ -44,8 +44,8 @@ public class AlojamientoData {
         }
     }
     
-    public void ActualizarAlojamiento(Alojamiento a){
-        String sql = "UPDATE alojamiento SET tipo_alojamiento = ?, nombre = ?, ubicacion = ?, costo = ?, activo = ? WHERE id_alojamiento = ?";
+    public void actualizarAlojamiento(Alojamiento a){
+        String sql = "UPDATE alojamiento SET tipo_alojamiento = ?, nombre = ?, ubicacion = ?, costo = ? WHERE id_alojamiento = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -54,8 +54,7 @@ public class AlojamientoData {
             ps.setString(2, a.getNombre());
             ps.setString(3, a.getUbicacion());
             ps.setDouble(4, a.getCosto());
-            ps.setBoolean(5, a.isActivo());
-            ps.setInt(6, a.getIdAlojamiento());
+            ps.setInt(5, a.getIdAlojamiento());
             
             ps.executeUpdate();
             ps.close();

@@ -1,6 +1,7 @@
 package control;
 
 import java.sql.*;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class PaqueteData {
             ps.setInt(5, paquete.getDestino().getIdDestino());
             ps.setDate(6, Date.valueOf(paquete.getFechaInicio()));
             ps.setDate(7, Date.valueOf(paquete.getFechaFinal()));
-            ps.setDouble(8, paquete.getCostoTotal());
+            ps.setDouble(8, calcularPrecio(paquete));
             ps.setBoolean(9, paquete.isActivo());
             
             ps.executeUpdate();
@@ -51,7 +52,7 @@ public class PaqueteData {
     }
     
     public void actualizarPaquete(Paquete paquete) {
-        String sql = "UPTDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, id_destino = ?, fecha_inicio = ?, fecha_final = ?, costo_total = ?, activo = ? WHERE id_paquete = ?";
+        String sql = "UPTDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, id_destino = ?, fecha_inicio = ?, fecha_final = ?, costo_total = ? WHERE id_paquete = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -63,10 +64,9 @@ public class PaqueteData {
             ps.setInt(5, paquete.getDestino().getIdDestino());
             ps.setDate(6, Date.valueOf(paquete.getFechaInicio()));
             ps.setDate(7, Date.valueOf(paquete.getFechaFinal()));
-            ps.setDouble(8, paquete.getCostoTotal());
-            ps.setBoolean(9, paquete.isActivo());
+            ps.setDouble(8, calcularPrecio(paquete));
             
-            ps.setInt(10, paquete.getIdPaquete());
+            ps.setInt(9, paquete.getIdPaquete());
             
             ps.executeUpdate();
             ps.close();
@@ -388,5 +388,32 @@ public class PaqueteData {
         DestinoData deD = new DestinoData(conexion);
         
         return deD.buscarDestino(id);
+    }
+    
+    // Calculadores;
+    private int calcularDias(Paquete pa) {
+        int dias = (int) ChronoUnit.DAYS.between(pa.getFechaInicio(), pa.getFechaFinal());
+        
+        return dias;
+    }
+    
+    public double obtenerAdicional(Paquete pa) {
+        int mes = pa.getFechaInicio().getMonth().getValue();
+        switch (mes) {
+            case 1:
+            case 7:
+                return 1.30;
+            case 2:
+            case 6:
+                return 1.15;
+            default:
+                return 1;
+        }
+    }
+    
+    private double calcularPrecio(Paquete pa) {
+        double total = pa.getTransporte().getCosto() + (pa.getAlojamiento().getCosto() * calcularDias(pa)) + pa.getMenu().getCosto();
+        
+        return total * obtenerAdicional(pa);
     }
 }

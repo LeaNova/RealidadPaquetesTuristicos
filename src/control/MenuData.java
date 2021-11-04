@@ -42,16 +42,15 @@ public class MenuData {
     }
     
     public void actualizarMenu(Menu menu) {
-        String sql = "UPDATE menu SET tipo_menu = ?, costo = ?, activo = ? WHERE id_menu = ?";
+        String sql = "UPDATE menu SET tipo_menu = ?, costo = ? WHERE id_menu = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setString(1, menu.getTipoMenu());
             ps.setDouble(2, menu.getCosto());
-            ps.setBoolean(3, menu.isActivo());
             
-            ps.setInt(4, menu.getIdMenu());
+            ps.setInt(3, menu.getIdMenu());
             
             ps.executeUpdate();
             ps.close();

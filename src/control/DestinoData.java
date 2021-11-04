@@ -19,7 +19,7 @@ public class DestinoData {
         }
     }
     
-    public void AgregarDestino(Destino d){
+    public void agregarDestino(Destino d){
         String sql = "INSERT INTO destino (nombre,pais,fecha_altaInicial,fecha_altaFinal,activo) VALUES (?,?,?,?,?)";
         
         try {
@@ -45,8 +45,8 @@ public class DestinoData {
         }
     }
     
-    public void ActualizarDestino(Destino d){
-        String sql = "UPDATE destino SET nombre = ?, pais = ?, fecha_altaInicial = ?, fecha_altaFinal = ?, activo = ? WHERE id_destino = ?";
+    public void actualizarDestino(Destino d){
+        String sql = "UPDATE destino SET nombre = ?, pais = ?, fecha_altaInicial = ?, fecha_altaFinal = ? WHERE id_destino = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -55,8 +55,7 @@ public class DestinoData {
             ps.setString(2, d.getPais());
             ps.setDate(3, Date.valueOf(d.getFechaInicial()));
             ps.setDate(4, Date.valueOf(d.getFechaFinal()));
-            ps.setBoolean(5, d.isActivo());
-            ps.setInt(6, d.getIdDestino());
+            ps.setInt(5, d.getIdDestino());
             
             ps.executeUpdate();
             ps.close();

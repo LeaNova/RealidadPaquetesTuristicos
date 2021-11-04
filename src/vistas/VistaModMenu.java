@@ -1,15 +1,37 @@
 package vistas;
 
+import control.*;
+import modelo.*;
+
+import java.util.logging.*;
+import javax.swing.JOptionPane;
+
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaModMenu extends javax.swing.JInternalFrame {
 
+    private MenuData md;
+    
+    private Conexion con;
+    
     /**
      * Creates new form VistaModMenu
      */
     public VistaModMenu() {
-        initComponents();
+        try {
+            initComponents();
+            
+            con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
+            md = new MenuData(con);
+            
+            btnActualizar.setEnabled(false);
+            btnActivar.setEnabled(false);
+            btnDesactivar.setEnabled(false);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaModMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -25,15 +47,13 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jtID = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jtMenu = new javax.swing.JTextField();
+        jtCosto = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -51,57 +71,73 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Costo:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Activo:");
-
         jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Actualizar");
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Activar");
+        btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Desactivar");
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnActualizar)
+                .addGap(18, 18, 18)
+                .addComponent(btnActivar)
+                .addGap(18, 18, 18)
+                .addComponent(btnDesactivar)
+                .addGap(129, 129, 129))
             .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
+                        .addGap(72, 72, 72)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                                    .addComponent(btnBuscar))
+                                .addComponent(jtMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,44 +148,122 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jCheckBox1))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnActualizar)
+                    .addComponent(btnActivar)
+                    .addComponent(btnDesactivar))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(jtID.getText());
+            
+            Menu m = md.buscarMenu(id);
+            jtMenu.setText(m.getTipoMenu());
+            jtCosto.setText(m.getCosto()+"");
+            
+            if(!jtMenu.getText().isEmpty()) {
+                btnActualizar.setEnabled(true);
+                if(m.isActivo()) {
+                    btnActivar.setEnabled(false);
+                    btnDesactivar.setEnabled(true);
+                } else {
+                    btnActivar.setEnabled(true);
+                    btnDesactivar.setEnabled(false);
+                }
+            } else {
+                btnActualizar.setEnabled(false);
+                btnActivar.setEnabled(false);
+                btnDesactivar.setEnabled(false);
+            }
+            
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Error en el ID");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(jtID.getText());
+            
+            Menu me = md.buscarMenu(id);
+            
+            String tipo = jtMenu.getText();
+            double costo = Double.parseDouble(jtCosto.getText());
+            
+            if(soloTexto(tipo)) {
+                me.setTipoMenu(tipo);
+                me.setCosto(costo);
+                
+                md.actualizarMenu(me);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error en el tipo de Menu");
+            }
+            
+        } catch (Throwable ex ) {
+            JOptionPane.showMessageDialog(this, "Error al actuzlizar los datos");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jtID.getText());
+        
+        md.activarMenu(id);
+        limpiar();
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jtID.getText());
+        
+        md.desactivarMenu(id);
+        limpiar();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private boolean soloTexto(String str) {
+        char[] caracteres = str.toCharArray();
+        for (int i = 0; i < caracteres.length; i++) {
+            if (Character.isDigit(caracteres[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void limpiar() {
+        jtID.setText("");
+        jtMenu.setText("");
+        jtCosto.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDesactivar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jtCosto;
     private javax.swing.JTextField jtID;
+    private javax.swing.JTextField jtMenu;
     // End of variables declaration//GEN-END:variables
 }

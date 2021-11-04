@@ -1,15 +1,66 @@
 package vistas;
 
+import control.*;
+import modelo.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
+import java.util.logging.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.util.*;
+
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaModPaquete extends javax.swing.JInternalFrame {
 
+    private PaqueteData pd;
+    private ClienteData cd;
+    private TransporteData td;
+    private AlojamientoData ad;
+    private MenuData md;
+    private DestinoData dd;
+    private ArrayList<Paquete> listaPaquetes;
+    private ArrayList<Cliente> listaClientes;
+    private ArrayList<Transporte> listaTransportes;
+    private ArrayList<Alojamiento> listaAlojamientos;
+    private ArrayList<Menu> listaMenues;
+    private ArrayList<Destino> listaDestinos;
+    
+    private Conexion con;
+    
+    private DefaultTableModel modelo;
     /**
      * Creates new form VistaModPaquete
      */
     public VistaModPaquete() {
-        initComponents();
+        try {
+            initComponents();
+            
+            con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
+            pd = new PaqueteData(con);
+            cd = new ClienteData(con);
+            td = new TransporteData(con);
+            ad = new AlojamientoData(con);
+            md = new MenuData(con);
+            dd = new DestinoData(con);
+            listaPaquetes = (ArrayList)pd.obtenerPaquetes();
+            listaClientes = (ArrayList)cd.obtenerClientes();
+            listaTransportes = (ArrayList)td.obtenerTransportes();
+            listaAlojamientos = (ArrayList)ad.obtenerAlojamientos();
+            listaMenues = (ArrayList)md.obtenerMenues();
+            listaDestinos = (ArrayList)dd.obtenerDestinos();
+            
+            llenarComboCliente();
+            llenarComboTransporte();
+            llenarComboAlojamiento();
+            llenarComboMenu();
+            llenarComboDestino();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaModPaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -21,21 +72,371 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnActualizar = new javax.swing.JButton();
+        jtFechaInicio = new javax.swing.JTextField();
+        jtFechaFinal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jcCliente = new javax.swing.JComboBox<>();
+        jcTransporte = new javax.swing.JComboBox<>();
+        jcAlojamiento = new javax.swing.JComboBox<>();
+        jcMenu = new javax.swing.JComboBox<>();
+        jcDestino = new javax.swing.JComboBox<>();
+        jtCosto = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jtID = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        jtFechaInicio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel11.setText("dd/MM/yyyyy");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel1.setText("Modificar Paquete");
+
+        jLabel12.setText("dd/MM/yyyyy");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Cliente:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Transporte:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Alojamiento:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Menu:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Destino:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Fecha Inicio:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Fecha Final:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Costo Total:");
+
+        jcCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jcTransporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jcAlojamiento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jcMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jcDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtCosto.setEditable(false);
+        jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("ID:");
+
+        jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jcCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(73, 73, 73)
+                                .addComponent(btnBuscar))
+                            .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActivar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDesactivar)
+                        .addGap(77, 77, 77))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(102, 102, 102))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jcAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jcMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnActivar)
+                    .addComponent(btnDesactivar))
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        try {
+            Paquete pa = new Paquete();
+            
+            Cliente cli = (Cliente)jcCliente.getSelectedItem();
+            Transporte tra = (Transporte)jcTransporte.getSelectedItem();
+            Alojamiento alo = (Alojamiento)jcAlojamiento.getSelectedItem();
+            Menu me = (Menu)jcMenu.getSelectedItem();
+            Destino des = (Destino)jcDestino.getSelectedItem();
+
+            LocalDate f1 = LocalDate.parse(jtFechaInicio.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate f2 = LocalDate.parse(jtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            pa.setCliente(cli);
+            pa.setTransporte(tra);
+            pa.setAlojamiento(alo);
+            pa.setMenu(me);
+            pa.setDestino(des);
+            pa.setFechaInicio(f1);
+            pa.setFechaFinal(f2);
+            
+            pd.actualizarPaquete(pa);
+
+        } catch (Throwable ex) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar Paquete");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(jtID.getText());
+            
+            Paquete pa = pd.buscarPaquete(id);
+            jcCliente.setSelectedItem(pa.getCliente());
+            jcTransporte.setSelectedItem(pa.getTransporte());
+            jcAlojamiento.setSelectedItem(pa.getAlojamiento());
+            jcMenu.setSelectedItem(pa.getMenu());
+            jcDestino.setSelectedItem(pa.getDestino());
+            
+            jtFechaInicio.setText(pa.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            jtFechaFinal.setText(pa.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            
+            jtCosto.setText(pa.getCostoTotal()+"");
+            double costo = pa.getCostoTotal();
+            
+            if(!jtCosto.getText().isEmpty() || costo > 0.0) {
+                btnActualizar.setEnabled(true);
+                if(pa.isActivo()) {
+                    btnActivar.setEnabled(false);
+                    btnDesactivar.setEnabled(true);
+                } else {
+                    btnActivar.setEnabled(true);
+                    btnDesactivar.setEnabled(false);
+                }
+            } else {
+                btnActualizar.setEnabled(false);
+                btnActivar.setEnabled(false);
+                btnDesactivar.setEnabled(false);
+            }
+            
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Error en el ID");
+        } catch (NullPointerException ez) {
+            JOptionPane.showMessageDialog(this, "No se pudo encontrar Paquete");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jtID.getText());
+        
+        pd.activarPaquete(id);
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jtID.getText());
+        
+        pd.desactivarPaquete(id);
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void llenarComboCliente() {
+        for (Cliente cli: listaClientes) {
+            if (cli.isActivo()) {
+                jcCliente.addItem(cli);
+            }
+        }
+    }
+    
+    private void llenarComboTransporte() {
+        for (Transporte tra: listaTransportes) {
+            if (tra.isActivo()) {
+                jcTransporte.addItem(tra);
+            }
+        }
+    }
+    
+    private void llenarComboAlojamiento() {
+        for (Alojamiento alo: listaAlojamientos) {
+            if (alo.isActivo()) {
+                jcAlojamiento.addItem(alo);
+            }
+        }
+    }
+    
+    private void llenarComboMenu() {
+        for (Menu me: listaMenues) {
+            if (me.isActivo()) {
+                jcMenu.addItem(me);
+            }
+        }
+    }
+    
+    private void llenarComboDestino() {
+        for (Destino des: listaDestinos) {
+            if (des.isActivo()) {
+                jcDestino.addItem(des);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDesactivar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<Alojamiento> jcAlojamiento;
+    private javax.swing.JComboBox<Cliente> jcCliente;
+    private javax.swing.JComboBox<Destino> jcDestino;
+    private javax.swing.JComboBox<Menu> jcMenu;
+    private javax.swing.JComboBox<Transporte> jcTransporte;
+    private javax.swing.JTextField jtCosto;
+    private javax.swing.JTextField jtFechaFinal;
+    private javax.swing.JTextField jtFechaInicio;
+    private javax.swing.JTextField jtID;
     // End of variables declaration//GEN-END:variables
 }

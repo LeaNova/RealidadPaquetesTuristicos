@@ -1,7 +1,6 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -15,7 +14,7 @@ public class Paquete {
     private Destino destino;
     private LocalDate fechaInicio;
     private LocalDate fechaFinal;
-    private double costoTotal;
+    private double costoTotal = 0.0;
     private boolean activo;
     
     // Constructores;
@@ -27,12 +26,10 @@ public class Paquete {
         this.destino = destino;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.costoTotal = calcularPrecio();
         this.activo = activo;
     }
 
     public Paquete() {
-        this.costoTotal = calcularPrecio();
     }
 
     public Paquete(int idPaquete, Cliente cliente, Transporte transporte, Alojamiento alojamiento, Menu menu, Destino destino, LocalDate fechaInicio, LocalDate fechaFinal, boolean activo) {
@@ -44,7 +41,6 @@ public class Paquete {
         this.destino = destino;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.costoTotal = calcularPrecio();
         this.activo = activo;
     }
     
@@ -129,33 +125,6 @@ public class Paquete {
         this.activo = activo;
     }
     
-    // Calculadores;
-    private int calcularDias() {
-        int dias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFinal);
-        
-        return dias;
-    }
-    
-    public double obtenerAdicional() {
-        int mes = fechaInicio.getMonth().getValue();
-        switch (mes) {
-            case 1:
-            case 7:
-                return 1.30;
-            case 2:
-            case 6:
-                return 1.15;
-            default:
-                return 1;
-        }
-    }
-    
-    private double calcularPrecio() {
-        double total = transporte.getCosto() + (alojamiento.getCosto() * calcularDias()) + menu.getCosto();
-        
-        return total * obtenerAdicional();
-    }
-
     @Override
     public String toString() {
         return "ID del paquete: "+idPaquete + ", destino: " + destino;

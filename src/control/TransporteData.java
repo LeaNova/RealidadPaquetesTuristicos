@@ -19,7 +19,7 @@ public class TransporteData {
 
 }
 
-    public void AgregarTransporte(Transporte t){
+    public void agregarTransporte(Transporte t){
         String sql = "INSERT INTO transporte (tipo_transporte,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?)";
     
         try {
@@ -42,25 +42,21 @@ public class TransporteData {
         }
     }    
     
-  public void ActualizarTransporte(Transporte t){
+  public void actualizarTransporte(Transporte t){
         String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?, activo = ? WHERE id_transporte = ?";
         
         try{
-            
-            
-           PreparedStatement ps = con.prepareStatement(sql);
-           
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTipodetransporte());
+            ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
+            ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
+            ps.setDouble(4, t.getCosto());
             
-             ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
-          ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
-          ps.setDouble(4, t.getCosto());
-             ps.setBoolean(5, t.isActivo());
-             
-             
+            ps.setInt(5, t.getIdTransporte());
+            
             ps.executeUpdate();
             ps.close();
-                    
+            
         }catch(SQLException ex){
             System.out.println("Error al actualizar el Transporte. " + ex);
         }

@@ -5,7 +5,6 @@ import modelo.*;
 
 import java.util.logging.*;
 import javax.swing.JOptionPane;
-import java.util.*;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -103,29 +102,30 @@ public class VistaBajaMenu extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnBaja)
-                .addGap(61, 61, 61)
-                .addComponent(btnEliminar)
-                .addGap(154, 154, 154))
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscar))
-                        .addComponent(jtMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBuscar))
+                                .addComponent(jtMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(btnBaja)
+                        .addGap(61, 61, 61)
+                        .addComponent(btnEliminar)))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +145,11 @@ public class VistaBajaMenu extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
                     .addComponent(btnEliminar))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -161,17 +161,21 @@ public class VistaBajaMenu extends javax.swing.JInternalFrame {
             int id = Integer.parseInt(jtID.getText());
             
             Menu m = md.buscarMenu(id);
-            jtMenu.setText(m.getTipoMenu());
-            jtCosto.setText(m.getCosto()+"");
             
-            if(!jtMenu.getText().isEmpty()) {
-                btnBaja.setEnabled(true);
-                btnEliminar.setEnabled(true);
+            if(m.isActivo()) {
+                jtMenu.setText(m.getTipoMenu());
+                jtCosto.setText(m.getCosto()+"");
+
+                if(!jtMenu.getText().isEmpty()) {
+                    btnBaja.setEnabled(true);
+                    btnEliminar.setEnabled(true);
+                } else {
+                    btnBaja.setEnabled(false);
+                    btnEliminar.setEnabled(false);
+                }
             } else {
-                btnBaja.setEnabled(false);
-                btnEliminar.setEnabled(false);
+                JOptionPane.showMessageDialog(this, "No se encontro menu activo");
             }
-            
         } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "Error en el ID");
         }

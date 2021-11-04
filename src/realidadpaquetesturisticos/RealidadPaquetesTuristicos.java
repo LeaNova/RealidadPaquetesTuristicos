@@ -75,18 +75,22 @@ public class RealidadPaquetesTuristicos {
             pd.agregarPaquete(pa3);
             pd.agregarPaquete(pa4);
             */
-            System.out.println(cd.obtenerClientes());
-            System.out.println(cd.buscarCliente(5));
-            System.out.println(td.obtenerTransportes());
-            td.borrarTransporte(2);
-            td.borrarTransporte(6);
-            td.borrarTransporte(7);
-            System.out.println(td.obtenerTransportes());
-            System.out.println(td.obtenerTransportesActivos());
-            System.out.println(pd.obtenerPaquetesActivos());
-            pd.desactivarPaquete(26);
-            System.out.println(pd.obtenerPaquetesActivos());
+            /*
+            Alojamiento alo1 = new Alojamiento("Resto San Descanso", "Hostal", "Puerto Deseado", 380.0, true);
+            Cliente cli1 = new Cliente("Ailen Hernandez", 39234339, "ailen.h@gmail.com", 266587985, true);
+            Destino des1 = new Destino("Puerto Deseado", "Argentina", LocalDate.of(2021, 10, 25), LocalDate.of(2021, 10, 30), true);
+            Menu me1 = new Menu("Almuerzo-Cena", 600.0, true);
+            Transporte tra1 = new Transporte("Coche cama", LocalDate.of(2021, 10, 25), LocalDate.of(2021, 10, 26), 650.50, true);
             
+            Paquete pa1 = new Paquete(cli1, tra1, alo1, me1, des1, LocalDate.of(2021, 10, 26), LocalDate.of(2021, 10, 30), true);
+            
+            ad.agregarAlojamiento(alo1);
+            cd.agregarCliente(cli1);
+            dd.agregarDestino(des1);
+            md.agregarMenu(me1);
+            td.agregarTransporte(tra1);
+            pd.agregarPaquete(pa1);
+            */
         } catch (ClassNotFoundException ex) {
             System.out.println("Error! " + ex);
         }

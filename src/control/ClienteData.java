@@ -19,7 +19,7 @@ public class ClienteData {
 
 }
 
-    public void AgregarCliente(Cliente c){
+    public void agregarCliente(Cliente c){
         String sql = "INSERT INTO cliente (nombre,dni,contacto,celular,activo) VALUES (?,?,?,?,?)";
     
         try {
@@ -43,8 +43,8 @@ public class ClienteData {
         }
 }    
     
-  public void ActualizarCliente(Cliente c){
-        String sql = "UPDATE cliente SET nombre = ?, dni = ?, contacto = ?, celular = ?, activo = ? WHERE id_cliente = ?";
+  public void actualizarCliente(Cliente c){
+        String sql = "UPDATE cliente SET nombre = ?, dni = ?, contacto = ?, celular = ? WHERE id_cliente = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -52,8 +52,7 @@ public class ClienteData {
             ps.setInt(2, c.getDni());
             ps.setString(3, c.getContacto());
             ps.setInt(4, c.getCelular());
-            ps.setBoolean(5, c.isActivo());
-            ps.setInt(6, c.getIdCliente());
+            ps.setInt(5, c.getIdCliente());
             
             ps.executeUpdate();
             ps.close();

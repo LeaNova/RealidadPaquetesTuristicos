@@ -127,6 +127,6 @@ public class Paquete {
     
     @Override
     public String toString() {
-        return "ID del paquete: "+idPaquete + ", destino: " + destino;
+        return "ID del paquete: " + idPaquete + ", destino: " + destino + "\n";
     }
 }

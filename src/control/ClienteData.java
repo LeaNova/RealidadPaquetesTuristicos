@@ -66,7 +66,6 @@ public class ClienteData {
       public Cliente buscarCliente(int idCliente){
         Cliente c = new Cliente();
         
-        
         String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
         
         try{
@@ -83,9 +82,6 @@ public class ClienteData {
                 c.setContacto(rs.getString(4));
                 c.setCelular(rs.getInt(5));   
                 c.setActivo(rs.getBoolean(6));
-                
-
-                
             }
             
         }catch(SQLException ex){
@@ -95,11 +91,73 @@ public class ClienteData {
         return c;
     }
     
-        public List<Cliente> obtenerClientes(){
+    public List<Cliente> obtenerClientes(){
+    List<Cliente> clientes = new ArrayList<>();
+
+
+    String sql = "SELECT * FROM cliente";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            Cliente c = new Cliente();
+            
+            c.setIdCliente(rs.getInt(1));
+            c.setNombre(rs.getString(2));
+            c.setDni(rs.getInt(3));
+            c.setContacto(rs.getString(4));
+            c.setCelular(rs.getInt(5));  
+            c.setActivo(rs.getBoolean(6));
+            
+            clientes.add(c);
+        }
+
+        ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los Clientes. " + ex);
+        }
+        
+        return clientes;
+    }
+    
+    public List<Cliente> obtenerClientesActivos(){
+        List<Cliente> clientes = new ArrayList<>();
+       
+        String sql = "SELECT * FROM cliente WHERE activo = true";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Cliente c = new Cliente();
+                c.setIdCliente(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setDni(rs.getInt(3));
+                c.setContacto(rs.getString(4));
+                c.setCelular(rs.getInt(5));
+                c.setActivo(rs.getBoolean(6));
+                
+                clientes.add(c);
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los Clientes activos. " + ex);
+        }
+        
+        return clientes;
+    }
+        public List<Cliente> obtenerClientesInactivos(){
         List<Cliente> clientes = new ArrayList<>();
         
-        
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT * FROM cliente WHERE activo = false";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -117,75 +175,7 @@ public class ClienteData {
                 
                 c.setActivo(rs.getBoolean(6));
                 
-                
-     clientes.add(c);
-            }
-            
-            ps.close();
-            
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener los Clientes. " + ex);
-        }
-        
-        return clientes;
-    }
-    
-    public List<Cliente> obtenerClientesActivos(){
-        List<Cliente> clientes = new ArrayList<>();
-        Cliente c = new Cliente();
-       
-        
-        String sql = "SELECT * FROM cliente WHERE activo = true";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                c.setIdCliente(rs.getInt(1));
-                c.setNombre(rs.getString(2));
-                c.setDni(rs.getInt(3));
-                c.setContacto(rs.getString(4));
-                c.setCelular(rs.getInt(5));  
-                
-                c.setActivo(rs.getBoolean(6));
-                
                 clientes.add(c);
-                
-            }
-            
-            ps.close();
-            
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener los Clientes activos. " + ex);
-        }
-        
-        return clientes;
-    }
-        public List<Cliente> obtenerClientesInactivos(){
-        List<Cliente> clientes = new ArrayList<>();
-        Cliente c = new Cliente();
-       
-        
-        String sql = "SELECT * FROM cliente WHERE activo = false";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                c.setIdCliente(rs.getInt(1));
-                c.setNombre(rs.getString(2));
-                c.setDni(rs.getInt(3));
-                c.setContacto(rs.getString(4));
-                c.setCelular(rs.getInt(5));  
-                
-                c.setActivo(rs.getBoolean(6));
-                
-                clientes.add(c);
-                
             }
             
             ps.close();
@@ -196,7 +186,8 @@ public class ClienteData {
         
         return clientes;
     }
-        public void desactivarCliente(int idCliente){
+        
+    public void desactivarCliente(int idCliente){
         String sql = "UPDATE cliente SET activo = false WHERE id_cliente = ?";
         
         try {

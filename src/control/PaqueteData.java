@@ -397,7 +397,7 @@ public class PaqueteData {
         return dias;
     }
     
-    public double obtenerAdicional(Paquete pa) {
+    private double obtenerAdicional(Paquete pa) {
         int mes = pa.getFechaInicio().getMonth().getValue();
         switch (mes) {
             case 1:

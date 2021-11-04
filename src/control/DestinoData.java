@@ -127,7 +127,6 @@ public class DestinoData {
     
     public List<Destino> obtenerDestinosActivos(){
         List<Destino> destinos = new ArrayList<>();
-        Destino d = new Destino();
         
         String sql = "SELECT * FROM destino WHERE activo = true";
         
@@ -137,6 +136,8 @@ public class DestinoData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Destino d = new Destino();
+        
                 d.setIdDestino(rs.getInt(1));
                 d.setNombre(rs.getString(2));
                 d.setPais(rs.getString(3));

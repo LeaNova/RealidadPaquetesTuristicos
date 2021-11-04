@@ -85,6 +85,6 @@ public class Transporte {
 
     @Override
     public String toString() {
-        return "ID: " + idTransporte + ", " + tipodetransporte;
+        return "ID: " + idTransporte + ", " + tipodetransporte + "\n";
     }
 }

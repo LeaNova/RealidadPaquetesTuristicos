@@ -94,9 +94,8 @@ public class TransporteData {
         return t;
     }
     
-        public List<Transporte> obtenerTransportes(){
+    public List<Transporte> obtenerTransportes(){
         List<Transporte> transportes = new ArrayList<>();
-        
         
         String sql = "SELECT * FROM transporte";
         
@@ -108,18 +107,14 @@ public class TransporteData {
             while(rs.next()){
                 Transporte t = new Transporte();
                 
-               t.setIdTransporte(rs.getInt(1));
+                t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
                 t.setFechallegada(rs.getDate(3).toLocalDate());
                 t.setFechapartida(rs.getDate(4).toLocalDate());
                 t.setCosto(rs.getDouble(5));
                 t.setActivo(rs.getBoolean(6));
                 
-                
-                
-                
-                
-     transportes.add(t);
+                transportes.add(t);
             }
             
             ps.close();
@@ -133,8 +128,6 @@ public class TransporteData {
     
     public List<Transporte> obtenerTransportesActivos(){
         List<Transporte> transportesactivos = new ArrayList<>();
-        Transporte t = new Transporte();
-       
         
         String sql = "SELECT * FROM transporte WHERE activo = true";
         
@@ -144,14 +137,16 @@ public class TransporteData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                 t.setIdTransporte(rs.getInt(1));
-                 t.setTipodetransporte(rs.getString(2));
-                 t.setFechallegada(rs.getDate(3).toLocalDate());
+                Transporte t = new Transporte();
+                
+                t.setIdTransporte(rs.getInt(1));
+                t.setTipodetransporte(rs.getString(2));
+                t.setFechallegada(rs.getDate(3).toLocalDate());
                 t.setFechapartida(rs.getDate(4).toLocalDate());
                 t.setCosto(rs.getDouble(5));
                 t.setActivo(rs.getBoolean(6));
 
-                transportesactivos .add(t);
+                transportesactivos.add(t);
                 
             }
             
@@ -163,10 +158,9 @@ public class TransporteData {
         
         return transportesactivos;
     }
-        public List<Transporte> obtenerTrasportesInactivos(){
+    
+    public List<Transporte> obtenerTrasportesInactivos(){
         List<Transporte> transporteinactivos = new ArrayList<>();
-        Transporte t = new Transporte();
-       
         
         String sql = "SELECT * FROM transporte WHERE activo = false";
         
@@ -176,6 +170,8 @@ public class TransporteData {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Transporte t = new Transporte();
+        
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
                 t.setFechallegada(rs.getDate(3).toLocalDate());
@@ -195,7 +191,8 @@ public class TransporteData {
         
         return transporteinactivos;
     }
-        public void desactivarTransportes(int idTransporte){
+    
+    public void desactivarTransportes(int idTransporte){
         String sql = "UPDATE transporte SET activo = false WHERE id_transporte = ?";
         
         try {

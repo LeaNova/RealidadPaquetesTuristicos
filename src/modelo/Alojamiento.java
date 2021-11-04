@@ -84,6 +84,6 @@ public class Alojamiento {
 
     @Override
     public String toString() {
-        return "ID: " + idAlojamiento + ", " + nombre;
+        return "ID: " + idAlojamiento + ", " + nombre + "\n";
     }
 }

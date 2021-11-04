@@ -61,6 +61,6 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "ID: " + idMenu + ", " + tipoMenu;
+        return "ID: " + idMenu + ", " + tipoMenu + "\n";
     }
 }

@@ -220,7 +220,7 @@ public class VistaModAlojamiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try{
         
-            if(!txtNombre.getText().isEmpty() || !txtTipo.getText().isEmpty() || txtUbicacion.getText().isEmpty() || !txtCosto.getText().isEmpty()){
+            if(!txtNombre.getText().isEmpty() && !txtTipo.getText().isEmpty() && !txtUbicacion.getText().isEmpty() && !txtCosto.getText().isEmpty()){
             
                 Alojamiento a = new Alojamiento();
         

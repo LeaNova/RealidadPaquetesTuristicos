@@ -210,7 +210,6 @@ public class VistaBajaAlojamiento extends javax.swing.JInternalFrame {
         ad.desactivarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
         limpiarCampos();
         desactivarBtns();
-        comboId.setSelectedIndex(-1);
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -218,7 +217,6 @@ public class VistaBajaAlojamiento extends javax.swing.JInternalFrame {
         ad.borrarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
         limpiarCampos();
         desactivarBtns();
-        comboId.setSelectedIndex(-1);
     }//GEN-LAST:event_btnEliminarActionPerformed
  
     private void activarBtns(){

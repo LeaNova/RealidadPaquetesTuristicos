@@ -217,7 +217,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
             }
             
         } catch (Throwable ex ) {
-            JOptionPane.showMessageDialog(this, "Error al actuzlizar los datos");
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 

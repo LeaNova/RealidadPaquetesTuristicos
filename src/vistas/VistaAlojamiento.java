@@ -104,6 +104,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
 
         checkActivo.setEnabled(false);
 
+        btnCargar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCargar.setText("Cargar");
         btnCargar.setEnabled(false);
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +113,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +121,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,19 +132,17 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Lista de Alojamientos");
 
+        radioTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioTodos.setText("Todos");
 
+        radioActivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioActivos.setText("Activos");
 
+        radioInactivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioInactivos.setText("Inactivos");
 
         tabAlojamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -153,13 +154,14 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tabAlojamientos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabAlojamientos);
         if (tabAlojamientos.getColumnModel().getColumnCount() > 0) {
             tabAlojamientos.getColumnModel().getColumn(0).setResizable(false);
@@ -209,24 +211,24 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(536, 536, 536)
-                .addComponent(radioTodos)
-                .addGap(18, 18, 18)
-                .addComponent(radioActivos)
-                .addGap(18, 18, 18)
-                .addComponent(radioInactivos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(246, 246, 246))
             .addGroup(layout.createSequentialGroup()
                 .addGap(96, 96, 96)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(164, 164, 164))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(186, 186, 186)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(radioTodos)
+                        .addGap(18, 18, 18)
+                        .addComponent(radioActivos)
+                        .addGap(18, 18, 18)
+                        .addComponent(radioInactivos)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +271,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();

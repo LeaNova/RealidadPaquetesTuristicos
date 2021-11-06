@@ -1,21 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
+import control.*;
+import modelo.*;
+import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaModAlojamiento extends javax.swing.JInternalFrame {
 
+    private Conexion c;
+    private AlojamientoData ad;
     /**
      * Creates new form VistaModAlojamiento
      */
     public VistaModAlojamiento() {
-        initComponents();
+        try {
+            initComponents();
+            
+            c = new Conexion();
+            ad = new AlojamientoData(c);
+            cargarComboId();
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
+        }
     }
 
     /**
@@ -27,21 +37,278 @@ public class VistaModAlojamiento extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        comboId = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtTipo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtUbicacion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtCosto = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+
+        setClosable(true);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Modificar Alojamiento");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("ID:");
+
+        comboId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnDesactivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.setEnabled(false);
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Nombre:");
+
+        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombre.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Tipo:");
+
+        txtTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTipo.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Ubicacion:");
+
+        txtUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUbicacion.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Costo:");
+
+        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCosto.setEnabled(false);
+
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnActivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActivar.setText("Activar");
+        btnActivar.setEnabled(false);
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNombre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(btnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActivar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDesactivar)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnActivar)
+                    .addComponent(btnDesactivar))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        Alojamiento a = ad.buscarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
 
+        txtNombre.setText(a.getNombre());
+        txtTipo.setText(a.getTipoAlojamiento());
+        txtUbicacion.setText(a.getUbicacion());
+        txtCosto.setText(a.getCosto()+"");
+        activarCampos();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        try{
+        
+            if(!txtNombre.getText().isEmpty() || !txtTipo.getText().isEmpty() || txtUbicacion.getText().isEmpty() || !txtCosto.getText().isEmpty()){
+            
+                Alojamiento a = new Alojamiento();
+        
+                a.setIdAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
+                a.setNombre(txtNombre.getText());
+                a.setTipoAlojamiento(txtTipo.getText());
+                a.setUbicacion(txtUbicacion.getText());
+                a.setCosto(Double.parseDouble(txtCosto.getText()));
+        
+                ad.actualizarAlojamiento(a);
+                limpiarCampos();
+                desactivarCampos();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al actualizar");
+            }
+            
+        }catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Precio no válido");
+            txtCosto.setText("");
+            txtCosto.requestFocus();
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        ad.activarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
+        limpiarCampos();
+        desactivarCampos();
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        ad.desactivarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
+        limpiarCampos();
+        desactivarCampos();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void activarCampos(){
+        txtNombre.setEnabled(true);
+        txtTipo.setEnabled(true);
+        txtUbicacion.setEnabled(true);
+        txtCosto.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        btnActivar.setEnabled(true);
+        btnDesactivar.setEnabled(true);
+    }
+    
+    private void desactivarCampos(){
+        txtNombre.setEnabled(false);
+        txtTipo.setEnabled(false);
+        txtUbicacion.setEnabled(false);
+        txtCosto.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnActivar.setEnabled(false);
+        btnDesactivar.setEnabled(false);
+    }
+    
+    private void limpiarCampos(){
+        txtNombre.setText("");
+        txtTipo.setText("");
+        txtUbicacion.setText("");
+        txtCosto.setText("");
+    }
+    
+    private void cargarComboId(){
+        List<Alojamiento> alojamientos;
+        alojamientos = ad.obtenerAlojamientos();
+        for (Alojamiento a : alojamientos) {
+                comboId.addItem(a.getIdAlojamiento());
+            }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDesactivar;
+    private javax.swing.JComboBox<Integer> comboId;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTipo;
+    private javax.swing.JTextField txtUbicacion;
     // End of variables declaration//GEN-END:variables
 }

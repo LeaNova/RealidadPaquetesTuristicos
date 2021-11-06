@@ -65,7 +65,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             btnGrupo.add(jrInactivos);
             
             modelo = new DefaultTableModel();
-            armarCabezera();
+            armarCabecera();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPaquete.class.getName()).log(Level.SEVERE, null, ex);
@@ -444,7 +444,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     }
     
     // Crear y armar la tabla;
-    private void armarCabezera() {
+    private void armarCabecera() {
         ArrayList<Object> titulos = new ArrayList<>();
         
         titulos.add("ID");

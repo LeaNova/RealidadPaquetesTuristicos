@@ -31,7 +31,7 @@ public class VistaMenu extends javax.swing.JInternalFrame {
             listaMenues = (ArrayList)md.obtenerMenues();
             
             modelo = new DefaultTableModel();
-            armarCabezera();
+            armarCabecera();
             
             btnGrupo.add(jrTodos);
             btnGrupo.add(jrActivos);
@@ -295,7 +295,7 @@ public class VistaMenu extends javax.swing.JInternalFrame {
         return true;
     }
     
-    private void armarCabezera() {
+    private void armarCabecera() {
         ArrayList<Object> titulos = new ArrayList<>();
         
         titulos.add("ID");

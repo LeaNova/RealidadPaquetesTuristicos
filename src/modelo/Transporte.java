@@ -87,4 +87,9 @@ public class Transporte {
     public String toString() {
         return "ID: " + idTransporte + ", " + tipodetransporte + "\n";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.idTransporte == ((Transporte)obj).idTransporte;
+    }
 }

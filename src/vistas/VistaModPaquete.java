@@ -328,7 +328,6 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             jcTransporte.setSelectedItem(pa.getTransporte());
             jcAlojamiento.setSelectedItem(pa.getAlojamiento());
             jcMenu.setSelectedItem(pa.getMenu());
-            
             jcDestino.setSelectedItem(pa.getDestino());
             
             jtFechaInicio.setText(pa.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

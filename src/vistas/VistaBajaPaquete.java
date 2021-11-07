@@ -2,12 +2,10 @@ package vistas;
 
 import control.*;
 import modelo.*;
-import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 import java.util.logging.*;
 import javax.swing.JOptionPane;
-import java.util.*;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -15,17 +13,6 @@ import java.util.*;
 public class VistaBajaPaquete extends javax.swing.JInternalFrame {
 
     private PaqueteData pd;
-    private ClienteData cd;
-    private TransporteData td;
-    private AlojamientoData ad;
-    private MenuData md;
-    private DestinoData dd;
-    private ArrayList<Paquete> listaPaquetes;
-    private ArrayList<Cliente> listaClientes;
-    private ArrayList<Transporte> listaTransportes;
-    private ArrayList<Alojamiento> listaAlojamientos;
-    private ArrayList<Menu> listaMenues;
-    private ArrayList<Destino> listaDestinos;
     
     private Conexion con;
     /**
@@ -37,23 +24,9 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             
             con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
             pd = new PaqueteData(con);
-            cd = new ClienteData(con);
-            td = new TransporteData(con);
-            ad = new AlojamientoData(con);
-            md = new MenuData(con);
-            dd = new DestinoData(con);
-            listaPaquetes = (ArrayList)pd.obtenerPaquetes();
-            listaClientes = (ArrayList)cd.obtenerClientes();
-            listaTransportes = (ArrayList)td.obtenerTransportes();
-            listaAlojamientos = (ArrayList)ad.obtenerAlojamientos();
-            listaMenues = (ArrayList)md.obtenerMenues();
-            listaDestinos = (ArrayList)dd.obtenerDestinos();
             
-            llenarComboCliente();
-            llenarComboTransporte();
-            llenarComboAlojamiento();
-            llenarComboMenu();
-            llenarComboDestino();
+            btnBaja.setEnabled(false);
+            btnEliminar.setEnabled(false);
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaModPaquete.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,9 +45,7 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         btnBaja = new javax.swing.JButton();
         jtFechaInicio = new javax.swing.JTextField();
         jtFechaFinal = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -83,16 +54,16 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jcCliente = new javax.swing.JComboBox<>();
-        jcTransporte = new javax.swing.JComboBox<>();
-        jcAlojamiento = new javax.swing.JComboBox<>();
-        jcMenu = new javax.swing.JComboBox<>();
-        jcDestino = new javax.swing.JComboBox<>();
         jtCosto = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jtID = new javax.swing.JTextField();
+        jtTransporte = new javax.swing.JTextField();
+        jtCliente = new javax.swing.JTextField();
+        jtAlojamiento = new javax.swing.JTextField();
+        jtDestino = new javax.swing.JTextField();
+        jtMenu = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -111,12 +82,8 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         jtFechaFinal.setEditable(false);
         jtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel11.setText("dd/MM/yyyyy");
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Baja de Paquete");
-
-        jLabel12.setText("dd/MM/yyyyy");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Cliente:");
@@ -142,16 +109,6 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Costo Total:");
 
-        jcCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jcTransporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jcAlojamiento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jcMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jcDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jtCosto.setEditable(false);
         jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -173,6 +130,21 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         jLabel10.setText("ID:");
 
         jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtTransporte.setEditable(false);
+        jtTransporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtCliente.setEditable(false);
+        jtCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtAlojamiento.setEditable(false);
+        jtAlojamiento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtDestino.setEditable(false);
+        jtDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtMenu.setEditable(false);
+        jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,25 +173,20 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jcCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jcTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jcAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jcMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(68, 68, 68)
-                                        .addComponent(btnBuscar))))))
+                                        .addComponent(btnBuscar))
+                                    .addComponent(jtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(51, 51, 51))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(jLabel1)))
@@ -238,38 +205,36 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jcAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jcMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
                     .addComponent(btnEliminar))
@@ -296,22 +261,22 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             int id = Integer.parseInt(jtID.getText());
 
             Paquete pa = pd.buscarPaquete(id);
-            jcCliente.setSelectedItem(pa.getCliente());
-            jcTransporte.setSelectedItem(pa.getTransporte());
-            jcAlojamiento.setSelectedItem(pa.getAlojamiento());
-            jcMenu.setSelectedItem(pa.getMenu());
-            jcDestino.setSelectedItem(pa.getDestino());
+            jtCliente.setText(pa.getCliente().getNombre());
+            jtTransporte.setText(pa.getTransporte().getTipodetransporte());
+            jtAlojamiento.setText(pa.getAlojamiento().getNombre());
+            jtMenu.setText(pa.getMenu().getTipoMenu());
+            jtDestino.setText(pa.getDestino().getNombre());
             
             jtFechaInicio.setText(pa.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             jtFechaFinal.setText(pa.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             
             jtCosto.setText(pa.getCostoTotal()+"");
-
+            
             if(pa.isActivo()) {
-                jcCliente.setSelectedItem(pa.getCliente());
-                
-                jcMenu.setSelectedItem(pa.getMenu());
-                
+                jtCliente.setText(pa.getCliente().getNombre());
+
+                jtMenu.setText(pa.getMenu().getTipoMenu());
+
                 if(!jtFechaInicio.getText().isEmpty()) {
                     btnBaja.setEnabled(true);
                     btnEliminar.setEnabled(true);
@@ -322,8 +287,21 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontro menu activo");
             }
-        } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Error en el ID");
+            
+        } catch (Throwable ex) {
+            jtCliente.setText("");
+            jtTransporte.setText("");
+            jtAlojamiento.setText("");
+            jtMenu.setText("");
+            jtDestino.setText("");
+            jtFechaInicio.setText("");
+            jtFechaFinal.setText("");
+            jtCosto.setText("");
+            
+            btnBaja.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            
+            JOptionPane.showMessageDialog(this, "Error en buscar Paquete");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -338,55 +316,12 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    // Llenar todo los combo box;
-    private void llenarComboCliente() {
-        for (Cliente cli: listaClientes) {
-            if (cli.isActivo()) {
-                jcCliente.addItem(cli);
-            }
-        }
-    }
-    
-    private void llenarComboTransporte() {
-        for (Transporte tra: listaTransportes) {
-            if (tra.isActivo()) {
-                jcTransporte.addItem(tra);
-            }
-        }
-    }
-    
-    private void llenarComboAlojamiento() {
-        for (Alojamiento alo: listaAlojamientos) {
-            if (alo.isActivo()) {
-                jcAlojamiento.addItem(alo);
-            }
-        }
-    }
-    
-    private void llenarComboMenu() {
-        for (Menu me: listaMenues) {
-            if (me.isActivo()) {
-                jcMenu.addItem(me);
-            }
-        }
-    }
-    
-    private void llenarComboDestino() {
-        for (Destino des: listaDestinos) {
-            if (des.isActivo()) {
-                jcDestino.addItem(des);
-            }
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -395,14 +330,14 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JComboBox<Alojamiento> jcAlojamiento;
-    private javax.swing.JComboBox<Cliente> jcCliente;
-    private javax.swing.JComboBox<Destino> jcDestino;
-    private javax.swing.JComboBox<Menu> jcMenu;
-    private javax.swing.JComboBox<Transporte> jcTransporte;
+    private javax.swing.JTextField jtAlojamiento;
+    private javax.swing.JTextField jtCliente;
     private javax.swing.JTextField jtCosto;
+    private javax.swing.JTextField jtDestino;
     private javax.swing.JTextField jtFechaFinal;
     private javax.swing.JTextField jtFechaInicio;
     private javax.swing.JTextField jtID;
+    private javax.swing.JTextField jtMenu;
+    private javax.swing.JTextField jtTransporte;
     // End of variables declaration//GEN-END:variables
 }

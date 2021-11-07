@@ -63,4 +63,9 @@ public class Menu {
     public String toString() {
         return "ID: " + idMenu + ", " + tipoMenu + "\n";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.idMenu == ((Menu)obj).idMenu;
+    }
 }

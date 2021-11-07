@@ -86,4 +86,9 @@ public class Alojamiento {
     public String toString() {
         return "ID: " + idAlojamiento + ", " + nombre + "\n";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.idAlojamiento == ((Alojamiento)obj).idAlojamiento;
+    }
 }

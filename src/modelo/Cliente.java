@@ -85,4 +85,9 @@ public class Cliente {
     public String toString() {
         return "ID: " + idCliente + ", Nombre: " + nombre + "\n";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.idCliente == ((Cliente)obj).idCliente;
+    }
 }

@@ -88,4 +88,9 @@ public class Destino {
     public String toString() {
         return "ID: " + idDestino + ", " + nombre + "\n";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.idDestino == ((Destino)obj).idDestino;
+    }
 }

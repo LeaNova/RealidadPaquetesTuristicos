@@ -45,7 +45,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmPaquete = new javax.swing.JMenuItem();
         jmBajaPaquete = new javax.swing.JMenuItem();
         jmModPaquete = new javax.swing.JMenuItem();
-        jMenuItem19 = new javax.swing.JMenuItem();
+        jmBuscarUbicacion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,13 +218,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jmModPaquete);
 
-        jMenuItem19.setText("Buscar por Ubicacion");
-        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+        jmBuscarUbicacion.setText("Buscar por Ubicacion");
+        jmBuscarUbicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem19ActionPerformed(evt);
+                jmBuscarUbicacionActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem19);
+        jMenu4.add(jmBuscarUbicacion);
 
         jMenuBar1.add(jMenu4);
 
@@ -406,14 +406,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(vmp);
     }//GEN-LAST:event_jmModPaqueteActionPerformed
 
-    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+    private void jmBuscarUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBuscarUbicacionActionPerformed
         // TODO add your handling code here:escritorio.removeAll();
         escritorio.removeAll();
         escritorio.repaint();
-        VistaCliente vc = new VistaCliente();
-        vc.setVisible(true);
-        escritorio.add(vc);
-    }//GEN-LAST:event_jMenuItem19ActionPerformed
+        VistaMostrarUbicacion vmb = new VistaMostrarUbicacion();
+        vmb.setVisible(true);
+        escritorio.add(vmb);
+    }//GEN-LAST:event_jmBuscarUbicacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,7 +457,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jmAlojamiento;
     private javax.swing.JMenuItem jmBajaAlojamiento;
     private javax.swing.JMenuItem jmBajaCliente;
@@ -465,6 +464,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmBajaMenu;
     private javax.swing.JMenuItem jmBajaPaquete;
     private javax.swing.JMenuItem jmBajaTransporte;
+    private javax.swing.JMenuItem jmBuscarUbicacion;
     private javax.swing.JMenuItem jmCliente;
     private javax.swing.JMenuItem jmDestino;
     private javax.swing.JMenuItem jmMenu;

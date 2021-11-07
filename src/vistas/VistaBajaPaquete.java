@@ -296,6 +296,16 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             int id = Integer.parseInt(jtID.getText());
 
             Paquete pa = pd.buscarPaquete(id);
+            jcCliente.setSelectedItem(pa.getCliente());
+            jcTransporte.setSelectedItem(pa.getTransporte());
+            jcAlojamiento.setSelectedItem(pa.getAlojamiento());
+            jcMenu.setSelectedItem(pa.getMenu());
+            jcDestino.setSelectedItem(pa.getDestino());
+            
+            jtFechaInicio.setText(pa.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            jtFechaFinal.setText(pa.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            
+            jtCosto.setText(pa.getCostoTotal()+"");
 
             if(pa.isActivo()) {
                 jcCliente.setSelectedItem(pa.getCliente());

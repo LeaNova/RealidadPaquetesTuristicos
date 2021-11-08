@@ -5,17 +5,36 @@
  */
 package vistas;
 
+import control.*;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Conexion;
+
 /**
  *
  * @author LeaNova
  */
 public class VistaModCliente extends javax.swing.JInternalFrame {
-
+ private Conexion c;
+    private ClienteData cl;
     /**
      * Creates new form VistaModCliente
      */
     public VistaModCliente() {
-        initComponents();
+         try {
+            initComponents();
+            
+            c = new Conexion();
+           cl = new ClienteData(c);
+           cargarComboId();
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
+        }
+        
+        
+        
     }
 
     /**
@@ -27,21 +46,276 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
+        txtContacto = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        comboId = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
+
+        setClosable(true);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Modificar Cliente");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Nombre:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Dni:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Contacto:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Celular:");
+
+        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombre.setEnabled(false);
+
+        txtDni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDni.setEnabled(false);
+
+        txtContacto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtContacto.setEnabled(false);
+
+        txtCelular.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCelular.setEnabled(false);
+
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnActivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActivar.setText("Activar");
+        btnActivar.setEnabled(false);
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
+        btnDesactivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.setEnabled(false);
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("ID:");
+
+        comboId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(btnActualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(txtContacto, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDni, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnActivar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(btnDesactivar)
+                        .addGap(41, 41, 41))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(130, 130, 130))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(28, 28, 28)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnActivar)
+                    .addComponent(btnDesactivar))
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void limpiarCampos(){
+        txtNombre.setText("");
+        txtDni.setText("");
+        txtContacto.setText("");
+        txtCelular.setText("");
+
+    }
+ private void activarCampos(){
+        txtNombre.setEnabled(true);
+        txtDni.setEnabled(true);
+        txtContacto.setEnabled(true);
+        txtCelular.setEnabled(true);
+
+      btnActualizar.setEnabled(true);
+      btnActivar.setEnabled(true);
+      btnDesactivar.setEnabled(true);
+    }
+  private void desactivarCampos(){
+        txtNombre.setEnabled(false);
+        txtDni.setEnabled(false);
+        txtContacto.setEnabled(false);
+        txtCelular.setEnabled(false);
+
+      btnActualizar.setEnabled(false);
+      btnActivar.setEnabled(false);
+      btnDesactivar.setEnabled(false);
+    }
+ private void cargarComboId(){
+        List<Cliente> clientes;
+        clientes = cl.obtenerClientes();
+        for (Cliente cli : clientes) {
+                comboId.addItem(cli.getIdCliente());
+            }
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        Cliente cli = cl.buscarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
+
+        txtNombre.setText(cli.getNombre());
+        txtDni.setText(cli.getDni()+"");
+txtContacto.setText(cli.getContacto());
+txtCelular.setText(cli.getCelular()+"");
+
+ activarCampos();
+ 
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        if(!txtNombre.getText().isEmpty() && !txtDni.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtCelular.getText().isEmpty()){
+
+                Cliente cli = new Cliente();
+
+                
+                
+                cli.setIdCliente(Integer.parseInt(comboId.getSelectedItem()+""));
+                cli.setNombre(txtNombre.getText());
+                cli.setDni(Integer.parseInt(txtDni.getText()));
+                cli.setContacto(txtContacto.getText());
+                cli.setCelular(Integer.parseInt(txtCelular.getText()));
+               cl.actualizarCliente(cli);
+               
+              limpiarCampos();
+              desactivarCampos();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al actualizar");
+            }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        cl.activarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
+        limpiarCampos();
+        desactivarCampos();
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        cl.desactivarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
+        limpiarCampos();
+        desactivarCampos();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDesactivar;
+    private javax.swing.JComboBox<Integer> comboId;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtContacto;
+    private javax.swing.JTextField txtDni;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

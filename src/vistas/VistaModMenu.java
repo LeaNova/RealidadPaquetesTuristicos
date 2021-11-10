@@ -5,6 +5,7 @@ import modelo.*;
 
 import java.util.logging.*;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 public class VistaModMenu extends javax.swing.JInternalFrame {
 
     private MenuData md;
+    private ArrayList<Menu> listaMenues;
     
     private Conexion con;
     
@@ -24,10 +26,13 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
             
             con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
             md = new MenuData(con);
+            listaMenues = (ArrayList)md.obtenerMenues();
             
             btnActualizar.setEnabled(false);
             btnActivar.setEnabled(false);
             btnDesactivar.setEnabled(false);
+            
+            llenarComboID();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaModMenu.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,13 +52,13 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jtID = new javax.swing.JTextField();
         jtMenu = new javax.swing.JTextField();
         jtCosto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnDesactivar = new javax.swing.JButton();
+        jcID = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -70,8 +75,6 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Costo:");
-
-        jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -105,24 +108,15 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
             }
         });
 
+        jcID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
-                .addComponent(btnActivar)
-                .addGap(18, 18, 18)
-                .addComponent(btnDesactivar)
-                .addGap(129, 129, 129))
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -131,24 +125,35 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnBuscar))
-                                .addComponent(jtMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel1)))
                 .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActualizar)
+                .addGap(18, 18, 18)
+                .addComponent(btnActivar)
+                .addGap(18, 18, 18)
+                .addComponent(btnDesactivar)
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -162,7 +167,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
                     .addComponent(btnActualizar)
                     .addComponent(btnActivar)
                     .addComponent(btnDesactivar))
-                .addGap(25, 25, 25))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -171,7 +176,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
             
             Menu m = md.buscarMenu(id);
             jtMenu.setText(m.getTipoMenu());
@@ -200,7 +205,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
             
             Menu me = md.buscarMenu(id);
             
@@ -223,7 +228,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(jtID.getText());
+        int id = (int) jcID.getSelectedItem();
         
         md.activarMenu(id);
         limpiar();
@@ -231,7 +236,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(jtID.getText());
+        int id = (int) jcID.getSelectedItem();
         
         md.desactivarMenu(id);
         limpiar();
@@ -247,8 +252,14 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         return true;
     }
     
+    private void llenarComboID() {
+        for (Menu me: listaMenues) {
+            jcID.addItem(me.getIdMenu());
+        }
+    }
+    
     private void limpiar() {
-        jtID.setText("");
+        jcID.setSelectedIndex(1);
         jtMenu.setText("");
         jtCosto.setText("");
     }
@@ -262,8 +273,8 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<Integer> jcID;
     private javax.swing.JTextField jtCosto;
-    private javax.swing.JTextField jtID;
     private javax.swing.JTextField jtMenu;
     // End of variables declaration//GEN-END:variables
 }

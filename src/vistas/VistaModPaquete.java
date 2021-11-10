@@ -6,7 +6,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 import java.util.logging.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.*;
 
@@ -29,8 +28,6 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
     private ArrayList<Destino> listaDestinos;
     
     private Conexion con;
-    
-    private DefaultTableModel modelo;
     /**
      * Creates new form VistaModPaquete
      */
@@ -52,6 +49,7 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             listaMenues = (ArrayList)md.obtenerMenues();
             listaDestinos = (ArrayList)dd.obtenerDestinos();
             
+            llenarComboID();
             llenarComboCliente();
             llenarComboTransporte();
             llenarComboAlojamiento();
@@ -93,10 +91,10 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
         jcDestino = new javax.swing.JComboBox<>();
         jtCosto = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jtID = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnDesactivar = new javax.swing.JButton();
+        jcID = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -160,8 +158,6 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("ID:");
 
-        jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,11 +179,13 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             }
         });
 
+        jcID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -217,11 +215,11 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel12)))
+                            .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(73, 73, 73)
-                                .addComponent(btnBuscar))
-                            .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(btnBuscar)))
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnActualizar)
@@ -239,11 +237,11 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -278,7 +276,7 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btnActivar)
@@ -321,7 +319,7 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
             
             Paquete pa = pd.buscarPaquete(id);
             jcCliente.setSelectedItem(pa.getCliente());
@@ -360,18 +358,26 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(jtID.getText());
+        int id = (int) jcID.getSelectedItem();
         
         pd.activarPaquete(id);
     }//GEN-LAST:event_btnActivarActionPerformed
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(jtID.getText());
+        int id = (int) jcID.getSelectedItem();
         
         pd.desactivarPaquete(id);
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
+    private void llenarComboID() {
+        for (Paquete pa: listaPaquetes) {
+            if (pa.isActivo()) {
+                jcID.addItem(pa.getIdPaquete());
+            }
+        }
+    }
+    
     private void llenarComboCliente() {
         for (Cliente cli: listaClientes) {
             if (cli.isActivo()) {
@@ -432,11 +438,11 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Alojamiento> jcAlojamiento;
     private javax.swing.JComboBox<Cliente> jcCliente;
     private javax.swing.JComboBox<Destino> jcDestino;
+    private javax.swing.JComboBox<Integer> jcID;
     private javax.swing.JComboBox<Menu> jcMenu;
     private javax.swing.JComboBox<Transporte> jcTransporte;
     private javax.swing.JTextField jtCosto;
     private javax.swing.JTextField jtFechaFinal;
     private javax.swing.JTextField jtFechaInicio;
-    private javax.swing.JTextField jtID;
     // End of variables declaration//GEN-END:variables
 }

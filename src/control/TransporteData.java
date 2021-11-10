@@ -43,7 +43,7 @@ public class TransporteData {
     }    
     
   public void actualizarTransporte(Transporte t){
-        String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?, activo = ? WHERE id_transporte = ?";
+     String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?  WHERE id_transporte = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -51,8 +51,7 @@ public class TransporteData {
             ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
             ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
             ps.setDouble(4, t.getCosto());
-            
-            ps.setInt(5, t.getIdTransporte());
+             ps.setInt(5, t.getIdTransporte());
             
             ps.executeUpdate();
             ps.close();

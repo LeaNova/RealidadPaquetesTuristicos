@@ -5,17 +5,45 @@
  */
 package vistas;
 
+import control.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Conexion;
+import modelo.Transporte;
+
 /**
  *
  * @author LeaNova
  */
 public class VistaTransporte extends javax.swing.JInternalFrame {
-
+private Conexion c;
+ private TransporteData tr;
+ private ArrayList<Transporte> transportes;
+    private DefaultTableModel modelo;
     /**
      * Creates new form VistaTransporte
      */
     public VistaTransporte() {
-        initComponents();
+        try {
+         initComponents();
+         c = new Conexion();
+         tr = new TransporteData(c);
+        transportes = (ArrayList)tr.obtenerTransportes();
+         modelo = new DefaultTableModel();
+         
+         armarCabecera();
+         
+          btnGrupo.add(radioTodos);
+           btnGrupo.add(radioActivos);
+           btnGrupo.add(radioInactivos);
+         
+     } catch (ClassNotFoundException ex) {
+         JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
+     }
     }
 
     /**
@@ -27,21 +55,417 @@ public class VistaTransporte extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupo = new javax.swing.ButtonGroup();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtFechaLlegada = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtFechaPartida = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        checkActivo = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        btnCargar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        btnNuevo = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtCosto = new javax.swing.JTextField();
+        radioTodos = new javax.swing.JRadioButton();
+        radioActivos = new javax.swing.JRadioButton();
+        radioInactivos = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabTransportes = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        comboTipo = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Costo");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("F. Llegada:");
+        jLabel3.setToolTipText("Fecha Inicial:");
+
+        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaLlegada.setEnabled(false);
+        txtFechaLlegada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaLlegadaFocusLost(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("F. Partida:");
+        jLabel4.setToolTipText("Fecha Final");
+
+        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaPartida.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Activo");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Agregar Transporte");
+
+        checkActivo.setEnabled(false);
+
+        jLabel10.setText("dd/mm/yyyy");
+        jLabel10.setToolTipText("Fecha de nacimiento:");
+
+        btnCargar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCargar.setText("Cargar");
+        btnCargar.setEnabled(false);
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Transporte");
+
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setText("Lista de  Transporte");
+
+        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCosto.setEnabled(false);
+        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCostoFocusLost(evt);
+            }
+        });
+
+        radioTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        radioTodos.setText("Todos");
+
+        radioActivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        radioActivos.setText("Activos");
+
+        radioInactivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        radioInactivos.setText("Inactivos");
+
+        tabTransportes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabTransportes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabTransportes);
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("dd/mm/yyyy");
+        jLabel9.setToolTipText("Fecha de nacimiento:");
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avion", "Colectivo", "Auto compartido", "Coche cama" }));
+        comboTipo.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9))
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(checkActivo))
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(btnCargar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevo)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addGap(246, 246, 246))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(jLabel1)
+                .addGap(270, 270, 270)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(180, 180, 180))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(radioTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioActivos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioInactivos)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioTodos)
+                    .addComponent(radioActivos)
+                    .addComponent(radioInactivos))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(checkActivo))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNuevo)
+                            .addComponent(btnCargar)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtFechaLlegadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaLlegadaFocusLost
+        // TODO add your handling code here:
+//        try{
+//            if(txtFechaLlegada.getText().isEmpty()){
+//                JOptionPane.showMessageDialog(this, "Ingrese la fecha de llegada del Transporte");
+//                txtFechaLlegada.requestFocus();
+//            }
+//        }catch(DateTimeParseException dtp){
+//            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
+//            txtFechaPartida.setText("");
+//            txtFechaPartida.requestFocus();
+//        }
+    }//GEN-LAST:event_txtFechaLlegadaFocusLost
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        
+          try{
+        
+            if(!txtCosto.getText().isEmpty()){
+            
+                Transporte t = new Transporte();
+        t.setTipodetransporte(comboTipo.getSelectedItem()+"");
+t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+t.setFechapartida(LocalDate.parse(txtFechaPartida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                t.setCosto(Double.parseDouble(txtCosto.getText()));
+                 t.setActivo(checkActivo.isEnabled());
+
+tr.agregarTransporte(t);
+           
+                limpiarCampos();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Ingrese el precio del Transporte");
+                txtCosto.requestFocus();
+          }
+            
+        }catch(DateTimeParseException dtp){
+            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
+            txtFechaLlegada.setText("");
+            txtFechaPartida.requestFocus();
+        }
+          catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Precio no válido");
+            txtCosto.setText("");
+            txtCosto.requestFocus();
+        
+}  catch (Throwable ex) {
+            JOptionPane.showMessageDialog(this, "Error en los datos");
+        }  
+            
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+        activarCampos();
+        txtFechaLlegada.requestFocus();
+
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+        // TODO add your handling code here:
+        if(txtCosto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese el Costo del Transporte");
+            txtCosto.requestFocus();
+        }
+    }//GEN-LAST:event_txtCostoFocusLost
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+       vaciarTabla();
+        boolean check1 = radioTodos.isSelected();
+        boolean check2 = radioActivos.isSelected();
+        boolean check3 = radioInactivos.isSelected();
+
+       if(check1)
+       llenarTablaTodos();
+        if(check2)
+        llenarTablaActivos();
+       if(check3)
+        llenarTablaInactivos();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void limpiarCampos(){
+        comboTipo.setSelectedIndex(-1);
+        txtFechaLlegada.setText("");
+        txtFechaPartida.setText("");
+        txtCosto.setText("");
+        checkActivo.setSelected(false);
+    }
+ private void activarCampos(){
+         
+        comboTipo.setEnabled(true);
+        txtFechaLlegada.setEnabled(true);
+        txtFechaPartida.setEnabled(true);
+        txtCosto.setEnabled(true);
+        checkActivo.setEnabled(true);
+        btnCargar.setEnabled(true);
+    }
+private void armarCabecera(){
+        ArrayList<Object> titulos = new ArrayList<>();
+        
+        titulos.add("ID");
+        titulos.add("Transporte");
+        titulos.add("Fecha de Llagada");
+        titulos.add("Fecha de Partida");
+        titulos.add("Costo");
+        titulos.add("Activo");
+  
+        
+        for (Object titulo : titulos) {
+            modelo.addColumn(titulo);
+        }
+        
+        tabTransportes.setModel(modelo);
+    }
+   private void vaciarTabla(){
+        int filas = modelo.getRowCount() - 1;
+        
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+  private void llenarTablaTodos(){
+        for (Transporte tra : transportes) {
+        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+       
+        }
+    }
+      private void llenarTablaActivos(){
+        for (Transporte tra : transportes) {
+            if(tra.isActivo()){
+                modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+            }
+        }
+    }
+    
+    private void llenarTablaInactivos(){
+        for (Transporte tra : transportes)  {
+            if(!tra.isActivo()){
+        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCargar;
+    private javax.swing.ButtonGroup btnGrupo;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JCheckBox checkActivo;
+    private javax.swing.JComboBox<String> comboTipo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton radioActivos;
+    private javax.swing.JRadioButton radioInactivos;
+    private javax.swing.JRadioButton radioTodos;
+    private javax.swing.JTable tabTransportes;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtFechaLlegada;
+    private javax.swing.JTextField txtFechaPartida;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,19 +5,73 @@
  */
 package vistas;
 
+import control.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.Conexion;
+import modelo.Transporte;
+
 /**
  *
  * @author LeaNova
  */
 public class VistaModTransporte extends javax.swing.JInternalFrame {
-
+ private Conexion c;
+    private TransporteData tr;
     /**
      * Creates new form VistaModTransporte
      */
     public VistaModTransporte() {
-        initComponents();
+         try {
+            initComponents();
+            
+            c = new Conexion();
+           tr = new TransporteData(c);
+           cargarComboId();
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
+        }
     }
+    private void limpiarCampos(){
+        txtTransporte.setText("");
+        txtFechaLlegada.setText("");
+        txtFechaPartida.setText("");
+        txtCosto.setText("");
 
+
+    }
+ private void activarCampos(){
+        txtTransporte.setEnabled(true);
+        txtFechaLlegada.setEnabled(true);
+        txtFechaPartida.setEnabled(true);
+        txtCosto.setEnabled(true);
+
+      btnActualizar.setEnabled(true);
+      btnActivar.setEnabled(true);
+      btnDesactivar.setEnabled(true);
+    }
+  private void desactivarCampos(){
+txtTransporte.setEnabled(false);
+        txtFechaLlegada.setEnabled(false);
+        txtFechaPartida.setEnabled(false);
+        txtCosto.setEnabled(false);
+
+      btnActualizar.setEnabled(false);
+      btnActivar.setEnabled(false);
+      btnDesactivar.setEnabled(false);
+    }
+ private void cargarComboId(){
+        List<Transporte> transportes;
+        transportes = tr.obtenerTransportes();
+        for (Transporte tra : transportes) {
+                comboId.addItem(tra.getIdTransporte());
+            }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +81,290 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnActualizar = new javax.swing.JButton();
+        txtFechaLlegada = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        comboId = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnDesactivar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtCosto = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtFechaPartida = new javax.swing.JTextField();
+        txtTransporte = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+
+        setClosable(true);
+
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFechaLlegada.setEnabled(false);
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        comboId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Transporte:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("ID:");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Modificar Transporte");
+
+        btnDesactivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.setEnabled(false);
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
+        btnActivar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnActivar.setText("Activar");
+        btnActivar.setEnabled(false);
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("F. Partida:");
+        jLabel4.setToolTipText("Fecha Final");
+
+        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCosto.setEnabled(false);
+        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCostoFocusLost(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Costo");
+
+        jLabel9.setText("dd/mm/yyyy");
+        jLabel9.setToolTipText("Fecha de nacimiento:");
+
+        jLabel10.setText("dd/mm/yyyy");
+        jLabel10.setToolTipText("Fecha de nacimiento:");
+
+        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaPartida.setEnabled(false);
+
+        txtTransporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTransporte.setEnabled(false);
+        txtTransporte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTransporteFocusLost(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("F. Llegada:");
+        jLabel3.setToolTipText("Fecha Inicial:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActualizar)
+                                .addGap(4, 4, 4)))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActivar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel7)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnDesactivar)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(40, 40, 40)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel9)))))))
+                .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel3))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel10))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnActivar)
+                    .addComponent(btnDesactivar))
+                .addGap(38, 38, 38))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        try{
+        if(!txtTransporte.getText().isEmpty() && !txtFechaLlegada.getText().isEmpty() && !txtFechaPartida.getText().isEmpty() && !txtCosto.getText().isEmpty()){
+            Transporte tran = new Transporte();
+            
+            tran.setIdTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
+            tran.setTipodetransporte(txtTransporte.getText());
+            tran.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+             tran.setFechapartida(LocalDate.parse(txtFechaPartida.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+             tran.setCosto(Double.parseDouble(txtCosto.getText()));
+             
+             tr.actualizarTransporte(tran);
+             
+            limpiarCampos();
+            desactivarCampos();
+         
+        } else{
+            JOptionPane.showMessageDialog(this, "Error al actualizar");
+        }
+        
+        }catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Costo no válido");
+            txtCosto.setText("");
+            txtCosto.requestFocus();
+            
+        }catch(DateTimeParseException dtp){
+            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
+            txtFechaLlegada.setText("");
+            txtFechaPartida.setText("");
+            txtFechaLlegada.requestFocus();
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        Transporte tra = tr.buscarTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
+
+        txtTransporte.setText(tra.getTipodetransporte());
+        txtFechaLlegada.setText(tra.getFechallegada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+     txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+     txtCosto.setText(tra.getCosto()+"");
+
+
+        activarCampos();
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+ tr.desactivarTransportes(Integer.parseInt(comboId.getSelectedItem()+""));
+      limpiarCampos();
+       desactivarCampos();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        tr.activarTransportes(Integer.parseInt(comboId.getSelectedItem()+""));
+      limpiarCampos();
+       desactivarCampos();
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+        // TODO add your handling code here:
+        if(txtCosto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ingrese el Costo del Transporte");
+            txtCosto.requestFocus();
+        }
+    }//GEN-LAST:event_txtCostoFocusLost
+
+    private void txtTransporteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTransporteFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTransporteFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDesactivar;
+    private javax.swing.JComboBox<Integer> comboId;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtFechaLlegada;
+    private javax.swing.JTextField txtFechaPartida;
+    private javax.swing.JTextField txtTransporte;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,8 +4,8 @@ import control.*;
 import modelo.*;
 
 import java.util.logging.*;
-import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
@@ -176,6 +176,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         try {
+            activarCampos();
             int id = (int) jcID.getSelectedItem();
             
             Menu m = md.buscarMenu(id);
@@ -217,6 +218,9 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
                 me.setCosto(costo);
                 
                 md.actualizarMenu(me);
+                limpiar();
+                desactivarCampos();
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Error en el tipo de Menu");
             }
@@ -259,9 +263,27 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
     }
     
     private void limpiar() {
-        jcID.setSelectedIndex(1);
+        jcID.setSelectedIndex(0);
         jtMenu.setText("");
         jtCosto.setText("");
+    }
+    
+    private void activarCampos(){
+        jtMenu.setEnabled(true);
+        jtCosto.setEnabled(true);
+
+        btnActualizar.setEnabled(true);
+        btnActivar.setEnabled(true);
+        btnDesactivar.setEnabled(true);
+    }
+    
+    private void desactivarCampos(){
+        jtMenu.setEnabled(false);
+        jtCosto.setEnabled(false);
+
+        btnActualizar.setEnabled(false);
+        btnActivar.setEnabled(false);
+        btnDesactivar.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

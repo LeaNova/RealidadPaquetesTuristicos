@@ -86,7 +86,7 @@ public class Destino {
 
     @Override
     public String toString() {
-        return "ID: " + idDestino + ", " + nombre + "\n";
+        return nombre + "\n";
     }
     
     @Override

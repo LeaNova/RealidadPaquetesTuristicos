@@ -4,6 +4,7 @@ import control.*;
 import modelo.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import java.util.logging.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,8 +24,6 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     private DestinoData dd;
     private ArrayList<Paquete> listaPaquetes;
     private ArrayList<Cliente> listaClientes;
-    private ArrayList<Transporte> listaTransportes;
-    private ArrayList<Alojamiento> listaAlojamientos;
     private ArrayList<Menu> listaMenues;
     private ArrayList<Destino> listaDestinos;
     
@@ -47,18 +46,15 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             dd = new DestinoData(con);
             listaPaquetes = (ArrayList)pd.obtenerPaquetes();
             listaClientes = (ArrayList)cd.obtenerClientes();
-            listaTransportes = (ArrayList)td.obtenerTransportes();
-            listaAlojamientos = (ArrayList)ad.obtenerAlojamientos();
             listaMenues = (ArrayList)md.obtenerMenues();
             listaDestinos = (ArrayList)dd.obtenerDestinos();
             
             llenarComboCliente();
-            llenarComboTransporte();
-            llenarComboAlojamiento();
             llenarComboMenu();
             llenarComboDestino();
             
-            //btnGuardar.setEnabled(false);
+            jtCant.setText(1+"");
+            btnGuardar.setEnabled(false);
             
             btnGrupo.add(jrTodos);
             btnGrupo.add(jrActivos);
@@ -114,6 +110,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jtCant = new javax.swing.JTextField();
+        btnCalcular = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -158,6 +155,16 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         jcMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jcDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcDestino.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcDestinoItemStateChanged(evt);
+            }
+        });
+        jcDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcDestinoActionPerformed(evt);
+            }
+        });
 
         jtCosto.setEditable(false);
         jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -213,6 +220,13 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
 
         jtCant.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,30 +237,29 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel14)
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jcCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)))
+                                .addComponent(jLabel12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11))
                             .addComponent(jtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29))
@@ -256,14 +269,16 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                                 .addGap(90, 90, 90)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(152, 152, 152)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jcActivo))
-                                    .addComponent(btnGuardar))))
-                        .addGap(135, 135, 135)))
+                                .addGap(109, 109, 109)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcActivo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(97, 97, 97)
+                                .addComponent(btnGuardar)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnCalcular)))
+                        .addGap(123, 123, 123)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +316,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jrActivos)
                             .addComponent(jrInactivos))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
@@ -312,8 +327,8 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -324,8 +339,8 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jcMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -345,12 +360,17 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9)
                             .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jcActivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
-                        .addGap(8, 8, 8)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnGuardar)
+                                    .addComponent(btnCalcular))
+                                .addGap(8, 8, 8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jcActivo)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(24, 24, 24))
         );
 
@@ -361,10 +381,10 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             Cliente cli = (Cliente)jcCliente.getSelectedItem();
-            Transporte tra = (Transporte)jcTransporte.getSelectedItem();
+            Destino des = (Destino)jcDestino.getSelectedItem();
             Alojamiento alo = (Alojamiento)jcAlojamiento.getSelectedItem();
             Menu me = (Menu)jcMenu.getSelectedItem();
-            Destino des = (Destino)jcDestino.getSelectedItem();
+            Transporte tra = (Transporte)jcTransporte.getSelectedItem();
 
             LocalDate f1 = LocalDate.parse(jtFechaInicio.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate f2 = LocalDate.parse(jtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -402,6 +422,46 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jcDestinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcDestinoItemStateChanged
+        // TODO add your handling code here:
+        Destino des = (Destino)jcDestino.getSelectedItem();
+        
+        jcAlojamiento.removeAllItems();
+        jcTransporte.removeAllItems();
+        llenarComboAlojamiento(des.getNombre());
+        llenarComboTransporte(des.getNombre());
+    }//GEN-LAST:event_jcDestinoItemStateChanged
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        // TODO add your handling code here:
+        try {
+            Alojamiento alo = (Alojamiento)jcAlojamiento.getSelectedItem();
+            Menu me = (Menu)jcMenu.getSelectedItem();
+            Transporte tra = (Transporte)jcTransporte.getSelectedItem();
+            
+            LocalDate f1 = LocalDate.parse(jtFechaInicio.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate f2 = LocalDate.parse(jtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            int cant = Integer.parseInt(jtCant.getText());
+            
+            double aloC = alo.getCosto() * calcularDias(f1, f2);
+            double adicional = obtenerAdicional(f1);
+            
+            double total = calcular(aloC, me, tra) * adicional;
+            
+            jtCosto.setText(total * cant+"");
+            btnGuardar.setEnabled(true);
+            
+        } catch (Throwable ex) {
+            btnGuardar.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "No se pudo calcular el precio");
+        }
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void jcDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcDestinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcDestinoActionPerformed
+
     // Llenar todo los combo box;
     private void llenarComboCliente() {
         for (Cliente cli: listaClientes) {
@@ -411,16 +471,16 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         }
     }
     
-    private void llenarComboTransporte() {
-        for (Transporte tra: listaTransportes) {
+    private void llenarComboTransporte(String des) {
+        for (Transporte tra: td.obtenerTransportesPorUbicacion(des)) {
             if (tra.isActivo()) {
                 jcTransporte.addItem(tra);
             }
         }
     }
     
-    private void llenarComboAlojamiento() {
-        for (Alojamiento alo: listaAlojamientos) {
+    private void llenarComboAlojamiento(String des) {
+        for (Alojamiento alo: ad.obtenerAlojamientosPorUbicacion(des)) {
             if (alo.isActivo()) {
                 jcAlojamiento.addItem(alo);
             }
@@ -490,26 +550,37 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             }
         }
     }
-    /*
-    // Calculador;
-    private int calcularDia() {
+    
+    // Calculadores;
+    private int calcularDias(LocalDate fecha1, LocalDate fecha2) {
+        int dias = (int) ChronoUnit.DAYS.between(fecha1, fecha2);
         
+        return dias;
     }
     
-    private double calcular() {
-        Transporte tra = (Transporte)jcTransporte.getSelectedItem();
-        Alojamiento alo = (Alojamiento)jcAlojamiento.getSelectedItem();
-        Menu me = (Menu)jcMenu.getSelectedItem();
-        
-        double costo = 0.0;
-        
-        costo += tra.getCosto() + alo.getCosto() + me.getCosto();
+    private double obtenerAdicional(LocalDate fecha) {
+        int mes = fecha.getMonth().getValue();
+        switch (mes) {
+            case 1:
+            case 7:
+                return 1.30;
+            case 2:
+            case 6:
+                return 1.15;
+            default:
+                return 1;
+        }
+    }
+    
+    private double calcular(double alo, Menu me, Transporte tra) {
+        double costo = alo + me.getCosto() + tra.getCosto();
         
         return costo;
-    }*/
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCalcular;
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;

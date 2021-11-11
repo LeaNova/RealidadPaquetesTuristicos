@@ -2,9 +2,10 @@ package vistas;
 
 import control.*;
 import modelo.*;
-import java.time.format.DateTimeFormatter;
 
+import java.time.format.DateTimeFormatter;
 import java.util.logging.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 public class VistaBajaPaquete extends javax.swing.JInternalFrame {
 
     private PaqueteData pd;
+    private ArrayList<Paquete> listaPaquetes;
     
     private Conexion con;
     /**
@@ -24,6 +26,9 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             
             con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
             pd = new PaqueteData(con);
+            listaPaquetes = (ArrayList)pd.obtenerPaquetes();
+            
+            llenarComboID();
             
             btnBaja.setEnabled(false);
             btnEliminar.setEnabled(false);
@@ -58,12 +63,12 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jtID = new javax.swing.JTextField();
         jtTransporte = new javax.swing.JTextField();
         jtCliente = new javax.swing.JTextField();
         jtAlojamiento = new javax.swing.JTextField();
         jtDestino = new javax.swing.JTextField();
         jtMenu = new javax.swing.JTextField();
+        jcID = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -129,8 +134,6 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("ID:");
 
-        jtID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jtTransporte.setEditable(false);
         jtTransporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -145,6 +148,8 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
 
         jtMenu.setEditable(false);
         jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jcID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,31 +182,30 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
                                         .addComponent(jtFechaFinal, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(68, 68, 68)
-                                        .addComponent(btnBuscar))
                                     .addComponent(jtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(51, 51, 51))
+                                    .addComponent(jtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(62, 62, 62)
+                                        .addComponent(btnBuscar))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(jLabel1)))
-                .addGap(0, 58, Short.MAX_VALUE))
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(jcID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -234,7 +238,7 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
                     .addComponent(btnEliminar))
@@ -247,7 +251,7 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
             
             pd.desactivarPaquete(id);
         } catch (NumberFormatException ex) {
@@ -258,7 +262,7 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
 
             Paquete pa = pd.buscarPaquete(id);
             jtCliente.setText(pa.getCliente().getNombre());
@@ -308,7 +312,7 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         try {
-            int id = Integer.parseInt(jtID.getText());
+            int id = (int) jcID.getSelectedItem();
             
             pd.borrarPaquete(id);
         } catch (NumberFormatException ex) {
@@ -316,6 +320,12 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void llenarComboID() {
+        for (Paquete pa: listaPaquetes) {
+            jcID.addItem(pa.getIdPaquete());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnBuscar;
@@ -330,13 +340,13 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<Integer> jcID;
     private javax.swing.JTextField jtAlojamiento;
     private javax.swing.JTextField jtCliente;
     private javax.swing.JTextField jtCosto;
     private javax.swing.JTextField jtDestino;
     private javax.swing.JTextField jtFechaFinal;
     private javax.swing.JTextField jtFechaInicio;
-    private javax.swing.JTextField jtID;
     private javax.swing.JTextField jtMenu;
     private javax.swing.JTextField jtTransporte;
     // End of variables declaration//GEN-END:variables

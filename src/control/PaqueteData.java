@@ -52,7 +52,7 @@ public class PaqueteData {
     }
     
     public void actualizarPaquete(Paquete paquete) {
-        String sql = "UPTDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, id_destino = ?, fecha_inicio = ?, fecha_final = ?, costo_total = ? WHERE id_paquete = ?";
+        String sql = "UPDATE paquete SET id_cliente = ?, id_transporte = ?, id_alojamiento = ?, id_menu = ?, id_destino = ?, fecha_inicio = ?, fecha_final = ?, costo_total = ? WHERE id_paquete = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -119,55 +119,6 @@ public class PaqueteData {
             System.out.println("Error al buscar Paquete. " + ex);
         }
         return paquete;
-    }
-    
-    public List<Paquete> buscarPaquetePorDestino(String des) {
-        List<Paquete> listaPa = new ArrayList<>();
-        Cliente cli;
-        Transporte tra;
-        Alojamiento alo;
-        Menu me;
-        Destino de;
-        String sql = "SELECT * FROM paquete, destino WHERE destino.nombre LIKE ?";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, des);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Paquete paquete = new Paquete();
-                paquete.setIdPaquete(rs.getInt(1));
-                
-                cli = buscarCliente(rs.getInt("id_cliente"));
-                paquete.setCliente(cli);
-                
-                tra = buscarTransporte(rs.getInt("id_transporte"));
-                paquete.setTransporte(tra);
-                
-                alo = buscarAlojamiento(rs.getInt("id_alojamiento"));
-                paquete.setAlojamiento(alo);
-                
-                me = buscarMenu(rs.getInt("id_menu"));
-                paquete.setMenu(me);
-                
-                de = buscarDestino(rs.getInt("id_destino"));
-                paquete.setDestino(de);
-                
-                paquete.setFechaInicio(rs.getDate(7).toLocalDate());
-                paquete.setFechaFinal(rs.getDate(8).toLocalDate());
-                paquete.setCostoTotal(rs.getDouble(9));
-                paquete.setActivo(rs.getBoolean(10));
-                
-                listaPa.add(paquete);
-            }
-            
-            ps.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener resultados. " + ex);
-        }
-        return listaPa;
     }
     
     public List<Paquete> obtenerPaquetes() {

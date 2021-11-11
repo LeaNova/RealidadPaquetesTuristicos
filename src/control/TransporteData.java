@@ -20,15 +20,16 @@ public class TransporteData {
 }
 
     public void agregarTransporte(Transporte t){
-        String sql = "INSERT INTO transporte (tipo_transporte,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO transporte (tipo_transporte,destino,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?,?)";
     
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, t.getTipodetransporte());
-            ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
-            ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
-            ps.setDouble(4, t.getCosto());
-            ps.setBoolean(5, t.isActivo());
+            ps.setString(2, t.getDestino());
+            ps.setDate(3, java.sql.Date.valueOf(t.getFechallegada()));
+            ps.setDate(4, java.sql.Date.valueOf(t.getFechapartida()));
+            ps.setDouble(5, t.getCosto());
+            ps.setBoolean(6, t.isActivo());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -43,15 +44,16 @@ public class TransporteData {
     }    
     
   public void actualizarTransporte(Transporte t){
-     String sql = "UPDATE transporte SET tipo_transporte = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?  WHERE id_transporte = ?";
+     String sql = "UPDATE transporte SET tipo_transporte = ?, destino = ?, fecha_llegada = ?, fecha_partida = ?, costo = ?  WHERE id_transporte = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTipodetransporte());
-            ps.setDate(2, java.sql.Date.valueOf(t.getFechallegada()));
-            ps.setDate(3, java.sql.Date.valueOf(t.getFechapartida()));
-            ps.setDouble(4, t.getCosto());
-             ps.setInt(5, t.getIdTransporte());
+            ps.setString(2, t.getDestino());
+            ps.setDate(3, java.sql.Date.valueOf(t.getFechallegada()));
+            ps.setDate(4, java.sql.Date.valueOf(t.getFechapartida()));
+            ps.setDouble(5, t.getCosto());
+            ps.setInt(6, t.getIdTransporte());
             
             ps.executeUpdate();
             ps.close();
@@ -79,10 +81,11 @@ public class TransporteData {
                 
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setFechallegada(rs.getDate(3).toLocalDate());
-                t.setFechapartida(rs.getDate(4).toLocalDate());
-                t.setCosto(rs.getDouble(5));
-                 t.setActivo(rs.getBoolean(6));
+                t.setDestino(rs.getString(3));
+                t.setFechallegada(rs.getDate(4).toLocalDate());
+                t.setFechapartida(rs.getDate(5).toLocalDate());
+                t.setCosto(rs.getDouble(6));
+                t.setActivo(rs.getBoolean(7));
                            
             }
             
@@ -108,10 +111,45 @@ public class TransporteData {
                 
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setFechallegada(rs.getDate(3).toLocalDate());
-                t.setFechapartida(rs.getDate(4).toLocalDate());
-                t.setCosto(rs.getDouble(5));
-                t.setActivo(rs.getBoolean(6));
+                t.setDestino(rs.getString(3));
+                t.setFechallegada(rs.getDate(4).toLocalDate());
+                t.setFechapartida(rs.getDate(5).toLocalDate());
+                t.setCosto(rs.getDouble(6));
+                t.setActivo(rs.getBoolean(7));
+                
+                transportes.add(t);
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los transportes. " + ex);
+        }
+        
+        return transportes;
+    }
+    
+    public List<Transporte> obtenerTransportesPorUbicacion(String des){
+        List<Transporte> transportes = new ArrayList<>();
+        
+        String sql = "SELECT * FROM transporte WHERE destino LIKE ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, des);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Transporte t = new Transporte();
+                
+                t.setIdTransporte(rs.getInt(1));
+                t.setTipodetransporte(rs.getString(2));
+                t.setDestino(rs.getString(3));
+                t.setFechallegada(rs.getDate(4).toLocalDate());
+                t.setFechapartida(rs.getDate(5).toLocalDate());
+                t.setCosto(rs.getDouble(6));
+                t.setActivo(rs.getBoolean(7));
                 
                 transportes.add(t);
             }
@@ -140,10 +178,11 @@ public class TransporteData {
                 
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setFechallegada(rs.getDate(3).toLocalDate());
-                t.setFechapartida(rs.getDate(4).toLocalDate());
-                t.setCosto(rs.getDouble(5));
-                t.setActivo(rs.getBoolean(6));
+                t.setDestino(rs.getString(3));
+                t.setFechallegada(rs.getDate(4).toLocalDate());
+                t.setFechapartida(rs.getDate(5).toLocalDate());
+                t.setCosto(rs.getDouble(6));
+                t.setActivo(rs.getBoolean(7));
 
                 transportesactivos.add(t);
                 
@@ -173,10 +212,11 @@ public class TransporteData {
         
                 t.setIdTransporte(rs.getInt(1));
                 t.setTipodetransporte(rs.getString(2));
-                t.setFechallegada(rs.getDate(3).toLocalDate());
-                t.setFechapartida(rs.getDate(4).toLocalDate());
-                t.setCosto(rs.getDouble(5));  
-                t.setActivo(rs.getBoolean(6));
+                t.setDestino(rs.getString(3));
+                t.setFechallegada(rs.getDate(4).toLocalDate());
+                t.setFechapartida(rs.getDate(5).toLocalDate());
+                t.setCosto(rs.getDouble(6));
+                t.setActivo(rs.getBoolean(7));
 
                 transporteinactivos.add(t);
                 

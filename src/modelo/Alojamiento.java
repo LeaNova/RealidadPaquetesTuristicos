@@ -84,11 +84,22 @@ public class Alojamiento {
 
     @Override
     public String toString() {
-        return "ID: " + idAlojamiento + ", " + nombre + "\n";
+        return nombre + "\n";
     }
-    
+
+    @Override
+    public int hashCode() {
+        return this.idAlojamiento;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        return this.idAlojamiento == ((Alojamiento)obj).idAlojamiento;
+        if (obj == null || !(obj instanceof Alojamiento)) {
+            return false;
+        } else {
+            
+            Alojamiento viene = (Alojamiento)obj;
+            return this.idAlojamiento == viene.idAlojamiento;
+        }
     }
 }

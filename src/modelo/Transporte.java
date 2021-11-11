@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class Transporte {
     private int idTransporte;
     private String tipodetransporte;
+    private String destino;
     private LocalDate fechallegada;
     private LocalDate fechapartida;
     private double costo;
@@ -17,17 +18,19 @@ public class Transporte {
     public Transporte() {
     }
 
-    public Transporte(String tipodetransporte, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
+    public Transporte(String tipodetransporte, String destino, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
         this.tipodetransporte = tipodetransporte;
+        this.destino = destino;
         this.fechallegada = fechallegada;
         this.fechapartida = fechapartida;
         this.costo = costo;
         this.activo = activo;
     }
 
-    public Transporte(int idTransporte, String tipodetransporte, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
+    public Transporte(int idTransporte, String tipodetransporte, String destino, LocalDate fechallegada, LocalDate fechapartida, double costo, boolean activo) {
         this.idTransporte = idTransporte;
         this.tipodetransporte = tipodetransporte;
+        this.destino = destino;
         this.fechallegada = fechallegada;
         this.fechapartida = fechapartida;
         this.costo = costo;
@@ -51,6 +54,14 @@ public class Transporte {
         this.tipodetransporte = tipodetransporte;
     }
 
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+    
     public LocalDate getFechallegada() {
         return fechallegada;
     }
@@ -85,11 +96,22 @@ public class Transporte {
 
     @Override
     public String toString() {
-        return "ID: " + idTransporte + ", " + tipodetransporte + "\n";
+        return tipodetransporte + "\n";
     }
-    
+
+    @Override
+    public int hashCode() {
+        return this.idTransporte;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        return this.idTransporte == ((Transporte)obj).idTransporte;
+        if (obj == null || !(obj instanceof Transporte)) {
+            return false;
+        } else {
+            
+            Transporte viene = (Transporte)obj;
+            return this.idTransporte == viene.idTransporte;
+        }
     }
 }

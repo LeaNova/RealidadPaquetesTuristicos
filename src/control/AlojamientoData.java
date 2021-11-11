@@ -126,6 +126,39 @@ public class AlojamientoData {
         return alojamientos;
     }
     
+    public List<Alojamiento> obtenerAlojamientosPorUbicacion(String des){
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        
+        String sql = "SELECT * FROM alojamiento WHERE ubicacion LIKE ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, des);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Alojamiento a = new Alojamiento();
+                
+                a.setIdAlojamiento(rs.getInt(1));
+                a.setTipoAlojamiento(rs.getString(2));
+                a.setNombre(rs.getString(3));
+                a.setUbicacion(rs.getString(4));
+                a.setCosto(rs.getDouble(5));
+                a.setActivo(rs.getBoolean(6));
+                
+                alojamientos.add(a);
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los alojamientos. " + ex);
+        }
+        
+        return alojamientos;
+    }
+    
     public List<Alojamiento> obtenerAlojamientosActivos(){
         List<Alojamiento> alojamientos = new ArrayList<>();
         

@@ -101,17 +101,17 @@ public class VistaBajaAlojamiento extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Costo:");
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNombre.setEnabled(false);
 
+        txtUbicacion.setEditable(false);
         txtUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtUbicacion.setEnabled(false);
 
+        txtTipo.setEditable(false);
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTipo.setEnabled(false);
 
+        txtCosto.setEditable(false);
         txtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCosto.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

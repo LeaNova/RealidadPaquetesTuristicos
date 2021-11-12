@@ -332,12 +332,21 @@ txtDestino.setEnabled(false);
         txtTransporte.setText(tra.getTipodetransporte());
         txtDestino.setText(tra.getDestino());
         txtFechaLlegada.setText(tra.getFechallegada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-     txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-     txtCosto.setText(tra.getCosto()+"");
-
-
+        txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        txtCosto.setText(tra.getCosto()+"");
+        
         activarCampos();
 
+        btnActualizar.setEnabled(true);
+            
+            if(tra.isActivo()) {
+                btnActivar.setEnabled(false);
+                btnDesactivar.setEnabled(true);
+            } else {
+                btnActivar.setEnabled(true);
+                btnDesactivar.setEnabled(false);
+            }
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed

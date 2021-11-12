@@ -79,28 +79,28 @@ public class VistaBajaDestino extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nombre:");
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNombre.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pais:");
 
+        txtPais.setEditable(false);
         txtPais.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtPais.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("F. Inicial:");
         jLabel5.setToolTipText("Fecha Inicial:");
 
+        txtFechaInicial.setEditable(false);
         txtFechaInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaInicial.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("F. Final:");
         jLabel6.setToolTipText("Fecha Final:");
 
+        txtFechaFinal.setEditable(false);
         txtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaFinal.setEnabled(false);
 
         btnBaja.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBaja.setText("Baja");

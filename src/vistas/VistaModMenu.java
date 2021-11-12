@@ -77,8 +77,10 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         jLabel4.setText("Costo:");
 
         jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtMenu.setEnabled(false);
 
         jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtCosto.setEnabled(false);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,19 +184,13 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
             Menu m = md.buscarMenu(id);
             jtMenu.setText(m.getTipoMenu());
             jtCosto.setText(m.getCosto()+"");
+            btnActualizar.setEnabled(true);
             
-            if(!jtMenu.getText().isEmpty()) {
-                btnActualizar.setEnabled(true);
-                if(m.isActivo()) {
-                    btnActivar.setEnabled(false);
-                    btnDesactivar.setEnabled(true);
-                } else {
-                    btnActivar.setEnabled(true);
-                    btnDesactivar.setEnabled(false);
-                }
-            } else {
-                btnActualizar.setEnabled(false);
+            if(m.isActivo()) {
                 btnActivar.setEnabled(false);
+                btnDesactivar.setEnabled(true);
+            } else {
+                btnActivar.setEnabled(true);
                 btnDesactivar.setEnabled(false);
             }
             
@@ -235,6 +231,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         int id = (int) jcID.getSelectedItem();
         
         md.activarMenu(id);
+        desactivarCampos();
         limpiar();
     }//GEN-LAST:event_btnActivarActionPerformed
 
@@ -243,6 +240,7 @@ public class VistaModMenu extends javax.swing.JInternalFrame {
         int id = (int) jcID.getSelectedItem();
         
         md.desactivarMenu(id);
+        desactivarCampos();
         limpiar();
     }//GEN-LAST:event_btnDesactivarActionPerformed
 

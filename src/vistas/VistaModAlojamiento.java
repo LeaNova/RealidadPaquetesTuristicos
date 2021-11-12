@@ -207,13 +207,22 @@ public class VistaModAlojamiento extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        activarCampos();
         Alojamiento a = ad.buscarAlojamiento(Integer.parseInt(comboId.getSelectedItem()+""));
 
         txtNombre.setText(a.getNombre());
         txtTipo.setText(a.getTipoAlojamiento());
         txtUbicacion.setText(a.getUbicacion());
         txtCosto.setText(a.getCosto()+"");
-        activarCampos();
+        
+        btnActualizar.setEnabled(true);
+        if(a.isActivo()) {
+            btnActivar.setEnabled(false);
+            btnDesactivar.setEnabled(true);
+        } else {
+            btnActivar.setEnabled(true);
+            btnDesactivar.setEnabled(false);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -264,9 +273,6 @@ public class VistaModAlojamiento extends javax.swing.JInternalFrame {
         txtTipo.setEnabled(true);
         txtUbicacion.setEnabled(true);
         txtCosto.setEnabled(true);
-        btnActualizar.setEnabled(true);
-        btnActivar.setEnabled(true);
-        btnDesactivar.setEnabled(true);
     }
     
     private void desactivarCampos(){

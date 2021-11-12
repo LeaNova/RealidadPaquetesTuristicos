@@ -333,20 +333,13 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             jtFechaFinal.setText(pa.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             
             jtCosto.setText(pa.getCostoTotal()+"");
-            double costo = pa.getCostoTotal();
+            btnActualizar.setEnabled(true);
             
-            if(!jtCosto.getText().isEmpty() || costo > 0.0) {
-                btnActualizar.setEnabled(true);
-                if(pa.isActivo()) {
-                    btnActivar.setEnabled(false);
-                    btnDesactivar.setEnabled(true);
-                } else {
-                    btnActivar.setEnabled(true);
-                    btnDesactivar.setEnabled(false);
-                }
-            } else {
-                btnActualizar.setEnabled(false);
+            if(pa.isActivo()) {
                 btnActivar.setEnabled(false);
+                btnDesactivar.setEnabled(true);
+            } else {
+                btnActivar.setEnabled(true);
                 btnDesactivar.setEnabled(false);
             }
             
@@ -383,9 +376,7 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
 
     private void llenarComboID() {
         for (Paquete pa: listaPaquetes) {
-            if (pa.isActivo()) {
-                jcID.addItem(pa.getIdPaquete());
-            }
+            jcID.addItem(pa.getIdPaquete());
         }
     }
     

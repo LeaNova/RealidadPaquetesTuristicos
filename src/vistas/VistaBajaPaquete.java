@@ -277,19 +277,11 @@ public class VistaBajaPaquete extends javax.swing.JInternalFrame {
             jtCosto.setText(pa.getCostoTotal()+"");
             
             if(pa.isActivo()) {
-                jtCliente.setText(pa.getCliente().getNombre());
-
-                jtMenu.setText(pa.getMenu().getTipoMenu());
-
-                if(!jtFechaInicio.getText().isEmpty()) {
-                    btnBaja.setEnabled(true);
-                    btnEliminar.setEnabled(true);
-                } else {
-                    btnBaja.setEnabled(false);
-                    btnEliminar.setEnabled(false);
-                }
+                btnBaja.setEnabled(true);
+                btnEliminar.setEnabled(true);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontro menu activo");
+                btnBaja.setEnabled(false);
+                btnEliminar.setEnabled(true);
             }
             
         } catch (Throwable ex) {

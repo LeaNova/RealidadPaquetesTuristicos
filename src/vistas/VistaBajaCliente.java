@@ -103,17 +103,17 @@ private Conexion c;
             }
         });
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNombre.setEnabled(false);
 
+        txtDni.setEditable(false);
         txtDni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtDni.setEnabled(false);
 
+        txtContacto.setEditable(false);
         txtContacto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtContacto.setEnabled(false);
 
+        txtCelular.setEditable(false);
         txtCelular.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCelular.setEnabled(false);
 
         btnBaja.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBaja.setText("Baja");
@@ -157,13 +157,12 @@ private Conexion c;
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtDni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addComponent(txtContacto, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnBaja)
                                 .addGap(47, 47, 47)
                                 .addComponent(btnEliminar))
@@ -201,7 +200,7 @@ private Conexion c;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
                     .addComponent(btnEliminar))

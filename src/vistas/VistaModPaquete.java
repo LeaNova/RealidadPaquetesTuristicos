@@ -309,7 +309,7 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
             jtCosto.setText(calcularTodo()+"");
             
         } catch (Throwable ex) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar Paquete. " + ex);
+            JOptionPane.showMessageDialog(this, "Error al actualizar Paquete");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 

@@ -37,7 +37,9 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
         }
     }
     private void limpiarCampos(){
+        
         txtTransporte.setText("");
+        txtDestino.setText("");
         txtFechaLlegada.setText("");
         txtFechaPartida.setText("");
         txtCosto.setText("");
@@ -46,6 +48,7 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     }
  private void activarCampos(){
         txtTransporte.setEnabled(true);
+        txtDestino.setEnabled(true);
         txtFechaLlegada.setEnabled(true);
         txtFechaPartida.setEnabled(true);
         txtCosto.setEnabled(true);
@@ -56,6 +59,7 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     }
   private void desactivarCampos(){
 txtTransporte.setEnabled(false);
+txtDestino.setEnabled(false);
         txtFechaLlegada.setEnabled(false);
         txtFechaPartida.setEnabled(false);
         txtCosto.setEnabled(false);
@@ -98,6 +102,8 @@ txtTransporte.setEnabled(false);
         txtFechaPartida = new javax.swing.JTextField();
         txtTransporte = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        txtDestino = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -186,6 +192,11 @@ txtTransporte.setEnabled(false);
         jLabel3.setText("F. Llegada:");
         jLabel3.setToolTipText("Fecha Inicial:");
 
+        txtDestino.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Destino:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,9 +214,11 @@ txtTransporte.setEnabled(false);
                                     .addComponent(jLabel4)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnActualizar)
-                                .addGap(4, 4, 4)))
+                                .addGap(4, 4, 4))
+                            .addComponent(jLabel5))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnActivar)))
                     .addGroup(layout.createSequentialGroup()
@@ -239,16 +252,20 @@ txtTransporte.setEnabled(false);
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(21, 21, 21)
+                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
@@ -281,6 +298,7 @@ txtTransporte.setEnabled(false);
             
             tran.setIdTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
             tran.setTipodetransporte(txtTransporte.getText());
+            tran.setDestino(txtDestino.getText());
             tran.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
              tran.setFechapartida(LocalDate.parse(txtFechaPartida.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
              tran.setCosto(Double.parseDouble(txtCosto.getText()));
@@ -312,6 +330,7 @@ txtTransporte.setEnabled(false);
         Transporte tra = tr.buscarTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
 
         txtTransporte.setText(tra.getTipodetransporte());
+        txtDestino.setText(tra.getDestino());
         txtFechaLlegada.setText(tra.getFechallegada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
      txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
      txtCosto.setText(tra.getCosto()+"");
@@ -359,10 +378,12 @@ txtTransporte.setEnabled(false);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtDestino;
     private javax.swing.JTextField txtFechaLlegada;
     private javax.swing.JTextField txtFechaPartida;
     private javax.swing.JTextField txtTransporte;

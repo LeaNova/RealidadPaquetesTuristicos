@@ -78,6 +78,8 @@ private Conexion c;
         btnBuscar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
+        txtDestino = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -191,6 +193,11 @@ private Conexion c;
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avion", "Colectivo", "Auto compartido", "Coche cama" }));
         comboTipo.setEnabled(false);
 
+        txtDestino.setEnabled(false);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Destino:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -202,25 +209,29 @@ private Conexion c;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel7)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(28, 28, 28))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9))
                             .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(checkActivo))
-                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtDestino, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFechaLlegada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(btnCargar)
@@ -267,16 +278,20 @@ private Conexion c;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(19, 19, 19)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
                             .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel4))
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -292,7 +307,7 @@ private Conexion c;
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -320,8 +335,10 @@ private Conexion c;
             if(!txtCosto.getText().isEmpty()){
             
                 Transporte t = new Transporte();
+                
         t.setTipodetransporte(comboTipo.getSelectedItem()+"");
-t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+t.setDestino(txtDestino.getText());
+        t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 t.setFechapartida(LocalDate.parse(txtFechaPartida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 t.setCosto(Double.parseDouble(txtCosto.getText()));
                  t.setActivo(checkActivo.isEnabled());
@@ -383,6 +400,7 @@ tr.agregarTransporte(t);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void limpiarCampos(){
+        txtDestino.setText("");
         comboTipo.setSelectedIndex(-1);
         txtFechaLlegada.setText("");
         txtFechaPartida.setText("");
@@ -390,7 +408,7 @@ tr.agregarTransporte(t);
         checkActivo.setSelected(false);
     }
  private void activarCampos(){
-         
+         txtDestino.setEnabled(true);
         comboTipo.setEnabled(true);
         txtFechaLlegada.setEnabled(true);
         txtFechaPartida.setEnabled(true);
@@ -403,6 +421,7 @@ private void armarCabecera(){
         
         titulos.add("ID");
         titulos.add("Transporte");
+        titulos.add("Destino");
         titulos.add("Fecha de Llagada");
         titulos.add("Fecha de Partida");
         titulos.add("Costo");
@@ -424,14 +443,14 @@ private void armarCabecera(){
     }
   private void llenarTablaTodos(){
         for (Transporte tra : transportes) {
-        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
        
         }
     }
       private void llenarTablaActivos(){
         for (Transporte tra : transportes) {
             if(tra.isActivo()){
-                modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+                modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
             }
         }
     }
@@ -439,7 +458,7 @@ private void armarCabecera(){
     private void llenarTablaInactivos(){
         for (Transporte tra : transportes)  {
             if(!tra.isActivo()){
-        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
+        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
             }
         }
     }
@@ -452,6 +471,7 @@ private void armarCabecera(){
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -465,6 +485,7 @@ private void armarCabecera(){
     private javax.swing.JRadioButton radioTodos;
     private javax.swing.JTable tabTransportes;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtDestino;
     private javax.swing.JTextField txtFechaLlegada;
     private javax.swing.JTextField txtFechaPartida;
     // End of variables declaration//GEN-END:variables

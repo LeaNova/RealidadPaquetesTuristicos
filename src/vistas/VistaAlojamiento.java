@@ -75,7 +75,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Agregar Alojamiento");
 
-        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNombre.setEnabled(false);
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -86,7 +86,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Ubicacion:");
 
-        txtUbicacion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtUbicacion.setEnabled(false);
         txtUbicacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -97,7 +97,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Costo:");
 
-        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCosto.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -178,6 +178,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Tipo:");
 
+        comboTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cabaña", "Departamento", "Hotel", "Hostal", "Motel", "Resort" }));
         comboTipo.setEnabled(false);
 
@@ -278,7 +279,7 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
                             .addComponent(btnCargar))))
                 .addGap(26, 26, 26)
                 .addComponent(btnBuscar)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
 

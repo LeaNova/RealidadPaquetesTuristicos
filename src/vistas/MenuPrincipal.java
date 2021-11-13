@@ -56,10 +56,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 718, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Alta");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jmAlojamiento.setText("Alojamiento");
         jmAlojamiento.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +105,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Baja");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jmBajaAlojamiento.setText("B. Alojamiento");
         jmBajaAlojamiento.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Modificación");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jmModAlojamiento.setText("M. Alojamiento");
         jmModAlojamiento.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +195,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Paquetes");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jmPaquete.setText("Crear Paquete");
         jmPaquete.addActionListener(new java.awt.event.ActionListener() {

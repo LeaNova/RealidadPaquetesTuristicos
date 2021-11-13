@@ -112,7 +112,7 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("F. Partida:");
-        jLabel4.setToolTipText("Fecha Final");
+        jLabel4.setToolTipText("Fecha de partida:");
 
         txtCosto.setEditable(false);
         txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -123,7 +123,7 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Costo");
+        jLabel8.setText("Costo:");
 
         jLabel9.setText("dd/mm/yyyy");
         jLabel9.setToolTipText("Fecha de nacimiento:");
@@ -144,7 +144,7 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("F. Llegada:");
-        jLabel3.setToolTipText("Fecha Inicial:");
+        jLabel3.setToolTipText("Fecha de llegada:");
 
         txtFechaLlegada.setEditable(false);
         txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

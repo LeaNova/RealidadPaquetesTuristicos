@@ -85,13 +85,13 @@ private Conexion c;
         setClosable(true);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Costo");
+        jLabel8.setText("Costo:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("F. Llegada:");
-        jLabel3.setToolTipText("Fecha Inicial:");
+        jLabel3.setToolTipText("Fecha de llegada:");
 
-        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFechaLlegada.setEnabled(false);
         txtFechaLlegada.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -101,9 +101,9 @@ private Conexion c;
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("F. Partida:");
-        jLabel4.setToolTipText("Fecha Final");
+        jLabel4.setToolTipText("Fecha de partida:");
 
-        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFechaPartida.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -140,7 +140,7 @@ private Conexion c;
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Lista de  Transporte");
 
-        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCosto.setEnabled(false);
         txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -191,9 +191,11 @@ private Conexion c;
         jLabel9.setText("dd/mm/yyyy");
         jLabel9.setToolTipText("Fecha de nacimiento:");
 
+        comboTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avion", "Colectivo", "Auto compartido", "Coche cama" }));
         comboTipo.setEnabled(false);
 
+        txtDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDestino.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

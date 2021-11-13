@@ -71,7 +71,7 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
         jLabel2.setText("Nombre:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Dni:");
+        jLabel3.setText("DNI:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Contacto:");

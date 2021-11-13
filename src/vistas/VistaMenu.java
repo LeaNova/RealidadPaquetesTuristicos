@@ -72,21 +72,20 @@ public class VistaMenu extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Agregar Menu");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tipo menu:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("costo:");
+        jLabel4.setText("Costo:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Activo:");
+        jLabel5.setText("Activo");
 
+        btnCargar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCargar.setText("Cargar");
         btnCargar.setEnabled(false);
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +94,7 @@ public class VistaMenu extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,17 +115,18 @@ public class VistaMenu extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtabMenues);
 
-        jtMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtMenu.setEnabled(false);
 
-        jtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtCosto.setEnabled(false);
 
         jcActivo.setEnabled(false);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Lista de Menues");
 
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,10 +134,13 @@ public class VistaMenu extends javax.swing.JInternalFrame {
             }
         });
 
+        jrTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jrTodos.setText("Todos");
 
+        jrActivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jrActivos.setText("Activos");
 
+        jrInactivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jrInactivos.setText("Inactivos");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -148,7 +152,7 @@ public class VistaMenu extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 99, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnCargar)
@@ -174,11 +178,11 @@ public class VistaMenu extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(127, 127, 127)
+                            .addGap(115, 115, 115)
                             .addComponent(jrTodos)
                             .addGap(18, 18, 18)
                             .addComponent(jrActivos)
-                            .addGap(18, 18, 18)
+                            .addGap(30, 30, 30)
                             .addComponent(jrInactivos)
                             .addGap(115, 115, 115))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

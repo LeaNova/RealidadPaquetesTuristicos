@@ -84,7 +84,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nombre:");
 
-        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNombre.setEnabled(false);
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -92,7 +92,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
             }
         });
 
-        txtPais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPais.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPais.setEnabled(false);
         txtPais.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -107,7 +107,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
         jLabel3.setText("F. Inicial:");
         jLabel3.setToolTipText("Fecha Inicial:");
 
-        txtFechaInicial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFechaInicial.setEnabled(false);
         txtFechaInicial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -119,7 +119,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
         jLabel4.setText("F. Final:");
         jLabel4.setToolTipText("Fecha Final");
 
-        txtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFechaFinal.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -295,7 +295,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
                             .addComponent(btnCargar))))
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
 

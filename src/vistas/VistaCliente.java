@@ -97,8 +97,9 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         jLabel5.setText("Celular:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Activo:");
+        jLabel6.setText("Activo");
 
+        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNombre.setEnabled(false);
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -111,6 +112,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        txtDni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDni.setEnabled(false);
         txtDni.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -118,6 +120,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        txtContacto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtContacto.setEnabled(false);
         txtContacto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -130,6 +133,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCelular.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCelular.setEnabled(false);
         txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -159,10 +163,13 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setText("Lista de Clientes");
 
+        radioTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioTodos.setText("Todos");
 
+        radioActivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioActivos.setText("Activos");
 
+        radioInactivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         radioInactivos.setText("Inactivos");
 
         tabClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,6 +194,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabClientes);
 
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +250,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                         .addGap(128, 128, 128)
                         .addComponent(jLabel7))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
+                        .addGap(104, 104, 104)
                         .addComponent(radioTodos)
                         .addGap(18, 18, 18)
                         .addComponent(radioActivos)

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.*;
@@ -13,7 +8,7 @@ import modelo.Conexion;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaModCliente extends javax.swing.JInternalFrame {
  private Conexion c;
@@ -31,10 +26,7 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
             
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
-        }
-        
-        
-        
+        }  
     }
 
     /**
@@ -215,7 +207,6 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
         txtDni.setText("");
         txtContacto.setText("");
         txtCelular.setText("");
-
     }
  private void activarCampos(){
         txtNombre.setEnabled(true);
@@ -223,9 +214,9 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
         txtContacto.setEnabled(true);
         txtCelular.setEnabled(true);
 
-      btnActualizar.setEnabled(true);
-      btnActivar.setEnabled(true);
-      btnDesactivar.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        btnActivar.setEnabled(true);
+        btnDesactivar.setEnabled(true);
     }
   private void desactivarCampos(){
         txtNombre.setEnabled(false);
@@ -233,9 +224,9 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
         txtContacto.setEnabled(false);
         txtCelular.setEnabled(false);
 
-      btnActualizar.setEnabled(false);
-      btnActivar.setEnabled(false);
-      btnDesactivar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnActivar.setEnabled(false);
+        btnDesactivar.setEnabled(false);
     }
  private void cargarComboId(){
         List<Cliente> clientes;
@@ -253,7 +244,7 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
         txtContacto.setText(cli.getContacto());
         txtCelular.setText(cli.getCelular()+"");
 
-         activarCampos();
+        activarCampos();
          
         btnActualizar.setEnabled(true);
             
@@ -264,7 +255,6 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
             btnActivar.setEnabled(true);
             btnDesactivar.setEnabled(false);
         }
- 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -273,25 +263,19 @@ public class VistaModCliente extends javax.swing.JInternalFrame {
 
                 Cliente cli = new Cliente();
 
-                
-                
                 cli.setIdCliente(Integer.parseInt(comboId.getSelectedItem()+""));
                 cli.setNombre(txtNombre.getText());
                 cli.setDni(Integer.parseInt(txtDni.getText()));
                 cli.setContacto(txtContacto.getText());
                 cli.setCelular(Integer.parseInt(txtCelular.getText()));
-               cl.actualizarCliente(cli);
+                cl.actualizarCliente(cli);
                
-              limpiarCampos();
-              desactivarCampos();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Error al actualizar");
-            }
-        
-        
-        
-        
+                limpiarCampos();
+                desactivarCampos();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error al actualizar");
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed

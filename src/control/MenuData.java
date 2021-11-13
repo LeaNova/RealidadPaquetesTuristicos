@@ -15,7 +15,7 @@ public class MenuData {
         try {
             con = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+            System.out.println("Error en la conexion. " + ex);
         }
     }
     
@@ -37,7 +37,7 @@ public class MenuData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al agregar Menu. " + ex);
+            System.out.println("Error al agregar menu. " + ex);
         }
     }
     
@@ -55,7 +55,7 @@ public class MenuData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error en actualizar Menu. " + ex);
+            System.out.println("Error al actualizar menu. " + ex);
         }
     }
     
@@ -78,7 +78,7 @@ public class MenuData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error en buscar Menu. " + ex);
+            System.out.println("Error al buscar menu. " + ex);
         }
         
         return menu;
@@ -104,7 +104,7 @@ public class MenuData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los menues. " + ex);
         }
         
         return lista;
@@ -130,7 +130,7 @@ public class MenuData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los menues activos. " + ex);
         }
         
         return listaAc;
@@ -156,7 +156,7 @@ public class MenuData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los menues inactivos. " + ex);
         }
         
         return listaIn;
@@ -173,7 +173,7 @@ public class MenuData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al activar Menu. " + ex);
+            System.out.println("Error al activar menu. " + ex);
         }
     }
     
@@ -188,7 +188,7 @@ public class MenuData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar Menu. " + ex);
+            System.out.println("Error al desactivar menu. " + ex);
         }
     }
     
@@ -203,7 +203,7 @@ public class MenuData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error en borrar Menu. " + ex);
+            System.out.println("Error al borrar menu. " + ex);
         }
     }
 }

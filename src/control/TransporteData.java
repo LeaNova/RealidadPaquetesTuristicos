@@ -16,8 +16,7 @@ public class TransporteData {
         } catch (SQLException ex) {
             System.out.println("Error en la conexion " + ex);
         }
-
-}
+    }
 
     public void agregarTransporte(Transporte t){
         String sql = "INSERT INTO transporte (tipo_transporte,destino,fecha_llegada,fecha_partida,costo,activo) VALUES (?,?,?,?,?,?)";
@@ -39,7 +38,7 @@ public class TransporteData {
             }
             
         } catch (SQLException ex) {
-            System.out.println("Error al agregar un transporte. " + ex);;
+            System.out.println("Error al agregar transporte. " + ex);;
         }
     }    
     
@@ -59,7 +58,7 @@ public class TransporteData {
             ps.close();
             
         }catch(SQLException ex){
-            System.out.println("Error al actualizar el Transporte. " + ex);
+            System.out.println("Error al actualizar transporte. " + ex);
         }
     }   
     
@@ -90,7 +89,7 @@ public class TransporteData {
             }
             
         }catch(SQLException ex){
-            System.out.println("Error al buscar el Transporte. " + ex);
+            System.out.println("Error al buscar transporte. " + ex);
         }
         
         return t;
@@ -191,7 +190,7 @@ public class TransporteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los Transportes activos. " + ex);
+            System.out.println("Error al obtener los transportes activos. " + ex);
         }
         
         return transportesactivos;
@@ -225,7 +224,7 @@ public class TransporteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los Trasportes inactivos. " + ex);
+            System.out.println("Error al obtener los transportes inactivos. " + ex);
         }
         
         return transporteinactivos;
@@ -243,7 +242,7 @@ public class TransporteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar el Transporte. " + ex);
+            System.out.println("Error al desactivar transporte. " + ex);
         }
     }
     
@@ -259,7 +258,7 @@ public class TransporteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al activar el Transporte. " + ex);
+            System.out.println("Error al activar transporte. " + ex);
         }
     }
     
@@ -275,7 +274,7 @@ public class TransporteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al borrar el transporte. " + ex);
+            System.out.println("Error al borrar transporte. " + ex);
         }
     }
 }

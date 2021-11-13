@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.*;
@@ -17,7 +12,7 @@ import modelo.Transporte;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaTransporte extends javax.swing.JInternalFrame {
 private Conexion c;
@@ -333,42 +328,42 @@ private Conexion c;
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
         
-          try{
+        try{
         
             if(!txtCosto.getText().isEmpty()){
             
                 Transporte t = new Transporte();
                 
-        t.setTipodetransporte(comboTipo.getSelectedItem()+"");
-t.setDestino(txtDestino.getText());
-        t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-t.setFechapartida(LocalDate.parse(txtFechaPartida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                t.setTipodetransporte(comboTipo.getSelectedItem()+"");
+                t.setDestino(txtDestino.getText());
+                t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                t.setFechapartida(LocalDate.parse(txtFechaPartida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 t.setCosto(Double.parseDouble(txtCosto.getText()));
-                 t.setActivo(checkActivo.isEnabled());
+                t.setActivo(checkActivo.isEnabled());
 
-tr.agregarTransporte(t);
+                tr.agregarTransporte(t);
            
                 limpiarCampos();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Ingrese el precio del Transporte");
                 txtCosto.requestFocus();
-          }
+            }
             
         }catch(DateTimeParseException dtp){
             JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
             txtFechaLlegada.setText("");
             txtFechaPartida.requestFocus();
         }
-          catch(NumberFormatException nf){
+        catch(NumberFormatException nf){
             JOptionPane.showMessageDialog(this, "Precio no válido");
             txtCosto.setText("");
             txtCosto.requestFocus();
         
-}  catch (Throwable ex) {
+        }
+        catch (Throwable ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos");
-        }  
-            
+        }   
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -376,7 +371,6 @@ tr.agregarTransporte(t);
         limpiarCampos();
         activarCampos();
         txtFechaLlegada.requestFocus();
-
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
@@ -394,12 +388,12 @@ tr.agregarTransporte(t);
         boolean check2 = radioActivos.isSelected();
         boolean check3 = radioInactivos.isSelected();
 
-       if(check1)
-       llenarTablaTodos();
+        if(check1)
+            llenarTablaTodos();
         if(check2)
-        llenarTablaActivos();
-       if(check3)
-        llenarTablaInactivos();
+            llenarTablaActivos();
+        if(check3)
+            llenarTablaInactivos();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void limpiarCampos(){
@@ -410,8 +404,9 @@ tr.agregarTransporte(t);
         txtCosto.setText("");
         checkActivo.setSelected(false);
     }
- private void activarCampos(){
-         txtDestino.setEnabled(true);
+ 
+    private void activarCampos(){
+        txtDestino.setEnabled(true);
         comboTipo.setEnabled(true);
         txtFechaLlegada.setEnabled(true);
         txtFechaPartida.setEnabled(true);
@@ -419,7 +414,8 @@ tr.agregarTransporte(t);
         checkActivo.setEnabled(true);
         btnCargar.setEnabled(true);
     }
-private void armarCabecera(){
+
+    private void armarCabecera(){
         ArrayList<Object> titulos = new ArrayList<>();
         
         titulos.add("ID");
@@ -437,14 +433,16 @@ private void armarCabecera(){
         
         tabTransportes.setModel(modelo);
     }
-   private void vaciarTabla(){
+   
+    private void vaciarTabla(){
         int filas = modelo.getRowCount() - 1;
         
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
         }
     }
-  private void llenarTablaTodos(){
+  
+    private void llenarTablaTodos(){
         for (Transporte tra : transportes) {
         modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
        

@@ -14,7 +14,7 @@ public class AlojamientoData {
         try {
             this.con = c.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion " + ex);
+            System.out.println("Error en la conexion. " + ex);
         }
     }
     
@@ -40,7 +40,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al agregar un alojamiento. " + ex);
+            System.out.println("Error al agregar alojamiento. " + ex);
         }
     }
     
@@ -60,7 +60,7 @@ public class AlojamientoData {
             ps.close();
                     
         }catch(SQLException ex){
-            System.out.println("Error al actualizar el alojamiento. " + ex);
+            System.out.println("Error al actualizar alojamiento. " + ex);
         }
     }
     
@@ -88,7 +88,7 @@ public class AlojamientoData {
             ps.close();
             
         }catch(SQLException ex){
-            System.out.println("Error al buscar el alojamiento. " + ex);
+            System.out.println("Error al buscar alojamiento. " + ex);
         }
         
         return a;
@@ -185,7 +185,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener a los alojamientos activos. " + ex);
+            System.out.println("Error al obtener los alojamientos activos. " + ex);
         }
         
         return alojamientos;
@@ -217,7 +217,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener a los alojamientos inactivos. " + ex);
+            System.out.println("Error al obtener los alojamientos inactivos. " + ex);
         }
         
         return alojamientos;
@@ -235,7 +235,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar el alojamiento. " + ex);
+            System.out.println("Error al desactivar alojamiento. " + ex);
         }
     }
     
@@ -251,7 +251,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al activar el alojamiento. " + ex);
+            System.out.println("Error al activar alojamiento. " + ex);
         }
     }
     
@@ -267,7 +267,7 @@ public class AlojamientoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al borrar el alojamiento. " + ex);
+            System.out.println("Error al borrar alojamiento. " + ex);
         }
     }
 }

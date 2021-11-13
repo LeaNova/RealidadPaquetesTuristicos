@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.*;
@@ -16,7 +11,7 @@ import modelo.Transporte;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaModTransporte extends javax.swing.JInternalFrame {
  private Conexion c;
@@ -37,38 +32,38 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
         }
     }
     private void limpiarCampos(){
-        
         txtTransporte.setText("");
         txtDestino.setText("");
         txtFechaLlegada.setText("");
         txtFechaPartida.setText("");
         txtCosto.setText("");
-
-
     }
- private void activarCampos(){
+    
+    private void activarCampos(){
         txtTransporte.setEnabled(true);
         txtDestino.setEnabled(true);
         txtFechaLlegada.setEnabled(true);
         txtFechaPartida.setEnabled(true);
         txtCosto.setEnabled(true);
 
-      btnActualizar.setEnabled(true);
-      btnActivar.setEnabled(true);
-      btnDesactivar.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        btnActivar.setEnabled(true);
+        btnDesactivar.setEnabled(true);
     }
-  private void desactivarCampos(){
-txtTransporte.setEnabled(false);
-txtDestino.setEnabled(false);
+  
+    private void desactivarCampos(){
+        txtTransporte.setEnabled(false);
+        txtDestino.setEnabled(false);
         txtFechaLlegada.setEnabled(false);
         txtFechaPartida.setEnabled(false);
         txtCosto.setEnabled(false);
 
-      btnActualizar.setEnabled(false);
-      btnActivar.setEnabled(false);
-      btnDesactivar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnActivar.setEnabled(false);
+        btnDesactivar.setEnabled(false);
     }
- private void cargarComboId(){
+ 
+    private void cargarComboId(){
         List<Transporte> transportes;
         transportes = tr.obtenerTransportes();
         for (Transporte tra : transportes) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.*;
@@ -13,10 +8,10 @@ import modelo.Conexion;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaBajaCliente extends javax.swing.JInternalFrame {
-private Conexion c;
+    private Conexion c;
     private ClienteData cl;
     /**
      * Creates new form VistaBajaCliente
@@ -219,11 +214,10 @@ private Conexion c;
 
         txtNombre.setText(cli.getNombre());
         txtDni.setText(cli.getDni()+"");
-txtContacto.setText(cli.getContacto());
-txtCelular.setText(cli.getCelular()+"");
+        txtContacto.setText(cli.getContacto());
+        txtCelular.setText(cli.getCelular()+"");
 
-
- activarBtns();
+         activarBtns();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
      private void desactivarBtns(){
@@ -232,9 +226,9 @@ txtCelular.setText(cli.getCelular()+"");
     }
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
         // TODO add your handling code here:
-         cl.desactivarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
+        cl.desactivarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
         limpiarCampos();
-         desactivarBtns();
+        desactivarBtns();
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -242,7 +236,6 @@ txtCelular.setText(cli.getCelular()+"");
         cl.borrarCliente(Integer.parseInt(comboId.getSelectedItem()+""));
         limpiarCampos();
         desactivarBtns();
-        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 

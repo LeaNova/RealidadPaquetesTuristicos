@@ -15,7 +15,7 @@ public class DestinoData {
         try {
             this.con = c.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion " + ex);
+            System.out.println("Error en la conexion. " + ex);
         }
     }
     
@@ -41,7 +41,7 @@ public class DestinoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al agregar un destino. " + ex);
+            System.out.println("Error al agregar destino. " + ex);
         }
     }
     
@@ -61,7 +61,7 @@ public class DestinoData {
             ps.close();
                     
         }catch(SQLException ex){
-            System.out.println("Error al actualizar el destino. " + ex);
+            System.out.println("Error al actualizar destino. " + ex);
         }
     }
     
@@ -87,7 +87,7 @@ public class DestinoData {
             }
             
         }catch(SQLException ex){
-            System.out.println("Error al buscar el destino. " + ex);
+            System.out.println("Error al buscar destino. " + ex);
         }
         
         return d;
@@ -200,7 +200,7 @@ public class DestinoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar el destino. " + ex);
+            System.out.println("Error al desactivar destino. " + ex);
         }
     }
     
@@ -216,7 +216,7 @@ public class DestinoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al activar el destino. " + ex);
+            System.out.println("Error al activar destino. " + ex);
         }
     }
     
@@ -232,7 +232,7 @@ public class DestinoData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al borrar el destino. " + ex);
+            System.out.println("Error al borrar destino. " + ex);
         }
     }
 }

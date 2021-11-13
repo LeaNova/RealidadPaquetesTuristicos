@@ -19,7 +19,7 @@ public class PaqueteData {
             con = conexion.getConexion();
             this.conexion = conexion;
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+            System.out.println("Error en la conexion. " + ex);
         }
     }
     
@@ -47,7 +47,7 @@ public class PaqueteData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al guardar Paquete. " + ex);
+            System.out.println("Error al guardar paquete. " + ex);
         }
     }
     
@@ -71,7 +71,7 @@ public class PaqueteData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al actualizar Paquete. " + ex);
+            System.out.println("Error al actualizar paquete. " + ex);
         }
     }
     
@@ -116,7 +116,7 @@ public class PaqueteData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al buscar Paquete. " + ex);
+            System.out.println("Error al buscar paquete. " + ex);
         }
         return paquete;
     }
@@ -164,7 +164,7 @@ public class PaqueteData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los paquetes. " + ex);
         }
         return lista;
     }
@@ -212,7 +212,7 @@ public class PaqueteData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los paquetes activos. " + ex);
         }
         return listaAc;
     }
@@ -260,7 +260,7 @@ public class PaqueteData {
             
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener toda la lista. " + ex);
+            System.out.println("Error al obtener los paquetes inactivos. " + ex);
         }
         return listaIn;
     }
@@ -276,7 +276,7 @@ public class PaqueteData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al activar Paquete. " + ex);
+            System.out.println("Error al activar paquete. " + ex);
         }
     }
     
@@ -291,7 +291,7 @@ public class PaqueteData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar Paquete. " + ex);
+            System.out.println("Error al desactivar paquete. " + ex);
         }
     }
     
@@ -306,7 +306,7 @@ public class PaqueteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al borrar Paquete. " + ex);
+            System.out.println("Error al borrar paquete. " + ex);
         }
     }
     

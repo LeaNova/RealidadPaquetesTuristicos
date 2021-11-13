@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
@@ -16,7 +9,7 @@ import modelo.Conexion;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaCliente extends javax.swing.JInternalFrame {
  private Conexion c;
@@ -341,16 +334,13 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Ingrese el nombre del Cliente");
             txtNombre.requestFocus();
         }
-        
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         limpiarCampos();
         activarCampos();
-        txtNombre.requestFocus();
-        
-        
+        txtNombre.requestFocus(); 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -366,9 +356,6 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             llenarTablaActivos();
         if(check3)
             llenarTablaInactivos();
-                                    
-        
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDniFocusLost

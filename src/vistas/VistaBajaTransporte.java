@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
 import control.TransporteData;
@@ -14,7 +9,7 @@ import modelo.Transporte;
 
 /**
  *
- * @author LeaNova
+ * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaBajaTransporte extends javax.swing.JInternalFrame {
  private Conexion c;
@@ -56,8 +51,6 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
         txtFechaLlegada.setText("");
         txtFechaPartida.setText("");
         txtCosto.setText("");
-
-
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,11 +109,6 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
 
         txtCosto.setEditable(false);
         txtCosto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCostoFocusLost(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Costo:");
@@ -136,11 +124,6 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
 
         txtTransporte.setEditable(false);
         txtTransporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtTransporte.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTransporteFocusLost(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("F. Llegada:");
@@ -269,16 +252,7 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
         tr.borrarTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
         limpiarCampos();
         desactivarBtns();
-
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCostoFocusLost
-
-    private void txtTransporteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTransporteFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTransporteFocusLost
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
@@ -290,7 +264,7 @@ public class VistaBajaTransporte extends javax.swing.JInternalFrame {
         txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         txtCosto.setText(tra.getCosto()+"");
 
-      activarBtns();
+        activarBtns();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 

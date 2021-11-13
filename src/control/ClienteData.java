@@ -14,7 +14,7 @@ public class ClienteData {
         try {
             this.con = c.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion " + ex);
+            System.out.println("Error en la conexion. " + ex);
         }
 
 }
@@ -39,7 +39,7 @@ public class ClienteData {
             }
             
         } catch (SQLException ex) {
-            System.out.println("Error al agregar un Cliente. " + ex);;
+            System.out.println("Error al agregar cliente. " + ex);;
         }
 }    
     
@@ -58,7 +58,7 @@ public class ClienteData {
             ps.close();
                     
         }catch(SQLException ex){
-            System.out.println("Error al actualizar el Cliente. " + ex);
+            System.out.println("Error al actualizar cliente. " + ex);
         }
     }   
     
@@ -85,7 +85,7 @@ public class ClienteData {
             }
             
         }catch(SQLException ex){
-            System.out.println("Error al buscar el Cliente. " + ex);
+            System.out.println("Error al buscar cliente. " + ex);
         }
         
         return c;
@@ -118,7 +118,7 @@ public class ClienteData {
         ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los Clientes. " + ex);
+            System.out.println("Error al obtener los clientes. " + ex);
         }
         
         return clientes;
@@ -149,7 +149,7 @@ public class ClienteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los Clientes activos. " + ex);
+            System.out.println("Error al obtener los clientes activos. " + ex);
         }
         
         return clientes;
@@ -181,7 +181,7 @@ public class ClienteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los Clientes inactivos. " + ex);
+            System.out.println("Error al obtener los clientes inactivos. " + ex);
         }
         
         return clientes;
@@ -199,7 +199,7 @@ public class ClienteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar el cliente. " + ex);
+            System.out.println("Error al desactivar cliente. " + ex);
         }
     }
     
@@ -215,7 +215,7 @@ public class ClienteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al activar el cliente. " + ex);
+            System.out.println("Error al activar cliente. " + ex);
         }
     }
     
@@ -231,7 +231,7 @@ public class ClienteData {
             ps.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al borrar el cliente. " + ex);
+            System.out.println("Error al borrar cliente. " + ex);
         }
     }
 }

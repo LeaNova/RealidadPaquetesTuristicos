@@ -40,30 +40,20 @@
                                   <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jcDestino" min="-2" pref="190" max="-2" attributes="0"/>
-                                  <Component id="jcAlojamiento" min="-2" pref="190" max="-2" attributes="0"/>
-                                  <Component id="jcMenu" min="-2" pref="190" max="-2" attributes="0"/>
-                                  <Component id="jcTransporte" min="-2" pref="190" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jtFechaInicio" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jtFechaFinal" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jcDestino" pref="190" max="32767" attributes="0"/>
+                                  <Component id="jcAlojamiento" pref="190" max="32767" attributes="0"/>
+                                  <Component id="jcMenu" pref="190" max="32767" attributes="0"/>
+                                  <Component id="jcTransporte" pref="190" max="32767" attributes="0"/>
                                   <Component id="jtCosto" min="-2" pref="122" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jcID" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jcCliente" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jcID" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="jcCliente" alignment="0" pref="190" max="32767" attributes="0"/>
+                                  <Component id="dateFechaInicio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="dateFechaFinal" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -81,7 +71,7 @@
                       <Component id="btnDesactivar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="63" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -122,16 +112,14 @@
                   <Component id="jcTransporte" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateFechaInicio" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtFechaFinal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateFechaFinal" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -144,7 +132,7 @@
                   <Component id="btnActivar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDesactivar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,36 +149,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtFechaInicio">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="14" style="0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jtFechaFinal">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="14" style="0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="dd/MM/yyyyy"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Modificar Paquete"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="dd/MM/yyyyy"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -386,6 +350,10 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dateFechaInicio">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dateFechaFinal">
     </Component>
   </SubComponents>
 </Form>

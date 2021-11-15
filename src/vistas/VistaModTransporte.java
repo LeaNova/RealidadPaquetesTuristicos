@@ -1,9 +1,12 @@
 package vistas;
 
 import control.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
@@ -26,6 +29,7 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
             c = new Conexion();
            tr = new TransporteData(c);
            cargarComboId();
+           setearCalendario();
             
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Error en la conexion. " + ex);
@@ -34,16 +38,16 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     private void limpiarCampos(){
         txtTransporte.setText("");
         txtDestino.setText("");
-        txtFechaLlegada.setText("");
-        txtFechaPartida.setText("");
+        dateFechaLlegada.setDate(null);
+        dateFechaPartida.setDate(null);
         txtCosto.setText("");
     }
     
     private void activarCampos(){
         txtTransporte.setEnabled(true);
         txtDestino.setEnabled(true);
-        txtFechaLlegada.setEnabled(true);
-        txtFechaPartida.setEnabled(true);
+        dateFechaLlegada.setEnabled(true);
+        dateFechaPartida.setEnabled(true);
         txtCosto.setEnabled(true);
 
         btnActualizar.setEnabled(true);
@@ -54,8 +58,8 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     private void desactivarCampos(){
         txtTransporte.setEnabled(false);
         txtDestino.setEnabled(false);
-        txtFechaLlegada.setEnabled(false);
-        txtFechaPartida.setEnabled(false);
+        dateFechaLlegada.setEnabled(false);
+        dateFechaPartida.setEnabled(false);
         txtCosto.setEnabled(false);
 
         btnActualizar.setEnabled(false);
@@ -71,6 +75,15 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
             }
     }
     
+    private void setearCalendario(){
+        try {
+            dateFechaPartida.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+            dateFechaLlegada.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error al setear calendario");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +94,6 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         btnActualizar = new javax.swing.JButton();
-        txtFechaLlegada = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         comboId = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -92,13 +104,12 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCosto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtFechaPartida = new javax.swing.JTextField();
         txtTransporte = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtDestino = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        dateFechaLlegada = new com.toedter.calendar.JDateChooser();
+        dateFechaPartida = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
@@ -110,9 +121,6 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-
-        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaLlegada.setEnabled(false);
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -166,22 +174,8 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Costo");
 
-        jLabel9.setText("dd/mm/yyyy");
-        jLabel9.setToolTipText("Fecha de nacimiento:");
-
-        jLabel10.setText("dd/mm/yyyy");
-        jLabel10.setToolTipText("Fecha de nacimiento:");
-
-        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaPartida.setEnabled(false);
-
         txtTransporte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTransporte.setEnabled(false);
-        txtTransporte.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTransporteFocusLost(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("F. Llegada:");
@@ -213,30 +207,25 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
                                 .addGap(4, 4, 4))
                             .addComponent(jLabel5))
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnActivar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(btnActivar)
+                            .addComponent(dateFechaLlegada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDestino)
+                            .addComponent(dateFechaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jLabel7)
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnDesactivar)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(100, 100, 100)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel9)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnBuscar))
-                                .addComponent(jLabel10)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(btnDesactivar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar))
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,20 +246,18 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(dateFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel10))
+                    .addComponent(dateFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,24 +276,30 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         try{
-        if(!txtTransporte.getText().isEmpty() && !txtFechaLlegada.getText().isEmpty() && !txtFechaPartida.getText().isEmpty() && !txtCosto.getText().isEmpty()){
-            Transporte tran = new Transporte();
+            if(!txtTransporte.getText().isEmpty() && dateFechaLlegada.getDate() != null && dateFechaPartida.getDate() != null && !txtCosto.getText().isEmpty()){
+                Transporte tran = new Transporte();
             
-            tran.setIdTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
-            tran.setTipodetransporte(txtTransporte.getText());
-            tran.setDestino(txtDestino.getText());
-            tran.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-             tran.setFechapartida(LocalDate.parse(txtFechaPartida.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-             tran.setCosto(Double.parseDouble(txtCosto.getText()));
+                tran.setIdTransporte(Integer.parseInt(comboId.getSelectedItem()+""));
+                tran.setTipodetransporte(txtTransporte.getText());
+                tran.setDestino(txtDestino.getText());
+            
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                String fecha1 = formato.format(dateFechaPartida.getDate());
+                String fecha2 = formato.format(dateFechaLlegada.getDate());
+                LocalDate fechaPartida = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate fechaLlegada = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                
+                tran.setFechapartida(fechaPartida);
+                tran.setFechallegada(fechaLlegada);
+                tran.setCosto(Double.parseDouble(txtCosto.getText()));
              
-             tr.actualizarTransporte(tran);
+                tr.actualizarTransporte(tran);
              
-            limpiarCampos();
-            desactivarCampos();
-         
-        } else{
-            JOptionPane.showMessageDialog(this, "Error al actualizar");
-        }
+                limpiarCampos();
+                desactivarCampos();
+            } else{
+                JOptionPane.showMessageDialog(this, "Error al actualizar");
+            }
         
         }catch(NumberFormatException nf){
             JOptionPane.showMessageDialog(this, "Costo no válido");
@@ -315,9 +308,6 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
             
         }catch(DateTimeParseException dtp){
             JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
-            txtFechaLlegada.setText("");
-            txtFechaPartida.setText("");
-            txtFechaLlegada.requestFocus();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -327,8 +317,8 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
 
         txtTransporte.setText(tra.getTipodetransporte());
         txtDestino.setText(tra.getDestino());
-        txtFechaLlegada.setText(tra.getFechallegada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        txtFechaPartida.setText(tra.getFechapartida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        dateFechaPartida.setDate(java.sql.Date.valueOf(tra.getFechapartida()));
+        dateFechaLlegada.setDate(java.sql.Date.valueOf(tra.getFechallegada()));
         txtCosto.setText(tra.getCosto()+"");
         
         activarCampos();
@@ -347,16 +337,16 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:
- tr.desactivarTransportes(Integer.parseInt(comboId.getSelectedItem()+""));
-      limpiarCampos();
-       desactivarCampos();
+        tr.desactivarTransportes(Integer.parseInt(comboId.getSelectedItem()+""));
+        limpiarCampos();
+        desactivarCampos();
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
         // TODO add your handling code here:
         tr.activarTransportes(Integer.parseInt(comboId.getSelectedItem()+""));
-      limpiarCampos();
-       desactivarCampos();
+        limpiarCampos();
+        desactivarCampos();
     }//GEN-LAST:event_btnActivarActionPerformed
 
     private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
@@ -367,10 +357,6 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCostoFocusLost
 
-    private void txtTransporteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTransporteFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTransporteFocusLost
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
@@ -378,19 +364,17 @@ public class VistaModTransporte extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDesactivar;
     private javax.swing.JComboBox<Integer> comboId;
+    private com.toedter.calendar.JDateChooser dateFechaLlegada;
+    private com.toedter.calendar.JDateChooser dateFechaPartida;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtDestino;
-    private javax.swing.JTextField txtFechaLlegada;
-    private javax.swing.JTextField txtFechaPartida;
     private javax.swing.JTextField txtTransporte;
     // End of variables declaration//GEN-END:variables
 }

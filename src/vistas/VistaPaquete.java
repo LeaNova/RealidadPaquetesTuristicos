@@ -1,6 +1,8 @@
 package vistas;
 
 import control.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import modelo.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +65,8 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             modelo = new DefaultTableModel();
             armarCabecera();
             
+            setearCalendario();
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPaquete.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,10 +100,6 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         jtCosto = new javax.swing.JTextField();
         jcActivo = new javax.swing.JCheckBox();
         btnGuardar = new javax.swing.JButton();
-        jtFechaInicio = new javax.swing.JTextField();
-        jtFechaFinal = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
         jrTodos = new javax.swing.JRadioButton();
@@ -111,6 +111,8 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jtCant = new javax.swing.JTextField();
         btnCalcular = new javax.swing.JButton();
+        dateFechaInicio = new com.toedter.calendar.JDateChooser();
+        dateFechaFinal = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
@@ -158,11 +160,6 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                 jcDestinoItemStateChanged(evt);
             }
         });
-        jcDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcDestinoActionPerformed(evt);
-            }
-        });
 
         jtCosto.setEditable(false);
         jtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -174,14 +171,6 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-
-        jtFechaInicio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel11.setText("dd/MM/yyyyy");
-
-        jLabel12.setText("dd/MM/yyyyy");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -251,24 +240,18 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcCliente, 0, 190, Short.MAX_VALUE)
+                            .addComponent(jcDestino, 0, 190, Short.MAX_VALUE)
+                            .addComponent(jcAlojamiento, 0, 190, Short.MAX_VALUE)
+                            .addComponent(jcMenu, 0, 190, Short.MAX_VALUE)
+                            .addComponent(jcTransporte, 0, 190, Short.MAX_VALUE)
                             .addComponent(jtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcActivo))
-                        .addGap(29, 29, 29))
+                            .addComponent(jcActivo)
+                            .addComponent(dateFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(83, 83, 83))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -343,15 +326,13 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jcTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(dateFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
+                            .addComponent(dateFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
@@ -364,7 +345,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnGuardar)
                                     .addComponent(btnCalcular))
@@ -387,8 +368,11 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             Menu me = (Menu)jcMenu.getSelectedItem();
             Transporte tra = (Transporte)jcTransporte.getSelectedItem();
 
-            LocalDate f1 = LocalDate.parse(jtFechaInicio.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            LocalDate f2 = LocalDate.parse(jtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha1 = formato.format(dateFechaInicio.getDate());
+            String fecha2 = formato.format(dateFechaFinal.getDate());
+            LocalDate f1 = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate f2 = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
             int cant = Integer.parseInt(jtCant.getText());
             
@@ -440,8 +424,11 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             Menu me = (Menu)jcMenu.getSelectedItem();
             Transporte tra = (Transporte)jcTransporte.getSelectedItem();
             
-            LocalDate f1 = LocalDate.parse(jtFechaInicio.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            LocalDate f2 = LocalDate.parse(jtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha1 = formato.format(dateFechaInicio.getDate());
+            String fecha2 = formato.format(dateFechaFinal.getDate());
+            LocalDate f1 = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate f2 = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             
             int cant = Integer.parseInt(jtCant.getText());
             
@@ -459,10 +446,15 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    private void jcDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcDestinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcDestinoActionPerformed
-
+    private void setearCalendario(){
+        try {
+            dateFechaInicio.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+            dateFechaFinal.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error al setear calendario");
+        }
+    }
+    
     // Llenar todo los combo box;
     private void llenarComboCliente() {
         for (Cliente cli: listaClientes) {
@@ -584,10 +576,10 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCalcular;
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnGuardar;
+    private com.toedter.calendar.JDateChooser dateFechaFinal;
+    private com.toedter.calendar.JDateChooser dateFechaInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -611,8 +603,6 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrTodos;
     private javax.swing.JTextField jtCant;
     private javax.swing.JTextField jtCosto;
-    private javax.swing.JTextField jtFechaFinal;
-    private javax.swing.JTextField jtFechaInicio;
     private javax.swing.JTable jtabPaquetes;
     // End of variables declaration//GEN-END:variables
 }

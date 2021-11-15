@@ -1,10 +1,14 @@
 package vistas;
 
+import com.toedter.calendar.JDateChooser;
 import control.*;
+import java.text.ParseException;
 import modelo.*;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.*;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -29,6 +33,7 @@ public class VistaDestino extends javax.swing.JInternalFrame {
             destinos = (ArrayList)dd.obtenerDestinos();
             modelo = new DefaultTableModel();
             armarCabecera();
+            setearCalendario();
             
             btnGrupo.add(radioTodos);
             btnGrupo.add(radioActivos);
@@ -50,15 +55,12 @@ public class VistaDestino extends javax.swing.JInternalFrame {
 
         btnGrupo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtPais = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFechaInicial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtFechaFinal = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         checkActivo = new javax.swing.JCheckBox();
         btnCargar = new javax.swing.JButton();
@@ -70,35 +72,25 @@ public class VistaDestino extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabAlojamientos = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        dateFechaFinal = new com.toedter.calendar.JDateChooser();
+        dateFechaInicial = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Agregar Destino");
 
-        jLabel10.setText("dd/mm/yyyy");
-        jLabel10.setToolTipText("Fecha de nacimiento:");
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nombre:");
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNombre.setEnabled(false);
-        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreFocusLost(evt);
-            }
-        });
+        txtNombre.setNextFocusableComponent(txtPais);
 
         txtPais.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPais.setEnabled(false);
-        txtPais.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPaisFocusLost(evt);
-            }
-        });
+        txtPais.setNextFocusableComponent(dateFechaInicial);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Pais:");
@@ -107,29 +99,20 @@ public class VistaDestino extends javax.swing.JInternalFrame {
         jLabel3.setText("F. Inicial:");
         jLabel3.setToolTipText("Fecha Inicial:");
 
-        txtFechaInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaInicial.setEnabled(false);
-        txtFechaInicial.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFechaInicialFocusLost(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("F. Final:");
-        jLabel4.setToolTipText("Fecha Final");
-
-        txtFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaFinal.setEnabled(false);
+        jLabel4.setToolTipText("Fecha Final:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Activo");
 
         checkActivo.setEnabled(false);
+        checkActivo.setNextFocusableComponent(btnCargar);
 
         btnCargar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCargar.setText("Cargar");
         btnCargar.setEnabled(false);
+        btnCargar.setNextFocusableComponent(btnNuevo);
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarActionPerformed(evt);
@@ -187,10 +170,15 @@ public class VistaDestino extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel9.setText("dd/mm/yyyy");
-        jLabel9.setToolTipText("Fecha de nacimiento:");
-
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        dateFechaFinal.setEnabled(false);
+        dateFechaFinal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dateFechaFinal.setMaxSelectableDate(new java.util.Date(1893470468000L));
+
+        dateFechaInicial.setEnabled(false);
+        dateFechaInicial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dateFechaInicial.setMaxSelectableDate(new java.util.Date(1893470468000L));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,26 +196,19 @@ public class VistaDestino extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5))
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(checkActivo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPais, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
+                            .addComponent(dateFechaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(btnCargar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnNuevo))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(btnNuevo)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,15 +257,13 @@ public class VistaDestino extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8)
                             .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addComponent(txtFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dateFechaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(txtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
+                            .addComponent(dateFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkActivo)
@@ -295,73 +274,52 @@ public class VistaDestino extends javax.swing.JInternalFrame {
                             .addComponent(btnCargar))))
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        // TODO add your handling code here:
-        if(txtNombre.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del destino");
-            txtNombre.requestFocus();
-        }
-    }//GEN-LAST:event_txtNombreFocusLost
-
-    private void txtFechaInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaInicialFocusLost
-        // TODO add your handling code here:
-        try{
-            if(txtFechaInicial.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Ingrese la fecha inicial de destino");
-                txtFechaInicial.requestFocus();
-        }
-        }catch(DateTimeParseException dtp){
-            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
-            txtFechaFinal.setText("");
-            txtFechaFinal.requestFocus();
-        }
-    }//GEN-LAST:event_txtFechaInicialFocusLost
-
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        // TODO add your handling code here:
         try{
-
-            if(!txtFechaFinal.getText().isEmpty()){
+            if(!txtNombre.getText().isEmpty() && !txtPais.getText().isEmpty() && dateFechaInicial.getDate() != null && dateFechaFinal.getDate() != null){
 
                 Destino d = new Destino();
 
                 d.setNombre(txtNombre.getText());
                 d.setPais(txtPais.getText());
-                d.setFechaInicial(LocalDate.parse(txtFechaInicial.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                d.setFechaFinal(LocalDate.parse(txtFechaFinal.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                
+                String fecha1 = formato.format(dateFechaInicial.getDate());
+                String fecha2 = formato.format(dateFechaFinal.getDate());
+                LocalDate fechaInicial = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate fechaFinal = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                
+                d.setFechaInicial(fechaInicial);
+                d.setFechaFinal(fechaFinal);
                 d.setActivo(checkActivo.isEnabled());
 
                 dd.agregarDestino(d);
                 limpiarCampos();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Ingrese la fecha final de destino");
-                txtFechaFinal.requestFocus();
+                JOptionPane.showMessageDialog(this, "Ingrese todos los datos requeridos");
             }
 
-        }catch(DateTimeParseException dtp){
-            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
-            txtFechaFinal.setText("");
-            txtFechaFinal.requestFocus();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Datos incorrectos, vuelva a intentar");
         }
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
         limpiarCampos();
         activarCampos();
         txtNombre.requestFocus();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
         vaciarTabla();
         boolean check1 = radioTodos.isSelected();
         boolean check2 = radioActivos.isSelected();
@@ -375,19 +333,11 @@ public class VistaDestino extends javax.swing.JInternalFrame {
             llenarTablaInactivos();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void txtPaisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPaisFocusLost
-        // TODO add your handling code here:
-        if(txtPais.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ingrese el pais de destino");
-            txtPais.requestFocus();
-        }
-    }//GEN-LAST:event_txtPaisFocusLost
-
     private void activarCampos(){
         txtNombre.setEnabled(true);
         txtPais.setEnabled(true);
-        txtFechaInicial.setEnabled(true);
-        txtFechaFinal.setEnabled(true);
+        dateFechaInicial.setEnabled(true);
+        dateFechaFinal.setEnabled(true);
         checkActivo.setEnabled(true);
         btnCargar.setEnabled(true);
     }
@@ -395,9 +345,18 @@ public class VistaDestino extends javax.swing.JInternalFrame {
     private void limpiarCampos(){
         txtNombre.setText("");
         txtPais.setText("");
-        txtFechaInicial.setText("");
-        txtFechaFinal.setText("");
+        dateFechaInicial.setDate(null);
+        dateFechaFinal.setDate(null);
         checkActivo.setSelected(false);
+    }
+    
+    private void setearCalendario(){
+        try {
+            dateFechaInicial.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+            dateFechaFinal.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error al setear calendario");
+        }
     }
     
     private void armarCabecera(){
@@ -453,23 +412,21 @@ public class VistaDestino extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JCheckBox checkActivo;
+    private com.toedter.calendar.JDateChooser dateFechaFinal;
+    private com.toedter.calendar.JDateChooser dateFechaInicial;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton radioActivos;
     private javax.swing.JRadioButton radioInactivos;
     private javax.swing.JRadioButton radioTodos;
     private javax.swing.JTable tabAlojamientos;
-    private javax.swing.JTextField txtFechaFinal;
-    private javax.swing.JTextField txtFechaInicial;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPais;
     // End of variables declaration//GEN-END:variables

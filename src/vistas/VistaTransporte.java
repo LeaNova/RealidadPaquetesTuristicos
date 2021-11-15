@@ -1,10 +1,13 @@
 package vistas;
 
 import control.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
@@ -15,9 +18,9 @@ import modelo.Transporte;
  * @author Gomez Jon Darian, Guardia Lucero Santiago Agustín, Heredia Leandro
  */
 public class VistaTransporte extends javax.swing.JInternalFrame {
-private Conexion c;
- private TransporteData tr;
- private ArrayList<Transporte> transportes;
+    private Conexion c;
+    private TransporteData tr;
+    private ArrayList<Transporte> transportes;
     private DefaultTableModel modelo;
     /**
      * Creates new form VistaTransporte
@@ -27,10 +30,11 @@ private Conexion c;
          initComponents();
          c = new Conexion();
          tr = new TransporteData(c);
-        transportes = (ArrayList)tr.obtenerTransportes();
+         transportes = (ArrayList)tr.obtenerTransportes();
          modelo = new DefaultTableModel();
          
          armarCabecera();
+         setearCalendario();
          
           btnGrupo.add(radioTodos);
            btnGrupo.add(radioActivos);
@@ -53,13 +57,10 @@ private Conexion c;
         btnGrupo = new javax.swing.ButtonGroup();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFechaLlegada = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtFechaPartida = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         checkActivo = new javax.swing.JCheckBox();
-        jLabel10 = new javax.swing.JLabel();
         btnCargar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         btnNuevo = new javax.swing.JButton();
@@ -71,11 +72,12 @@ private Conexion c;
         jScrollPane1 = new javax.swing.JScrollPane();
         tabTransportes = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
         txtDestino = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        dateFechaPartida = new com.toedter.calendar.JDateChooser();
+        dateFechaLlegada = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
@@ -86,20 +88,9 @@ private Conexion c;
         jLabel3.setText("F. Llegada:");
         jLabel3.setToolTipText("Fecha de llegada:");
 
-        txtFechaLlegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaLlegada.setEnabled(false);
-        txtFechaLlegada.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFechaLlegadaFocusLost(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("F. Partida:");
         jLabel4.setToolTipText("Fecha de partida:");
-
-        txtFechaPartida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFechaPartida.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Activo");
@@ -108,9 +99,6 @@ private Conexion c;
         jLabel1.setText("Agregar Transporte");
 
         checkActivo.setEnabled(false);
-
-        jLabel10.setText("dd/mm/yyyy");
-        jLabel10.setToolTipText("Fecha de nacimiento:");
 
         btnCargar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCargar.setText("Cargar");
@@ -183,9 +171,6 @@ private Conexion c;
             }
         });
 
-        jLabel9.setText("dd/mm/yyyy");
-        jLabel9.setToolTipText("Fecha de nacimiento:");
-
         comboTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avion", "Colectivo", "Auto compartido", "Coche cama" }));
         comboTipo.setEnabled(false);
@@ -198,6 +183,12 @@ private Conexion c;
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        dateFechaPartida.setEnabled(false);
+        dateFechaPartida.setMinimumSize(new java.awt.Dimension(27, 23));
+
+        dateFechaLlegada.setEnabled(false);
+        dateFechaLlegada.setMinimumSize(new java.awt.Dimension(27, 23));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,7 +196,6 @@ private Conexion c;
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
@@ -217,23 +207,21 @@ private Conexion c;
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9))
-                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkActivo)))
+                            .addComponent(checkActivo)
+                            .addComponent(txtCosto)
+                            .addComponent(txtDestino)
+                            .addComponent(dateFechaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateFechaLlegada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnCargar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNuevo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(btnCargar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNuevo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(99, 99, 99)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,38 +249,34 @@ private Conexion c;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(265, 265, 265)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnNuevo)
-                                    .addComponent(btnCargar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(17, 17, 17)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtFechaPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(checkActivo)))))
+                            .addComponent(jLabel4)
+                            .addComponent(dateFechaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(dateFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(checkActivo))
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCargar)
+                            .addComponent(btnNuevo))
+                        .addGap(55, 55, 55))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(9, 9, 9)
@@ -303,27 +287,13 @@ private Conexion c;
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(btnBuscar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jSeparator1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtFechaLlegadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaLlegadaFocusLost
-        // TODO add your handling code here:
-//        try{
-//            if(txtFechaLlegada.getText().isEmpty()){
-//                JOptionPane.showMessageDialog(this, "Ingrese la fecha de llegada del Transporte");
-//                txtFechaLlegada.requestFocus();
-//            }
-//        }catch(DateTimeParseException dtp){
-//            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
-//            txtFechaPartida.setText("");
-//            txtFechaPartida.requestFocus();
-//        }
-    }//GEN-LAST:event_txtFechaLlegadaFocusLost
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
@@ -336,8 +306,15 @@ private Conexion c;
                 
                 t.setTipodetransporte(comboTipo.getSelectedItem()+"");
                 t.setDestino(txtDestino.getText());
-                t.setFechallegada(LocalDate.parse(txtFechaLlegada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                t.setFechapartida(LocalDate.parse(txtFechaPartida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                String fecha1 = formato.format(dateFechaPartida.getDate());
+                String fecha2 = formato.format(dateFechaLlegada.getDate());
+                LocalDate fechaPartida = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate fechaLlegada = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                
+                t.setFechapartida(fechaPartida);
+                t.setFechallegada(fechaLlegada);
                 t.setCosto(Double.parseDouble(txtCosto.getText()));
                 t.setActivo(checkActivo.isEnabled());
 
@@ -352,14 +329,13 @@ private Conexion c;
             
         }catch(DateTimeParseException dtp){
             JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
-            txtFechaLlegada.setText("");
-            txtFechaPartida.requestFocus();
+//            txtFechaLlegada.setText("");
+//            txtFechaPartida.requestFocus();
         }
         catch(NumberFormatException nf){
             JOptionPane.showMessageDialog(this, "Precio no válido");
             txtCosto.setText("");
             txtCosto.requestFocus();
-        
         }
         catch (Throwable ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos");
@@ -370,7 +346,6 @@ private Conexion c;
         // TODO add your handling code here:
         limpiarCampos();
         activarCampos();
-        txtFechaLlegada.requestFocus();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
@@ -383,7 +358,7 @@ private Conexion c;
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       vaciarTabla();
+        vaciarTabla();
         boolean check1 = radioTodos.isSelected();
         boolean check2 = radioActivos.isSelected();
         boolean check3 = radioInactivos.isSelected();
@@ -399,8 +374,8 @@ private Conexion c;
     private void limpiarCampos(){
         txtDestino.setText("");
         comboTipo.setSelectedIndex(-1);
-        txtFechaLlegada.setText("");
-        txtFechaPartida.setText("");
+        dateFechaLlegada.setDate(null);
+        dateFechaPartida.setDate(null);
         txtCosto.setText("");
         checkActivo.setSelected(false);
     }
@@ -408,13 +383,22 @@ private Conexion c;
     private void activarCampos(){
         txtDestino.setEnabled(true);
         comboTipo.setEnabled(true);
-        txtFechaLlegada.setEnabled(true);
-        txtFechaPartida.setEnabled(true);
+        dateFechaLlegada.setEnabled(true);
+        dateFechaPartida.setEnabled(true);
         txtCosto.setEnabled(true);
         checkActivo.setEnabled(true);
         btnCargar.setEnabled(true);
     }
 
+    private void setearCalendario(){
+        try {
+            dateFechaLlegada.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+            dateFechaPartida.getJCalendar().setSelectableDateRange(new Date(),new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2030"));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error al setear calendario");
+        }
+    }
+    
     private void armarCabecera(){
         ArrayList<Object> titulos = new ArrayList<>();
         
@@ -470,8 +454,9 @@ private Conexion c;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JCheckBox checkActivo;
     private javax.swing.JComboBox<String> comboTipo;
+    private com.toedter.calendar.JDateChooser dateFechaLlegada;
+    private com.toedter.calendar.JDateChooser dateFechaPartida;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -479,7 +464,6 @@ private Conexion c;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton radioActivos;
@@ -488,7 +472,5 @@ private Conexion c;
     private javax.swing.JTable tabTransportes;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtDestino;
-    private javax.swing.JTextField txtFechaLlegada;
-    private javax.swing.JTextField txtFechaPartida;
     // End of variables declaration//GEN-END:variables
 }

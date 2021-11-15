@@ -131,7 +131,7 @@ public class VistaBajaMenu extends javax.swing.JInternalFrame {
                         .addComponent(btnBaja)
                         .addGap(61, 61, 61)
                         .addComponent(btnEliminar)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

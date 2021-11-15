@@ -215,13 +215,13 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
                                 .addGap(57, 57, 57)
                                 .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(69, 69, 69)
                         .addComponent(btnActualizar)
                         .addGap(18, 18, 18)
                         .addComponent(btnActivar)
                         .addGap(18, 18, 18)
                         .addComponent(btnDesactivar)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,12 +265,12 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btnActivar)
                     .addComponent(btnDesactivar))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         pack();

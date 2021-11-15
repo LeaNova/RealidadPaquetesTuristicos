@@ -178,6 +178,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         jLabel13.setText("Lista Paquetes");
 
         jrTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jrTodos.setSelected(true);
         jrTodos.setText("Todos");
 
         jrActivos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -299,9 +300,9 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                             .addComponent(jrTodos)
                             .addComponent(jrActivos)
                             .addComponent(jrInactivos))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
                         .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -345,7 +346,7 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnGuardar)
                                     .addComponent(btnCalcular))

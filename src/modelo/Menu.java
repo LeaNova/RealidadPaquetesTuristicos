@@ -66,6 +66,12 @@ public class Menu {
 
     @Override
     public boolean equals(Object obj) {
-        return this.idMenu == ((Menu)obj).idMenu;
+        if (obj == null || !(obj instanceof Menu)) {
+            return false;
+        } else {
+            
+            Menu viene = (Menu)obj;
+            return this.idMenu == viene.idMenu;
+        }
     }
 }

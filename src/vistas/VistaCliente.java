@@ -15,7 +15,9 @@ public class VistaCliente extends javax.swing.JInternalFrame {
  private Conexion c;
  private ClienteData cl;
  private ArrayList<Cliente> clientes;
-    private DefaultTableModel modelo;
+ private ArrayList<Cliente> clientesAc;
+ private ArrayList<Cliente> clientesIn;
+ private DefaultTableModel modelo;
  
     /**
      * Creates new form VistaCliente
@@ -26,6 +28,8 @@ public class VistaCliente extends javax.swing.JInternalFrame {
          c = new Conexion();
          cl = new ClienteData(c);
         clientes = (ArrayList)cl.obtenerClientes();
+        clientesAc = (ArrayList)cl.obtenerClientesActivos();
+        clientesIn = (ArrayList)cl.obtenerClientesInactivos();
          modelo = new DefaultTableModel();
          
          armarCabecera();
@@ -99,11 +103,6 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                 txtNombreFocusLost(evt);
             }
         });
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
 
         txtDni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDni.setEnabled(false);
@@ -118,11 +117,6 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         txtContacto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtContactoFocusLost(evt);
-            }
-        });
-        txtContacto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContactoActionPerformed(evt);
             }
         });
 
@@ -300,10 +294,6 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContactoActionPerformed
-
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
         Cliente cli = new Cliente();
@@ -323,10 +313,6 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnCargarActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
         // TODO add your handling code here:
@@ -368,8 +354,8 @@ public class VistaCliente extends javax.swing.JInternalFrame {
 
     private void txtContactoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactoFocusLost
         // TODO add your handling code here:
-        if(txtContacto.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ingrese el Contacto del Cliente");
+        if(!txtContacto.getText().contains("@")){
+            JOptionPane.showMessageDialog(this, "Ingrese un correo valido");
             txtContacto.requestFocus();
         }
     }//GEN-LAST:event_txtContactoFocusLost
@@ -381,14 +367,14 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             txtCelular.requestFocus();
         }
     }//GEN-LAST:event_txtCelularFocusLost
-private void limpiarCampos(){
+    private void limpiarCampos(){
         txtNombre.setText("");
         txtDni.setText("");
         txtContacto.setText("");
         txtCelular.setText("");
         checkActivo.setSelected(false);
     }
- private void activarCampos(){
+    private void activarCampos(){
         txtNombre.setEnabled(true);
         txtDni.setEnabled(true);
         txtContacto.setEnabled(true);
@@ -396,7 +382,7 @@ private void limpiarCampos(){
         checkActivo.setEnabled(true);
         btnCargar.setEnabled(true);
     }
-  private void armarCabecera(){
+    private void armarCabecera(){
         ArrayList<Object> titulos = new ArrayList<>();
         
         titulos.add("ID");
@@ -412,31 +398,27 @@ private void limpiarCampos(){
         
         tabClientes.setModel(modelo);
     }
-  private void vaciarTabla(){
+     private void vaciarTabla(){
         int filas = modelo.getRowCount() - 1;
         
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
         }
     }
-  private void llenarTablaTodos(){
+    private void llenarTablaTodos(){
         for (Cliente cli : clientes) {
             modelo.addRow(new Object[]{cli.getIdCliente(),cli.getNombre(),cli.getDni(),cli.getContacto(),cli.getCelular(),cli.isActivo()});
         }
     }
       private void llenarTablaActivos(){
-        for (Cliente cli : clientes) {
-            if(cli.isActivo()){
-                modelo.addRow(new Object[]{cli.getIdCliente(),cli.getNombre(),cli.getDni(),cli.getContacto(),cli.getCelular(),cli.isActivo()});
-            }
+        for (Cliente cli : clientesAc) {
+            modelo.addRow(new Object[]{cli.getIdCliente(),cli.getNombre(),cli.getDni(),cli.getContacto(),cli.getCelular(),cli.isActivo()});
         }
     }
     
     private void llenarTablaInactivos(){
-        for (Cliente cli : clientes) {
-            if(!cli.isActivo()){
-                modelo.addRow(new Object[]{cli.getIdCliente(),cli.getNombre(),cli.getDni(),cli.getContacto(),cli.getCelular(),cli.isActivo()});
-            }
+        for (Cliente cli : clientesIn) {
+            modelo.addRow(new Object[]{cli.getIdCliente(),cli.getNombre(),cli.getDni(),cli.getContacto(),cli.getCelular(),cli.isActivo()});
         }
     }
     

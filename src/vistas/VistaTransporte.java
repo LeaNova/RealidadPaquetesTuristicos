@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -21,6 +22,8 @@ public class VistaTransporte extends javax.swing.JInternalFrame {
     private Conexion c;
     private TransporteData tr;
     private ArrayList<Transporte> transportes;
+    private ArrayList<Transporte> transportesAc;
+    private ArrayList<Transporte> transportesIn;
     private DefaultTableModel modelo;
     /**
      * Creates new form VistaTransporte
@@ -31,6 +34,9 @@ public class VistaTransporte extends javax.swing.JInternalFrame {
          c = new Conexion();
          tr = new TransporteData(c);
          transportes = (ArrayList)tr.obtenerTransportes();
+         transportesAc = (ArrayList)tr.obtenerTransportesActivos();
+         transportesIn = (ArrayList)tr.obtenerTrasportesInactivos();
+         
          modelo = new DefaultTableModel();
          
          armarCabecera();
@@ -317,14 +323,20 @@ public class VistaTransporte extends javax.swing.JInternalFrame {
                 LocalDate fechaPartida = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 LocalDate fechaLlegada = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 
-                t.setFechapartida(fechaPartida);
-                t.setFechallegada(fechaLlegada);
-                t.setCosto(Double.parseDouble(txtCosto.getText()));
-                t.setActivo(checkActivo.isEnabled());
+                if (ChronoUnit.DAYS.between(fechaPartida, fechaLlegada) < 0) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una fecha posterior a la de partida");
+                    
+                } else {
+                    t.setFechapartida(fechaPartida);
+                    t.setFechallegada(fechaLlegada);
+                    t.setCosto(Double.parseDouble(txtCosto.getText()));
+                    t.setActivo(checkActivo.isEnabled());
 
-                tr.agregarTransporte(t);
-           
-                limpiarCampos();
+                    tr.agregarTransporte(t);
+
+                    limpiarCampos();
+                }
+                
             }
             else{
                 JOptionPane.showMessageDialog(this, "Ingrese el precio del Transporte");
@@ -437,18 +449,14 @@ public class VistaTransporte extends javax.swing.JInternalFrame {
         }
     }
       private void llenarTablaActivos(){
-        for (Transporte tra : transportes) {
-            if(tra.isActivo()){
-                modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
-            }
+        for (Transporte tra : transportesAc) {
+            modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
         }
     }
     
     private void llenarTablaInactivos(){
-        for (Transporte tra : transportes)  {
-            if(!tra.isActivo()){
-        modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
-            }
+        for (Transporte tra : transportesIn)  {
+            modelo.addRow(new Object[]{tra.getIdTransporte(),tra.getTipodetransporte(),tra.getDestino(),tra.getFechallegada(),tra.getFechapartida(),tra.getCosto(),tra.isActivo()});
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

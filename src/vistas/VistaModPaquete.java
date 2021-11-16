@@ -349,6 +349,8 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
         int id = (int) jcID.getSelectedItem();
         
         pd.activarPaquete(id);
+        btnActivar.setEnabled(false);
+        btnDesactivar.setEnabled(true);
     }//GEN-LAST:event_btnActivarActionPerformed
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
@@ -356,6 +358,8 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
         int id = (int) jcID.getSelectedItem();
         
         pd.desactivarPaquete(id);
+        btnActivar.setEnabled(true);
+        btnDesactivar.setEnabled(false);
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
     private void jcDestinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcDestinoItemStateChanged
@@ -366,6 +370,13 @@ public class VistaModPaquete extends javax.swing.JInternalFrame {
         jcTransporte.removeAllItems();
         llenarComboAlojamiento(des.getNombre());
         llenarComboTransporte(des.getNombre());
+        
+        if(jcAlojamiento.getItemCount() == 0) {
+            jcMenu.removeAllItems();
+        } else {
+            llenarComboMenu();
+        }
+        
     }//GEN-LAST:event_jcDestinoItemStateChanged
 
     private void setearCalendario(){

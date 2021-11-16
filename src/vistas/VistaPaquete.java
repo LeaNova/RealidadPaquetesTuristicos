@@ -25,6 +25,8 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     private MenuData md;
     private DestinoData dd;
     private ArrayList<Paquete> listaPaquetes;
+    private ArrayList<Paquete> listaPaquetesAc;
+    private ArrayList<Paquete> listaPaquetesIn;
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Menu> listaMenues;
     private ArrayList<Destino> listaDestinos;
@@ -47,12 +49,13 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             md = new MenuData(con);
             dd = new DestinoData(con);
             listaPaquetes = (ArrayList)pd.obtenerPaquetes();
-            listaClientes = (ArrayList)cd.obtenerClientes();
-            listaMenues = (ArrayList)md.obtenerMenues();
-            listaDestinos = (ArrayList)dd.obtenerDestinos();
+            listaPaquetesAc = (ArrayList)pd.obtenerPaquetesActivos();
+            listaPaquetesIn = (ArrayList)pd.obtenerPaquetesInactivos();
+            listaClientes = (ArrayList)cd.obtenerClientesActivos();
+            listaMenues = (ArrayList)md.obtenerMenuesActivos();
+            listaDestinos = (ArrayList)dd.obtenerDestinosActivos();
             
             llenarComboCliente();
-            llenarComboMenu();
             llenarComboDestino();
             
             jtCant.setText(1+"");
@@ -375,17 +378,21 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             LocalDate f1 = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate f2 = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-            int cant = Integer.parseInt(jtCant.getText());
-            
-            boolean activo = jcActivo.isSelected();
+            if(ChronoUnit.DAYS.between(f1, f2) < 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese una fecha posterior a la inicial");
+                
+            } else {
+                int cant = Integer.parseInt(jtCant.getText());
 
-            Paquete pa = new Paquete(cli, tra, alo, me, des, f1, f2, activo);
-            
-            pd.agregarPaquete(pa);
-            jtCosto.setText(pa.getCostoTotal()*cant+"");
+                boolean activo = jcActivo.isSelected();
 
-            borrarFila();
-            
+                Paquete pa = new Paquete(cli, tra, alo, me, des, f1, f2, activo);
+
+                pd.agregarPaquete(pa);
+                jtCosto.setText(pa.getCostoTotal()*cant+"");
+
+                borrarFila();
+            }
         } catch (Throwable ex) {
             JOptionPane.showMessageDialog(this, "Error al guardar Paquete");
         }
@@ -416,6 +423,12 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
         jcTransporte.removeAllItems();
         llenarComboAlojamiento(des.getNombre());
         llenarComboTransporte(des.getNombre());
+        
+        if(jcAlojamiento.getItemCount() == 0) {
+            jcMenu.removeAllItems();
+        } else {
+            llenarComboMenu();
+        }
     }//GEN-LAST:event_jcDestinoItemStateChanged
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
@@ -431,15 +444,20 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
             LocalDate f1 = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate f2 = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             
-            int cant = Integer.parseInt(jtCant.getText());
+            if (ChronoUnit.DAYS.between(f1, f2) < 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese una fecha posterior a la inicial");
+
+            } else {
+                int cant = Integer.parseInt(jtCant.getText());
             
-            double aloC = alo.getCosto() * calcularDias(f1, f2);
-            double adicional = obtenerAdicional(f1);
-            
-            double total = calcular(aloC, me, tra) * adicional;
-            
-            jtCosto.setText(total * cant+"");
-            btnGuardar.setEnabled(true);
+                double aloC = alo.getCosto() * calcularDias(f1, f2);
+                double adicional = obtenerAdicional(f1);
+
+                double total = calcular(aloC, me, tra) * adicional;
+
+                jtCosto.setText(total * cant+"");
+                btnGuardar.setEnabled(true);
+            }
             
         } catch (Throwable ex) {
             btnGuardar.setEnabled(false);
@@ -530,18 +548,14 @@ public class VistaPaquete extends javax.swing.JInternalFrame {
     }
     
     private void llenarTablaActivos() {
-        for (Paquete pa: listaPaquetes) {
-            if (pa.isActivo()) {
-                modelo.addRow(new Object[]{pa.getIdPaquete(), pa.getTransporte().getTipodetransporte(), pa.getAlojamiento().getNombre(), pa.getMenu().getTipoMenu(), pa.getDestino().getNombre(), pa.isActivo()});
-            }
+        for (Paquete pa: listaPaquetesAc) {
+            modelo.addRow(new Object[]{pa.getIdPaquete(), pa.getTransporte().getTipodetransporte(), pa.getAlojamiento().getNombre(), pa.getMenu().getTipoMenu(), pa.getDestino().getNombre(), pa.isActivo()});
         }
     }
     
     private void llenarTablaInactivos() {
-        for (Paquete pa: listaPaquetes) {
-            if (!pa.isActivo()) {
-                modelo.addRow(new Object[]{pa.getIdPaquete(), pa.getTransporte().getTipodetransporte(), pa.getAlojamiento().getNombre(), pa.getMenu().getTipoMenu(), pa.getDestino().getNombre(), pa.isActivo()});
-            }
+        for (Paquete pa: listaPaquetesIn) {
+            modelo.addRow(new Object[]{pa.getIdPaquete(), pa.getTransporte().getTipodetransporte(), pa.getAlojamiento().getNombre(), pa.getMenu().getTipoMenu(), pa.getDestino().getNombre(), pa.isActivo()});
         }
     }
     

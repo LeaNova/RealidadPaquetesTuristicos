@@ -1,6 +1,5 @@
 package vistas;
 
-import com.toedter.calendar.JDateChooser;
 import control.*;
 import java.text.ParseException;
 import modelo.*;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +20,8 @@ public class VistaDestino extends javax.swing.JInternalFrame {
     private Conexion c;
     private DestinoData dd;
     private ArrayList<Destino> destinos;
+    private ArrayList<Destino> destinosAc;
+    private ArrayList<Destino> destinosIn;
     private DefaultTableModel modelo;
     /**
      * Creates new form VistaDestino
@@ -31,6 +33,8 @@ public class VistaDestino extends javax.swing.JInternalFrame {
             c = new Conexion();
             dd = new DestinoData(c);
             destinos = (ArrayList)dd.obtenerDestinos();
+            destinosAc = (ArrayList)dd.obtenerDestinosActivos();
+            destinosIn = (ArrayList)dd.obtenerDestinosInactivos();
             modelo = new DefaultTableModel();
             armarCabecera();
             setearCalendario();
@@ -303,12 +307,17 @@ public class VistaDestino extends javax.swing.JInternalFrame {
                 LocalDate fechaInicial = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 LocalDate fechaFinal = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 
-                d.setFechaInicial(fechaInicial);
-                d.setFechaFinal(fechaFinal);
-                d.setActivo(checkActivo.isEnabled());
+                if (ChronoUnit.DAYS.between(fechaInicial, fechaFinal) < 0) {
+                    JOptionPane.showMessageDialog(this, "Ingrese una fecha posterior a la inicial");
+                    
+                } else {
+                    d.setFechaInicial(fechaInicial);
+                    d.setFechaFinal(fechaFinal);
+                    d.setActivo(checkActivo.isEnabled());
 
-                dd.agregarDestino(d);
-                limpiarCampos();
+                    dd.agregarDestino(d);
+                    limpiarCampos();
+                }
             }
             else{
                 JOptionPane.showMessageDialog(this, "Ingrese todos los datos requeridos");
@@ -397,18 +406,14 @@ public class VistaDestino extends javax.swing.JInternalFrame {
     }
     
     private void llenarTablaActivos(){
-        for (Destino d : destinos) {
-            if(d.isActivo()){
-                modelo.addRow(new Object[]{d.getIdDestino(),d.getNombre(),d.getPais(),d.getFechaInicial().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.isActivo()});
-            }
+        for (Destino d : destinosAc) {
+            modelo.addRow(new Object[]{d.getIdDestino(),d.getNombre(),d.getPais(),d.getFechaInicial().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.isActivo()});
         }
     }
     
     private void llenarTablaInactivos(){
-        for (Destino d : destinos) {
-            if(!d.isActivo()){
-                modelo.addRow(new Object[]{d.getIdDestino(),d.getNombre(),d.getPais(),d.getFechaInicial().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.isActivo()});
-            }
+        for (Destino d : destinosIn) {
+            modelo.addRow(new Object[]{d.getIdDestino(),d.getNombre(),d.getPais(),d.getFechaInicial().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.getFechaFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),d.isActivo()});
         }
     }
 

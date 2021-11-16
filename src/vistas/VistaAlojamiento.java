@@ -14,6 +14,8 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
     private Conexion c;
     private AlojamientoData ad;
     private ArrayList<Alojamiento> alojamientos;
+    private ArrayList<Alojamiento> alojamientosAc;
+    private ArrayList<Alojamiento> alojamientosIn;
     private DefaultTableModel modelo;
     
     /**
@@ -26,6 +28,8 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
             c = new Conexion();
             ad = new AlojamientoData(c);
             alojamientos = (ArrayList)ad.obtenerAlojamientos();
+            alojamientosAc = (ArrayList)ad.obtenerAlojamientosActivos();
+            alojamientosIn = (ArrayList)ad.obtenerAlojamientosInactivos();
             modelo = new DefaultTableModel();
             armarCabecera();
             
@@ -400,18 +404,14 @@ public class VistaAlojamiento extends javax.swing.JInternalFrame {
     }
     
     private void llenarTablaActivos(){
-        for (Alojamiento a : alojamientos) {
-            if(a.isActivo()){
-                modelo.addRow(new Object[]{a.getIdAlojamiento(),a.getNombre(),a.getTipoAlojamiento(),a.getUbicacion(),a.getCosto(),a.isActivo()});
-            }
+        for (Alojamiento a : alojamientosAc) {
+            modelo.addRow(new Object[]{a.getIdAlojamiento(),a.getNombre(),a.getTipoAlojamiento(),a.getUbicacion(),a.getCosto(),a.isActivo()});
         }
     }
     
     private void llenarTablaInactivos(){
-        for (Alojamiento a : alojamientos) {
-            if(!a.isActivo()){
-                modelo.addRow(new Object[]{a.getIdAlojamiento(),a.getNombre(),a.getTipoAlojamiento(),a.getUbicacion(),a.getCosto(),a.isActivo()});
-            }
+        for (Alojamiento a : alojamientosIn) {
+            modelo.addRow(new Object[]{a.getIdAlojamiento(),a.getNombre(),a.getTipoAlojamiento(),a.getUbicacion(),a.getCosto(),a.isActivo()});
         }
     }
     

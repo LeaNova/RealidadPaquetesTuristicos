@@ -15,6 +15,8 @@ public class VistaMenu extends javax.swing.JInternalFrame {
 
     private MenuData md;
     private ArrayList<Menu> listaMenues;
+    private ArrayList<Menu> listaMenuesAc;
+    private ArrayList<Menu> listaMenuesIn;
     
     private Conexion con;
     
@@ -29,6 +31,8 @@ public class VistaMenu extends javax.swing.JInternalFrame {
             con = new Conexion("jdbc:mysql://localhost/paquetes_turisticos", "root", "");
             md = new MenuData(con);
             listaMenues = (ArrayList)md.obtenerMenues();
+            listaMenuesAc = (ArrayList)md.obtenerMenuesActivos();
+            listaMenuesIn = (ArrayList)md.obtenerMenuesInactivos();
             
             modelo = new DefaultTableModel();
             armarCabecera();
@@ -332,18 +336,14 @@ public class VistaMenu extends javax.swing.JInternalFrame {
     }
     
     private void llenarTablaActivos() {
-        for (Menu m: listaMenues) {
-            if (m.isActivo()) {
-                modelo.addRow(new Object[]{m.getIdMenu(), m.getTipoMenu(), m.getCosto(), m.isActivo()});
-            }
+        for (Menu m: listaMenuesAc) {
+            modelo.addRow(new Object[]{m.getIdMenu(), m.getTipoMenu(), m.getCosto(), m.isActivo()});
         }
     }
     
     private void llenarTablaInactivos() {
-        for (Menu m: listaMenues) {
-            if (!m.isActivo()) {
-                modelo.addRow(new Object[]{m.getIdMenu(), m.getTipoMenu(), m.getCosto(), m.isActivo()});
-            }
+        for (Menu m: listaMenuesIn) {
+            modelo.addRow(new Object[]{m.getIdMenu(), m.getTipoMenu(), m.getCosto(), m.isActivo()});
         }
     }
 
